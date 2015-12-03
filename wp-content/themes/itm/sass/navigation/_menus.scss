@@ -73,7 +73,42 @@
 .main-navigation.toggled ul {
 	display: block;
 }
+.menu-toggle{
+	padding: 15px;
+	font-size: 0.8rem;
+	float: right;
+	border-radius: 0px;
+}
 
+/* Menú horizontal */
+.menu-horizontal{
+	margin: 0;
+	padding: 0;
+	li{
+		list-style: none;
+		display: inline-block;
+		a{
+			display: block;
+			padding: 10px;
+			text-decoration: none;
+		}
+	}
+}
+
+/* ctn__users-menu */
+.ctn__users-navigation{
+	border-bottom: 2px solid $color__gray-light;
+}
+.users-menu{
+	a{
+		font-family: $font__secondary;
+		font-size: 0.9rem;
+		color: #000000;
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+}
 @media screen and (min-width: 37.5em) {
 	.menu-toggle {
 		display: none;

@@ -1,0 +1,28 @@
+.site-branding{
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+	height: 100px;
+	text-indent: -9999px;
+	background: url(images/logotipo-ITM.png) no-repeat center;
+	background-size: contain;
+}
+.middle-bar{
+	position: relative;
+}
+.ctn__search{
+	position: absolute;
+    bottom: -44px;
+    width:65%;
+    label{
+    	width: 100%;
+    	input{
+    		width: 100%;
+    	}
+    }
+}
+.ctn__header-bottom-bar{
+	background: $color__gray-light;
+	overflow: auto;
+	padding: 0;
+}

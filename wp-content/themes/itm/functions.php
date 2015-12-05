@@ -47,6 +47,7 @@ function itm_setup() {
 		'primary' => esc_html__( 'Menú Principal', 'itm' ),
 		'users-menu' => esc_html__( 'Usuarios', 'itm' ),
 		'top-bar-menu' => esc_html__( 'Superior', 'itm' ),
+		'footer-menu' => esc_html__( 'Pie de página', 'itm' ),
 	) );
 
 	/*
@@ -106,6 +107,15 @@ function itm_widgets_init() {
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
+	register_sidebar( array(
+		'name'          => esc_html__( 'Dirección', 'itm' ),
+		'id'            => 'direccion',
+		'description'   => 'Espacio para modificar la dirección en el pie de página',
+		'before_widget' => '<div id="%1$s" class="ctn__direccion widget %2$s">',
+		'after_widget'  => '</div>',
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );

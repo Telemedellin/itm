@@ -109,6 +109,24 @@
 		}
 	}
 }
+/* ctn__footer-navigation */
+.footer-menu {
+	text-align: center;
+	li{
+		a{
+			padding-bottom: 0px;
+		    font-family: "Dosis", sans-serif;
+		    border-right: solid 1px blue;
+		    padding-top: 0px;
+		    margin-bottom: 15px;
+		}
+		&:last-child{
+			a{
+				border-right: none;
+			}
+		}
+	}
+}
 @media screen and (min-width: 37.5em) {
 	.menu-toggle {
 		display: none;

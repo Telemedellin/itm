@@ -1,5 +1,6 @@
 a {
 	color: $color__link;
+	transition: all ease 0.5s;
 
 	&:visited {
 		color: $color__link-visited;

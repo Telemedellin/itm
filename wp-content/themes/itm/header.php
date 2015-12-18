@@ -29,7 +29,13 @@
 	<header id="masthead" class="site-header" role="banner">
 		<div class="ctn__header-top-bar hidden-xs">
 			<div class="top-bar container">
-				Top bar
+				<?php wp_nav_menu( array( 
+					'theme_location' => 'top-bar-menu', 
+					'menu_id' => 'top-bar-menu',
+					'menu_class' => 'top-bar-menu menu-horizontal',
+					'container' => 'div',
+					'container_class' => 'ctn__top-bar-navigation',
+				 ) ); ?>
 			</div>
 		</div><!-- /ctn__top-bar -->
 		<div class="ctn__header-middle-bar">
@@ -55,6 +61,6 @@
 				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
 			</nav><!-- #site-navigation -->
 		</div><!-- /ctn__header-bottom-bar -->
-		
+		<?php putRevSlider('home', 'homepage'); ?>
 	</header><!-- #masthead -->
 	<div id="content" class="site-content">

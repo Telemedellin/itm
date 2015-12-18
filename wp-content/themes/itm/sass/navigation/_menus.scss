@@ -127,15 +127,6 @@
 		}
 	}
 }
-@media screen and (min-width: 37.5em) {
-	.menu-toggle {
-		display: none;
-	}
-	.main-navigation ul {
-		display: block;
-	}
-}
-
 .comment-navigation,
 .posts-navigation,
 .post-navigation {
@@ -155,4 +146,38 @@
 		text-align: right;
 		width: 50%;
 	}
+}
+@media (min-width: 768px){
+}
+@media (min-width: 992px){
+	.ctn__users-navigation{
+		border-bottom: 0;
+	}
+	.menu-toggle {
+		display: none;
+	}
+	.main-navigation{
+		float: initial;
+		width: 1170px;
+		ul{
+			display: block;
+			li{
+				a{
+					color: #fff;
+					padding: 10px;
+					&:hover{
+						background-color: $color__gray-light;
+						color: $color__primary;
+					}
+				}
+			}
+		}
+	}
+	.users-menu{
+		a{
+			font-size: 1rem;
+		}
+	}
+}
+@media (min-width: 1200px){
 }

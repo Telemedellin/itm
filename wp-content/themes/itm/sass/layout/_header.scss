@@ -26,3 +26,150 @@
 	overflow: auto;
 	padding: 0;
 }
+.ctn__header-top-bar{
+	display: none;
+}
+.ctn__header-middle-bar{
+	.middle-bar{
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+@media (min-width: 768px){
+}
+@media (min-width: 992px){
+	.ctn__header-bottom-bar{
+		background-color: $color__primary;
+	}
+	.top-bar{
+		height: 24px;
+		.ctn__top-bar-navigation{
+			position: absolute;
+			left: 25%;
+			height: 24px;
+			width: 73%;
+			ul{
+				li{
+					a{
+						color: $color__primary;
+						padding: 0 10px 0 0;
+						font-size: 0.8rem;
+					}
+				}
+			}
+		}
+	}
+	.ctn__header-middle-bar{
+		position: relative;
+		height: 70px;
+		.middle-bar{
+			padding-left: 15;
+			padding-right: 15;
+			.ctn__users-navigation{
+				position: absolute;
+				top: 15px;
+				width: 50%;
+				margin-left: 20%;
+			}
+			.ctn__site-branding{
+				position: absolute;
+				background-color: #fff;
+				top: -23px;
+				height: 93px;
+				.site-title{
+					margin: 0;
+					height: 93px;
+				}
+			}
+			.ctn__search{
+				top: 20px;
+				right: 0;
+				width: 22%;
+				height: 32px;
+			}
+		}
+	}
+	.ctn__header-top-bar{
+		display: block;
+		background: $color__gray-light;
+	}
+	.top-bar container{
+		text-align: right;
+	}
+	.slider__tempalte-home{
+		position: relative;
+		width: 350px;
+		height: 250px;
+		.slider__home-title{
+			position: absolute;
+			width: 100%;
+			height: 48%;
+			left: 0;
+			top: 0;
+			background-color: #052D6F;
+			color: #fff;
+			p{
+				padding: 5px 10px 5px 10px;
+				font-size: 1rem;
+				font-weight: 600;
+			}
+		}
+		.slider__home-excerpt{
+			position: absolute;
+			width: 70%;
+			height: 52%;
+			left: 0;
+			bottom: 0;
+			padding: 15px;
+			background-color: rgba(0, 0, 0, 0.7);
+			span{
+				font-family: "Dosis", sans-serif;
+				font-size: 0.8rem;
+				font-weight: 200;
+				color: #fff;
+				word-wrap: normal;
+				overflow-wrap: normal;
+				text-wrap: suppress;
+				white-space: normal;
+			}
+		}
+		.slider__home-readmore{
+			position: absolute;
+			width: 30%;
+			height: 52%;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(255,255,255,0.9);
+			a{
+				text-decoration: blink;
+				color: #052D6F;
+				font-size: initial;
+				font-family: "Dosis", sans-serif;
+				span{
+					margin: 0;
+					padding: 0;
+					padding-left: 15px;
+					text-align: left;
+				}
+				span:first-child{
+					display: inline-block;
+					width: 100%;
+					margin-top: 25px;
+					float: left;
+					font-size: 1rem;
+					font-weight: 500;
+				}
+				span:last-child{
+					display: inline-block;
+					width: 100%;
+					margin-top: 10px;
+					float: left;
+					font-size: 2.3rem;
+					font-weight: 500;
+				}
+			}
+		}
+	}
+}
+@media (min-width: 1200px){
+}

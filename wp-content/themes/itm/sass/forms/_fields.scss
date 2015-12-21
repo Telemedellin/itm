@@ -26,3 +26,38 @@ textarea {
 	padding-left: 3px;
 	width: 100%;
 }
+
+label{
+	font-weight: 400;
+}
+
+//-----------Checkbox ITM
+.checkbox-itm{
+	input[type="checkbox"] {
+		position: absolute;
+		left: -9999px;
+		&+ label{
+			cursor: pointer;
+			font: {
+				family: $font__secondary;
+			}
+			&:before{
+				content: " ";
+				display: inline-block;
+				width: 15px;
+				height:15px;
+				border: solid 2px $color__primary;
+				margin-right: 5px;
+				border-radius: 2px;
+			}
+		}
+	}
+	input:checked{
+		&+label{
+			&:before{
+				background: $color__gray;
+			}
+		}
+	}
+
+}

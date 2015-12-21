@@ -2,10 +2,16 @@
 // @import "../layout/sidebar-content";
 @import "../layout/header";
 @import "../layout/footer";
+@import "secondary/colores-facultades";
 /*--------------------------------------------------------------
 ## Posts and pages
 --------------------------------------------------------------*/
 @import "primary/posts-and-pages";
+
+/*--------------------------------------------------------------
+## Programas universitarios
+--------------------------------------------------------------*/
+@import "primary/programas-universitarios";
 
 /*--------------------------------------------------------------
 ## Asides

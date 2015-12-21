@@ -14,6 +14,7 @@
 	position: absolute;
     bottom: -44px;
     width:65%;
+    left: 15px;
     label{
     	width: 100%;
     	input{
@@ -41,13 +42,17 @@
 	.ctn__header-bottom-bar{
 		background-color: $color__primary;
 	}
+	.main-navigation{
+		float: initial;
+		width: 970px;
+	}
 	.top-bar{
 		height: 24px;
 		.ctn__top-bar-navigation{
-			position: absolute;
-			left: 25%;
+			//position: absolute;
+			//left: 25%;
 			height: 24px;
-			width: 73%;
+			width: 100%;
 			ul{
 				li{
 					a{
@@ -83,9 +88,10 @@
 			}
 			.ctn__search{
 				top: 20px;
-				right: 0;
+				right: 15px;
 				width: 22%;
 				height: 32px;
+				left: initial;
 			}
 		}
 	}
@@ -172,4 +178,7 @@
 	}
 }
 @media (min-width: 1200px){
+	.main-navigation{
+		width: 1170px;
+	}
 }

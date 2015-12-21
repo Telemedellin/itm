@@ -1,0 +1,217 @@
+//----------- Imagen del cabezote --
+.ctn_cover-image{
+	background: url(http://lorempixel.com/800/600) no-repeat;
+	background-size: cover;
+	height: 450px;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+.ctn__content{
+	position: relative;
+}
+//--------- Header
+.ctn__header-content{
+	margin: 200px 0 0 0;
+}
+.ctn__info-header{
+	background: #ffffff;
+}
+	//-------------Breadcrumbs
+.ctn__breadcrumbs{
+	background: $color__gray;
+	padding: 5px 15px;
+	a{
+		padding: 0 5px;
+		margin: 0 5px;
+		font: {
+			family: $font__secondary;
+			size: 0.9rem;
+		}
+	}
+}
+
+	//------------Input filter
+.ctn__input-filter {
+	background: $color__gray-light;
+}
+.input-filter{
+	input{
+		width: 100%;
+		padding: 5px;
+	}
+}
+.ctn__faculty-filter {
+	padding-bottom: 30px;
+	margin-bottom: 10px;
+	border-bottom: solid 1px $color__primary;
+}
+.ctn__program-filter {
+	@extend .ctn__faculty-filter;
+}
+.ctn__metodology-filters {
+	@extend .ctn__faculty-filter;	
+}
+.faculty-filter{
+	margin-top: 15px;
+}
+.filter-label{
+	display: inline-block;
+	padding: 10px 15px;
+	background: $color__gray;
+	color: #FFFFFF;
+	cursor: pointer;
+	transition: all ease 0.5s;
+	font: {
+		family: $font__secondary;
+		size: 1.2rem;
+		weight: 300;
+	}
+	&:hover{
+		text-decoration: none;
+		background: $color__primary;
+	}
+	&.select{
+		background: $color__primary;
+	}
+}
+.facultades{
+	border-right: solid 15px;
+	border-right-color: #000;
+}
+.artes-y-humanidades{
+	@extend .facultades;
+	border-right-color: $color__artes-y-humanidades;
+}
+.ciencias-economicas{
+	@extend .facultades;
+	border-right-color: $color__ciencias-economicas;
+}
+.ingenierias{
+	@extend .facultades;
+	border-right-color: $color__ingenierias;
+}
+.ciencias-exactas{
+	@extend .facultades;
+	border-right-color: $color__ciencias-exactas;
+}
+.program-filter {
+	margin-top: 15px;
+}
+.ctn__filter{
+	display: inline-block;
+	margin-right: 15px;
+}
+.text-filters{
+	display: inline-block;
+	margin-bottom: 15px;
+	font:{
+		weight: 400;
+		size: 1.3rem;
+	}
+}
+
+//Estilos de la previsualización de los programas
+.ctn__section-content{
+	margin-bottom: 60px;
+}
+
+.ctn__facultad-title{
+	padding: 10px 0;
+	margin-bottom: 15px;
+}
+.facultad-title{
+	padding: 0 0 0 15px;
+	border-left: solid 10px $color__primary;
+	border-bottom: solid 2px $color__primary;
+	display: inline-block;
+	text-transform: uppercase;
+	margin: 0;
+	color: $color__primary;
+	line-height: 1.7rem; 
+	font:{
+		size: 1.5rem;
+		weight: 600;
+	}
+}
+.ctn__programa{
+	display: block;
+	text-decoration: none;
+	&:hover,
+	&:active,
+	&:focus{
+		text-decoration: none;
+		.btn-vermas{
+			background: $color__primary;
+		}
+	}
+}
+.ctn__programa_top{
+	position: relative;
+}
+.ctn__programa-image{
+	background-size: 100%;
+	transition: all ease 0.2s;
+	background-position: center center;
+	img {
+		max-width: 100%;
+		width: 100%;
+		display: none;
+	}
+	&:before{
+		content: "";
+	    padding-top: 60%;
+	    display: block;
+	}
+}
+.programa-title{
+	position: absolute;
+	margin: 0;
+	bottom: 0px;
+	padding: 10px;
+	background: rgba(0,0,0,0.8);
+	color: #FFFFFF;
+	text-transform: uppercase;
+	width: 100%;
+	font:{
+		family: $font__secondary;
+		size: 1.4rem;
+		weight: 500;
+	}
+}
+.ctn__programa-bottom{
+	padding: 15px;
+	background: $color__primary;
+	position: relative;
+	dl{
+		margin: 0;
+		color: #FFFFFF;
+		font:{
+			family: $font__secondary;
+		}
+	dt {
+		font:{
+			size: 1.2rem;
+		}
+	}
+	dd{
+		margin: 0 15px 15px 10px;
+	}
+	}
+}
+.btn-vermas {
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -34px;
+    padding: 5px 10px;
+    background: $color__gray-dark;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font:{
+    	family: $font__secondary;
+    }
+}

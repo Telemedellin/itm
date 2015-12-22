@@ -118,8 +118,16 @@
 		size: 1.3rem;
 	}
 }
+.ctn__sede-filter{
+	.text-filters{
+		margin-bottom: 15px;
+	}
+}
 
 //Estilos de la previsualización de los programas
+.grid-sizer, .ctn__programa{
+	width: 100%;
+}
 .ctn__section-content{
 	margin-bottom: 60px;
 	position: relative;
@@ -144,7 +152,7 @@
 	}
 }
 .ctn__programa{
-	display: block;
+	display: inline-block;
 	text-decoration: none;
 	margin-bottom: 60px;
 	&:hover,
@@ -245,6 +253,10 @@
 	}
 }
 @media (min-width: 768px){
+	.grid-sizer, .ctn__programa{
+		width: 48%;
+		margin-right: 10px;
+	}
 	.ctn__program-filter, .ctn__metodology-filters {
 		display: inline-block;
 		width: 49%;
@@ -262,6 +274,10 @@
 }
 
 @media (min-width: 992px){
+	.grid-sizer, .ctn__programa{
+		width: 32%;
+		margin-right: 8px;
+	}
 	.filter-label{
 		width: 20%;
 	    font-size: 1rem;

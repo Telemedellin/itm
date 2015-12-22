@@ -132,6 +132,44 @@
 							<span class="btn-vermas">Ver más</span>
 					</div>
 				</a><!-- ctn__programa -->
+				<a href="#" class="ctn__programa">
+					<div class="ctn__programa_top">
+						<div class="ctn__programa-image" style="background: url(http://lorempixel.com/400/400) no-repeat; background-size: 100%; background-position: center center">
+							<img src="http://lorempixel.com/400/400" alt="">
+						</div>
+						<h3 class="programa-title">Nombre del programa</h3>
+					</div>
+					<div class="ctn__programa-bottom">
+							<dl>
+								<dt>Título a otorgar</dt>
+									<dd>Título a otrogar</dd>
+								<dt>Metodología</dt>
+									<dd>Presencial</dd>
+								<dt>Duración</dt>
+									<dd>10 semestres</dd>
+							</dl>
+							<span class="btn-vermas">Ver más</span>
+					</div>
+				</a><!-- ctn__programa -->
+				<a href="#" class="ctn__programa">
+					<div class="ctn__programa_top">
+						<div class="ctn__programa-image" style="background: url(http://lorempixel.com/400/400) no-repeat; background-size: 100%; background-position: center center">
+							<img src="http://lorempixel.com/400/400" alt="">
+						</div>
+						<h3 class="programa-title">Nombre del programa</h3>
+					</div>
+					<div class="ctn__programa-bottom">
+							<dl>
+								<dt>Título a otorgar</dt>
+									<dd>Título a otrogar</dd>
+								<dt>Metodología</dt>
+									<dd>Presencial</dd>
+								<dt>Duración</dt>
+									<dd>10 semestres</dd>
+							</dl>
+							<span class="btn-vermas">Ver más</span>
+					</div>
+				</a><!-- ctn__programa -->
 			</div><!-- ctn__programas -->
 		</div><!-- ctn__facultad -->
 	</section><!-- ctn__section-content -->

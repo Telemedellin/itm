@@ -70,6 +70,25 @@
 		</div><!-- ctn__info-header -->
 	</header><!-- ctn__header-content -->
 	<section class="ctn__section-content">
+		<div class="overlay-filter">
+			<span class="overlay-text">Filtrando resultados...</span>
+			<div class="ctn__loader">
+				<div class="sk-circle">
+				  <div class="sk-circle1 sk-child"></div>
+				  <div class="sk-circle2 sk-child"></div>
+				  <div class="sk-circle3 sk-child"></div>
+				  <div class="sk-circle4 sk-child"></div>
+				  <div class="sk-circle5 sk-child"></div>
+				  <div class="sk-circle6 sk-child"></div>
+				  <div class="sk-circle7 sk-child"></div>
+				  <div class="sk-circle8 sk-child"></div>
+				  <div class="sk-circle9 sk-child"></div>
+				  <div class="sk-circle10 sk-child"></div>
+				  <div class="sk-circle11 sk-child"></div>
+				  <div class="sk-circle12 sk-child"></div>
+				</div>
+			</div>
+		</div>
 		<div class="ctn__facultad">
 			<div class="ctn__facultad-title">
 				<h2 class="facultad-title">Facultad de artes y humanidades</h2>
@@ -77,7 +96,26 @@
 			<div class="ctn__programas brd__ciencias-economicas">
 				<a href="#" class="ctn__programa">
 					<div class="ctn__programa_top">
-						<div class="ctn__programa-image" style="background: url(http://lorempixel.com/400/400) no-repeat; backgrund-size: 100%; background-position: center center">
+						<div class="ctn__programa-image" style="background: url(http://lorempixel.com/400/400) no-repeat; background-size: 100%; background-position: center center">
+							<img src="http://lorempixel.com/400/400" alt="">
+						</div>
+						<h3 class="programa-title">Nombre del programa</h3>
+					</div>
+					<div class="ctn__programa-bottom">
+							<dl>
+								<dt>Título a otorgar</dt>
+									<dd>Título a otrogar</dd>
+								<dt>Metodología</dt>
+									<dd>Presencial</dd>
+								<dt>Duración</dt>
+									<dd>10 semestres</dd>
+							</dl>
+							<span class="btn-vermas">Ver más</span>
+					</div>
+				</a><!-- ctn__programa -->
+				<a href="#" class="ctn__programa">
+					<div class="ctn__programa_top">
+						<div class="ctn__programa-image" style="background: url(http://lorempixel.com/400/400) no-repeat; background-size: 100%; background-position: center center">
 							<img src="http://lorempixel.com/400/400" alt="">
 						</div>
 						<h3 class="programa-title">Nombre del programa</h3>

@@ -14,7 +14,7 @@
 }
 //--------- Header
 .ctn__header-content{
-	margin: 200px 0 0 0;
+	margin: 200px 0 30px 0;
 }
 .ctn__info-header{
 	background: #ffffff;
@@ -46,13 +46,19 @@
 .ctn__faculty-filter {
 	padding-bottom: 30px;
 	margin-bottom: 10px;
-	border-bottom: solid 1px $color__primary;
+	border-bottom: solid 1px $color__gray;
 }
 .ctn__program-filter {
 	@extend .ctn__faculty-filter;
+	.text-filters{
+		margin-bottom: 15px;
+	}
 }
 .ctn__metodology-filters {
-	@extend .ctn__faculty-filter;	
+	@extend .ctn__faculty-filter;
+	.text-filters{
+		margin-bottom: 15px;
+	}
 }
 .faculty-filter{
 	margin-top: 15px;
@@ -60,7 +66,7 @@
 .filter-label{
 	display: inline-block;
 	padding: 10px 15px;
-	background: $color__gray;
+	background: $color__gray-dark;
 	color: #FFFFFF;
 	cursor: pointer;
 	transition: all ease 0.5s;
@@ -106,7 +112,7 @@
 }
 .text-filters{
 	display: inline-block;
-	margin-bottom: 15px;
+	margin-bottom: 0px;
 	font:{
 		weight: 400;
 		size: 1.3rem;
@@ -116,6 +122,7 @@
 //Estilos de la previsualización de los programas
 .ctn__section-content{
 	margin-bottom: 60px;
+	position: relative;
 }
 
 .ctn__facultad-title{
@@ -139,6 +146,7 @@
 .ctn__programa{
 	display: block;
 	text-decoration: none;
+	margin-bottom: 60px;
 	&:hover,
 	&:active,
 	&:focus{
@@ -177,7 +185,7 @@
 	width: 100%;
 	font:{
 		family: $font__secondary;
-		size: 1.4rem;
+		size: 1.2rem;
 		weight: 500;
 	}
 }
@@ -214,4 +222,68 @@
     font:{
     	family: $font__secondary;
     }
+}
+.overlay-filter{
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 5;
+	background: rgba(0,0,0,0.8);
+}
+.overlay-text{
+	display: block;
+	margin: 30px 0;
+	color: #FFFFFF;
+	text-align: center;
+	font:{
+		size: 2rem;
+		family: $font__secondary;
+
+	}
+}
+@media (min-width: 768px){
+	.ctn__program-filter, .ctn__metodology-filters {
+		display: inline-block;
+		width: 49%;
+		border-bottom: none;
+	}
+	.ctn__program-filter{
+		border-right: solid 1px $color__gray;
+	}
+	.ctn__metodology-filters{
+		padding-left: 25px;;
+	}
+	.ctn__header-content{
+		border-bottom: solid 1px $color__gray;
+	}
+}
+
+@media (min-width: 992px){
+	.filter-label{
+		width: 20%;
+	    font-size: 1rem;
+	    line-height: 1;
+	    min-height: 70px;
+	    vertical-align: middle;
+	    display: table-cell;
+    	border-left: solid 5px #ffffff;
+	}
+	.ctn__input-filter{
+		padding: 15px 20px;
+	}
+	.input-filter{
+		input{
+			font-size: 1.5rem;
+			padding: 5px 10px;
+		}
+	}
+	.ctn__faculty-filter{
+		padding-bottom: 20px;
+	}
+	.ctn__program-filter, .ctn__metodology-filters{
+		padding-bottom: 0;
+	}
 }

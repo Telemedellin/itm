@@ -24,6 +24,7 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
 # Normalize
+# Grid
 # Typography
 # Elements
 # Forms
@@ -36,9 +37,11 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 # Widgets
 # Content
     ## Posts and pages
+    ## Programas universitarios
 	## Asides
 	## Comments
 # Infinite scroll
+# Loader
 # Media
 	## Captions
 	## Galleries
@@ -50,6 +53,11 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 # Normalize
 --------------------------------------------------------------*/
 @import "normalize";
+
+/*--------------------------------------------------------------
+# Grid
+--------------------------------------------------------------*/
+@import "layout/grid";
 
 /*--------------------------------------------------------------
 # Typography
@@ -100,6 +108,11 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 # Infinite scroll
 --------------------------------------------------------------*/
 @import "modules/infinite-scroll";
+
+/*--------------------------------------------------------------
+# Loader
+--------------------------------------------------------------*/
+@import "modules/loader";
 
 /*--------------------------------------------------------------
 # Media

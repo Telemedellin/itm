@@ -1,7 +1,18 @@
+$color__primary: #052D6F;
+$color__gray: #BCBDC0;
+$color__gray-dark: darken($color__gray, 30%);
+$color__gray-light: lighten($color__gray, 15%);
+
+//Colores de las facultades
+$color__artes-y-humanidades: #BF308A;
+$color__ciencias-economicas: #F29200;
+$color__ingenierias: #87207B;
+$color__ciencias-exactas: #016533;
+
 $color__background-body: #fff;
 $color__background-screen: #f1f1f1;
 $color__background-hr: #ccc;
-$color__background-button: #e6e6e6;
+$color__background-button: $color__primary;
 $color__background-pre: #eee;
 $color__background-ins: #fff9c0;
 

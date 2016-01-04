@@ -7,6 +7,69 @@
  * @package itm
  */
 
+if ( is_plugin_active( 'enhanced-category-pages/enhanced-category-pages.php' ) ) {
+    $options = array(
+        'labels' => array(
+            'not_found' => 'Sin resultados',
+            'search_items' => 'Buscar plantilla',
+            'add_new_item' => 'Añadir nueva',
+            'view_item' => 'Ver Plantilla',
+            'edit_item' => 'Editar Plantilla',
+        ),
+        'label' => 'Plantillas',
+        'singular_label' => 'Plantilla',
+        'public' => true,
+        'show_ui' => true, // UI in admin panel
+        '_builtin' => true, // It's a custom post type, not built in
+        'capability_type' => 'post',
+        'hierarchical' => false,
+        'rewrite' => array("slug" => 'enhancedcategory'), // Permalinks
+        'query_var' => 'enhancedcategory', // This goes to the WP_Query schema
+        'supports' => array('title','editor','thumbnail','excerpt','custom-fields','comments'), // Let's use custom fields for debugging purposes only
+    );
+
+    // Register custom post types
+    register_post_type('enhancedcategory', $options);
+
+    if (function_exists('vc_set_default_editor_post_types'))
+    {
+        vc_set_default_editor_post_types(array(
+                'enhancedcategory'
+            )
+        );
+    }
+}
+
+function get_ecp_post($category_id = null)
+{
+	$ecp = new \ecp\Enhanced_Category('', 'ecp_x_category');
+
+	if (is_null($category_id))
+	{
+		global $ecp_post, $ecp_category;
+
+		$category_id	= get_query_var('cat');
+		$ecp_category	= get_category($category_id);
+		$ecp_post		= $ecp->get_by_category($category_id);
+		$ecp_post		= $ecp_post[0];
+	}
+	else
+	{
+		$ecp_category	= get_category($category_id);
+		$ecp_post		= $ecp->get_by_category($category_id);
+		$ecp_post		= $ecp_post[0];
+
+		return $ecp_post;
+	}
+}
+
+add_action('admin_init', 'admin_category_stuff');
+function admin_category_stuff() {
+	$template_url = get_bloginfo('template_url');
+	wp_register_script('admin_category_stuff_js',$template_url.'/js/admin_category_stuff_js.js');
+	wp_enqueue_script('admin_category_stuff_js');
+}
+
 if ( ! function_exists( 'itm_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -129,6 +192,8 @@ function itm_scripts() {
 	wp_enqueue_style( 'itm-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'itm-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
+
+	wp_enqueue_script( 'itm-scripts', get_template_directory_uri() . '/js/scripts.js', array(), '20151229', true );
 
 	wp_enqueue_script( 'itm-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
 

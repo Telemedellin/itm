@@ -1,0 +1,84 @@
+# Translation of Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2015-11-05 16:34:43+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: Stable (latest release)\n"
+
+#: classes/ecp/WP_Custom_Post.php:21
+msgid "No hay resultados para %s."
+msgstr ""
+
+#: classes/ecp/WP_Custom_Post.php:22
+msgid "Búsqueda %s"
+msgstr "Búsqueda %s"
+
+#: classes/ecp/WP_Custom_Post.php:23
+msgid "Añadir nuevo %s"
+msgstr "Añadir nuevo %s"
+
+#: classes/ecp/WP_Custom_Post.php:24
+msgid "Ver %s's"
+msgstr "Ver %s's"
+
+#: classes/ecp/WP_Custom_Post.php:25
+msgid "Editar %s"
+msgstr "Editar %s"
+
+#: classes/ecp/WP_Custom_Post.php:54
+msgid "%s actualizada. <a href=\"%s\">Ver  %s</a>"
+msgstr "%s actualizada. <a href=\"%s\">Ver  %s</a>"
+
+#: classes/ecp/WP_Custom_Post.php:56
+msgid "Campo personalizado actualizo."
+msgstr "Campo personalizado actualizo."
+
+#: classes/ecp/WP_Custom_Post.php:57
+msgid "Campo personalizado eliminado."
+msgstr "Campo personalizado eliminado."
+
+#: classes/ecp/WP_Custom_Post.php:58
+msgid "%s actualizada"
+msgstr "%s actualizada"
+
+#: classes/ecp/WP_Custom_Post.php:60
+msgid "%s restaurado a partir de la revisión %s"
+msgstr "%s restaurado a partir de la revisión %s"
+
+#: classes/ecp/WP_Custom_Post.php:61
+msgid "%s publicado. <a href=\"%s\">Ver %s</a>"
+msgstr "%s publicado. <a href=\"%s\">Ver %s</a>"
+
+#: classes/ecp/WP_Custom_Post.php:62
+msgid "%s guardado."
+msgstr "%s guardado."
+
+#: classes/ecp/WP_Custom_Post.php:63
+msgid "%s enviado. <a target=\"_blank\" href=\"%s\">Previsualizar %s</a>"
+msgstr "%s enviado. <a target=\"_blank\" href=\"%s\">Previsualizar %s</a>"
+
+#: classes/ecp/WP_Custom_Post.php:66
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: classes/ecp/WP_Custom_Post.php:65
+msgid "%s programado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"\>Previsualizar %s</a>"
+msgstr "%s programado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"\>Previsualizar %s</a>"
+
+#: classes/ecp/WP_Custom_Post.php:67
+msgid "%s borrador actualizado. <a target=\"_blank\" href=\"%s\">Previsualizar %s</a>"
+msgstr "%s borrador actualizado. <a target=\"_blank\" href=\"%s\">Previsualizar %s</a>"
+
+#: classes/ecp/WP_Integration.php:102
+msgid "Volver a las categorías"
+msgstr "Volver a las categorías"
+
+#: classes/ecp/WP_Integration.php:105
+#: classes/ecp/WP_Integration.php:137
+msgid "Editar plantilla"
+msgstr "Editar plantilla"

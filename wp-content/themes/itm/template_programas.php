@@ -3,7 +3,7 @@
 Template Name: Template categoría programas academicos
 */
 /*
- * Template para visualizar el loop de las programas universitarios.
+ * Template para visualizar la página inicial de un programa académico.
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
@@ -55,8 +55,11 @@ switch ($facultad->slug)
 						</div><!-- ctn__breadcrumbs -->
 					</div><!-- ctn__info-header -->
 				</header><!-- ctn__header-content -->
-				<section class="ctn__section-content programa">
-					<div class="col-md-3">
+				<section class="ctn__section-content programa clearfix">
+					<div class="col-md-3 ctn__menu-lateral">
+						<div class="menu-lateral_titulo <?php echo $class; ?>">
+							<h3>Menú de navegación</h3>
+						</div>
 						<?php
 							$field = get_field_object('menu', $ecp_post->ID);
 							$value = get_field('menu', $ecp_post->ID);

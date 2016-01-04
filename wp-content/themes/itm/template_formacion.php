@@ -1,9 +1,9 @@
 <?php
 /*
-Template Name: Página programas universitarios
+Template Name: Template categoría formación
 */
 /*
- * Template para visualizar el loop de las programas universitarios.
+ * Template para visualizar el loop de todos los programas universitarios en cada facultad.
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
@@ -17,24 +17,24 @@ global $ecp_post, $ecp_category, $facultades;
 get_ecp_post();
 
 // Facultad actual
-$facultad	= get_category($ecp_category->parent);
+$facultades[0]	= get_category($ecp_category->parent);
 
-// Facultades
-$facultades = get_categories(array(
-		'type'                     => 'post',
-		'child_of'                 => '',
-		'parent'                   => $facultad->parent,
-		'orderby'                  => 'name',
-		'order'                    => 'ASC',
-		'hide_empty'               => false,
-		'hierarchical'             => false,
-		'exclude'                  => '',
-		'include'                  => '',
-		'number'                   => '',
-		'taxonomy'                 => 'category',
-		'pad_counts'               => false
-	)
-);
+$class = '';
+switch ($facultades[0]->slug)
+{
+	case 'facultad-de-artes-y-humanidades':
+		$class = ' artes-y-humanidades';
+		break;
+	case 'facultad-de-ciencias-economicas':
+		$class = ' ciencias-economicas';
+		break;
+	case 'facultad-de-ciencias-exactas-y-aplicadas':
+		$class = ' ciencias-exactas';
+		break;
+	case 'facultad-de-ingenierias':
+		$class = ' ingenierias';
+		break;
+}
 
 ?>
 
@@ -45,10 +45,13 @@ $facultades = get_categories(array(
 			</div>
 			<div class="ctn__content container">
 				<header class="ctn__header-content">
-					<h1 class="entry-title"><?php echo get_the_title($ecp_post->ID); ?></h1>
+					<h1 class="entry-title<?php echo $class; ?>"><?php echo get_the_title($ecp_post->ID); ?></h1>
 					<div class="ctn__info-header">
-						<div class="ctn__breadcrumbs">
-							<span><a href="#">Home</a></span><span><a href="#">Estudiar en el ITM</a></span><span><a href="#">Programas universitarios</a></span>
+						<div class="ctn__breadcrumbs breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
+							<?php if(function_exists('bcn_display'))
+							{
+								bcn_display();
+							}?>
 						</div><!-- ctn__breadcrumbs -->
 						<div class="entry-content padding">
 							<span class="text-filters">Conoce los programas universitarios que ofrece el ITM</span>
@@ -60,36 +63,6 @@ $facultades = get_categories(array(
 								</form>
 							</div>
 						</div><!-- ctn__input-filter -->
-						<div class="ctn__faculty-filter padding">
-							<span class="text-filters">Filtra por Facultad</span>
-							<div class="faculty-filter">
-								<span class="filter-label facultades">Todas las facultades</span>
-								<?php foreach ($facultades as $value): ?>
-
-								<?php $select = ''; ?>
-								<?php if ($facultad->slug == $value->slug): ?>
-									<?php $select = ' select' ?>
-								<?php endif; ?>
-
-								<?php if ($value->slug == 'facultad-de-artes-y-humanidades'): ?>
-								<span class="filter-label artes-y-humanidades<?php echo $select; ?>"><?php echo $value->name; ?></span>
-								<?php endif; ?>
-
-								<?php if ($value->slug == 'facultad-de-ciencias-economicas'): ?>
-								<span class="filter-label ciencias-economicas<?php echo $select; ?>"><?php echo $value->name; ?></span>
-								<?php endif; ?>
-
-								<?php if ($value->slug == 'facultad-de-ciencias-exactas-y-aplicadas'): ?>
-								<span class="filter-label ciencias-exactas<?php echo $select; ?>"><?php echo $value->name; ?></span>
-								<?php endif; ?>
-
-								<?php if ($value->slug == 'facultad-de-ingenierias'): ?>
-								<span class="filter-label ingenierias<?php echo $select; ?>"><?php echo $value->name; ?></span>
-								<?php endif; ?>
-
-								<?php endforeach; ?>
-							</div>
-						</div><!-- ctn__faculty-filter -->
 						<div class="ctn__program-filter padding">
 							<span class="text-filters">Filtra por el tipo de programa</span>
 							<div class="program-filters">
@@ -142,7 +115,7 @@ $facultades = get_categories(array(
 							</div>
 						</div>
 					</div>
-					<?php get_template_part( 'template-parts/content', 'programas-universitarios-facultades' ); ?>
+					<?php get_template_part( 'template-parts/content', 'formacion' ); ?>
 				</section><!-- ctn__section-content -->
 			</div>
 

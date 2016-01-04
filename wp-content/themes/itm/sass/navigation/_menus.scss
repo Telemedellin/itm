@@ -159,6 +159,110 @@
 		}
 	}
 }
+
+/*--------------------------------------------------------------
+# Menú lateral
+--------------------------------------------------------------*/
+
+.current{
+	background: $color__primary !important;
+	color: #FFFFFF !important;
+	border-left: solid 5px $color__primary !important;
+	a{
+		background: $color__primary;
+		color: #FFFFFF;
+		border-left: solid 5px $color__primary !important;
+	}
+}
+.ctn__menu-lateral{
+	.menu{ //Estilos del contenedor general del menú
+		margin: 0 0 0 0;
+		padding: 0;
+		display: none;
+		li{
+			list-style: none;
+			a{
+				display: block;
+				padding: 10px 15px;
+				background: $color__gray-light;
+				color: $color__gray-dark;
+				font:{
+					family: $font__secondary;
+					size: 1.5rem;
+				}
+				text:{
+					decoration: none;
+				}
+				&:hover{
+					background: $color__gray-dark;
+					color: #FFFFFF;
+				}
+			}
+			&.menu-item-has-children{ //Estilos para el icono de los ítemes con submenu
+				> a{
+					position: relative;
+					&::before{
+						content: "j";
+						position: absolute;
+						top: 50%;
+						right: 5px;
+   						transform: translate(0, -50%);
+						font-family: "itm" !important;
+						font-style: normal !important;
+						font-weight: normal !important;
+						font-variant: normal !important;
+						text-transform: none !important;
+						speak: none;
+						line-height: 1;
+						-webkit-font-smoothing: antialiased;
+						-moz-osx-font-smoothing: grayscale;
+					}
+				}
+			}
+		}
+	}
+	.ctn__programa-bottom{
+		margin-top: 30px;
+	}
+	.sub-menu{ //Contenedor del menú de segundo nivel
+		display: none;
+		padding-left: 0;
+		li{
+			a{ //Estilos del ítem del menú de segundo nivel
+				background: $color__gray-light;
+				border-left: solid 5px $color__gray;
+				padding: 5px 10px;
+				font:{
+					size: 1.2rem;
+				}
+			}
+			.sub-menu{ //Contenedor del menú de tercer nivel
+				li{
+					a{ //Estilos del ítem de menú de tercer nivel
+						font:{
+							size: 1rem;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.menu-lateral_titulo{
+	overflow: auto;
+	h3{
+		background: $color__gray-dark;
+		color: #FFFFFF;
+		margin: 0;
+		padding: 15px;
+		cursor: pointer;
+	}
+}
+
+/*--------------------------------------------------------------
+# Media queries _menus
+--------------------------------------------------------------*/
+
 @media (min-width: 768px){
 	.main-navigation{
 		width: 750px;
@@ -190,11 +294,37 @@
 	}
 	.users-menu{
 		a{
-			font-size: 1rem;
+			font-size: 1.2rem;
 		}
 	}
 	.top-bar-menu{
 		text-align: right;
+	}
+	.ctn__menu-lateral{
+		.menu{
+			display: block;
+			li{
+				a{
+					font-size: 1.2rem;
+				}
+			}
+		}
+		.sub-menu{
+			margin-left: 10px;
+			li{
+				a{
+					font-size: 1rem;
+				}
+				.sub-menu{
+					margin-left: 10px;
+					li{
+						a{
+							font-size: 0.9rem;
+						}
+					}
+				}
+			}
+		}
 	}
 }
 @media (min-width: 1200px){

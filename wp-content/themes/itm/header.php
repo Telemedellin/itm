@@ -61,6 +61,5 @@
 				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
 			</nav><!-- #site-navigation -->
 		</div><!-- /ctn__header-bottom-bar -->
-		<?php putRevSlider('home', 'homepage'); ?>
 	</header><!-- #masthead -->
 	<div id="content" class="site-content">

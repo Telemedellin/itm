@@ -63,6 +63,55 @@ function get_ecp_post($category_id = null)
 	}
 }
 
+/**
+* Funcion para alimentar los search-control en los programas
+* Cuando quieres hacer el filtro por una categoria padre que traiga
+* sus categorias hijas.
+*
+* @param parent:  slug es un argumento que indica la categoria padre.
+**/
+function getProgramasCat()
+{
+	$content = array();
+
+	if( isset($_POST['parent']) )
+	{
+		extract($_POST);
+
+		$categories = get_categories(array(
+				'type'                     => 'post',
+				'child_of'                 => $parent,
+				'parent'                   => '',
+				'orderby'                  => 'name',
+				'order'                    => 'ASC',
+				'hide_empty'               => 0,
+				'hierarchical'             => 0,
+				'exclude'                  => '',
+				'include'                  => '',
+				'number'                   => '',
+				'taxonomy'                 => 'category',
+				'pad_counts'               => false 
+			)
+		);
+
+		$cont = 0;
+		foreach ($categories as $category)
+		{
+			$content['result'][$cont]['id'] = $category->term_id;
+			$content['result'][$cont]['label'] = $category->name;
+			$content['result'][$cont]['value'] = $category->name;
+			$content['result'][$cont]['url'] = get_category_link($category->term_id);
+			$cont++;
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode($content);
+		die;
+	}
+}
+add_action('wp_ajax_nopriv_getProgramasCat', 'getProgramasCat');
+add_action('wp_ajax_getProgramasCat', 'getProgramasCat');
+
 add_action('admin_init', 'admin_category_stuff');
 function admin_category_stuff() {
 	$template_url = get_bloginfo('template_url');
@@ -196,6 +245,8 @@ function itm_scripts() {
 	wp_enqueue_script( 'itm-scripts', get_template_directory_uri() . '/js/scripts.js', array(), '20151229', true );
 
 	wp_enqueue_script( 'itm-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+	
+	wp_enqueue_script("jquery-ui-autocomplete");
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

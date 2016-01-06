@@ -258,6 +258,25 @@
 
 	}
 }
+.ctn__input-result{
+	z-index: 100;
+	.ui-autocomplete {
+		background-color: rgba(241, 242, 243, 0.79);
+		width: 100% !important;
+		top: 0px !important;
+		left: 0px !important;
+		list-style: none;
+		margin: 0px;
+		padding: 0px;
+		li {
+			padding: 5px 0px 5px 22px;
+			border: 1px solid rgba(241, 242, 243, 0.79);
+			&:hover {
+				background-color: whiteSmoke;
+			}
+		}
+	}
+}
 @media (min-width: 768px){
 	.grid-sizer, .ctn__programa{
 		width: 48%;

@@ -105,7 +105,7 @@ class WP_Integration {
 		$url = $this->get_enhanced_category_edit_url($tag);
 		echo '<input type="hidden" id="enhanced_category_edit_url" value="' . esc_url($url) . '" />';
 
-		$enhanced_edit_text = __("Enhanced Edit", $this->_translation_domain);
+		$enhanced_edit_text = __("Editor avanzado", $this->_translation_domain);
 		echo <<<STR
 				<script type="text/javascript">
 					(function($) {
@@ -206,7 +206,7 @@ STR;
 	}
 
 	private function get_enhanced_category_edit_link($tag) {
-		return '<a href="' . $this->get_enhanced_category_edit_url($tag) . '">' . __("Enhanced Edit", $this->_translation_domain) . "</a>";
+		return '<a href="' . $this->get_enhanced_category_edit_url($tag) . '">' . __("Editor avanzado", $this->_translation_domain) . "</a>";
 	}
 
 	private function get_enhanced_category_edit_url($tag) {

@@ -75,6 +75,30 @@ global $facultades;
 				break;
 		}
 	?>
+	<!-- programa clone -->
+	<a href="#" class="ctn__programa hidden" style="display:none;">
+		<div class="ctn__programa_top">
+			<div class="ctn__programa-image" style="background: url(http://lorempixel.com/400/400) no-repeat; background-size: 100%; background-position: center center">
+				<img src="http://lorempixel.com/400/400" alt="">
+			</div>
+			<h3 class="programa-title"></h3>
+		</div>
+		<div class="ctn__programa-bottom">
+				<dl>
+					<dt>Título a otorgar</dt>
+						<dd></dd>
+					<dt>Modalidad</dt>
+						<dd></dd>
+					<dt>Duración</dt>
+						<dd></dd>
+				</dl>
+				<span class="btn-vermas">Ver más</span>
+		</div>
+	</a>
+	<!-- programa clone -->
+	<!-- sin resultados -->
+	<h2 id="msg__sin-resultados" style="display:none;">No se han encontrado resultados.</h2>
+	<!-- sin resultados -->
 	<div class="ctn__programas brd__<?php echo $class; ?>">
 		<?php foreach($programas as $programa): ?>
 		<?php

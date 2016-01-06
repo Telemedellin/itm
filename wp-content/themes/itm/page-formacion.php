@@ -38,7 +38,7 @@ switch ($facultades[0]->slug)
 
 ?>
 
-	<div id="primary" class="content-area">
+	<div id="primary" class="content-area" cat="<?php echo get_query_var('cat'); ?>">
 		<main id="main" class="site-main" role="main">
 
 			<div class="ctn_cover-image">
@@ -59,21 +59,23 @@ switch ($facultades[0]->slug)
 						<div class="ctn__input-filter padding">
 							<div class="input-filter">
 								<form action="">
-									<input type="text" placeholder="Escribe el nombre del programa">
+									<input id="programa" type="text" placeholder="Escribe el nombre del programa">
 								</form>
 							</div>
+						</div><!-- ctn__input-filter -->
+						<div class="ctn__input-result">
 						</div><!-- ctn__input-filter -->
 						<div class="ctn__program-filter padding">
 							<span class="text-filters">Filtra por el tipo de programa</span>
 							<div class="program-filters">
 								<form action="">
 									<div class="ctn__filter checkbox-itm">
-										<input id="posgrados" type="checkbox">
-										<label for="posgrados">Posgrados</label>
+										<input id="posgrado" type="checkbox">
+										<label for="posgrado">Posgrados</label>
 									</div>
 									<div class="ctn__filter checkbox-itm">
-										<input id="pregrados" type="checkbox">
-										<label for="pregrados">Pregrados</label>
+										<input id="pregrado" type="checkbox">
+										<label for="pregrado">Pregrados</label>
 									</div>
 								</form>
 							</div>

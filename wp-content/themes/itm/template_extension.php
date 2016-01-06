@@ -1,9 +1,9 @@
 <?php
 /*
-Template Name: Página programas extensiones
+Template Name: template para la categoría de extensión académica.
 */
 /*
- * Template para visualizar el loop de las programas universitarios.
+ * Template para visualizar el loop de las programas de extensión académica.
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *

@@ -1,20 +1,24 @@
 .brd__artes-y-humanidades{
-	.programa-title{
+	.programa-title,
+	.preview-title {
 		border-right: solid 25px $color__artes-y-humanidades;
 	}
 }
 .brd__ciencias-economicas{
-	.programa-title{
+	.programa-title,
+	.preview-title {
 		border-right: solid 25px $color__ciencias-economicas;
 	}
 }
 .brd__ingenierias{
-	.programa-title{
+	.programa-title,
+	.preview-title {
 		border-right: solid 25px $color__ingenierias;
 	}
 }
 .brd__ciencias-exactas{
-	.programa-title{
+	.programa-title,
+	.preview-title {
 		border-right: solid 25px $color__ciencias-exactas;
 	}
 }

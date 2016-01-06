@@ -30,6 +30,7 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 # Forms
 # Navigation
 	## Links
+	## Pagination
 	## Menus
 # Accessibility
 # Alignments
@@ -40,6 +41,7 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
     ## Programas universitarios
 	## Asides
 	## Comments
+	## Loops de categor├¡as y post
 # Infinite scroll
 # Loader
 # Media
@@ -2416,6 +2418,25 @@ a:hover, a:active {
 }
 
 /*--------------------------------------------------------------
+## Pagination
+--------------------------------------------------------------*/
+.page-numbers {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 2px 0 0;
+  border: 1px solid #eee;
+  line-height: 1;
+  text-decoration: none;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+.page-numbers.current,
+a.page-numbers:hover {
+  background: #052D6F;
+}
+
+/*--------------------------------------------------------------
 ## Menus
 --------------------------------------------------------------*/
 .main-navigation {
@@ -2797,6 +2818,10 @@ a:hover, a:active {
 /*--------------------------------------------------------------
 # Content
 --------------------------------------------------------------*/
+.padding-content {
+  padding: 20px;
+}
+
 .site-branding {
   display: block;
   width: 80%;
@@ -3106,19 +3131,23 @@ a.icon-itm:hover {
     right: 7%;
   }
 }
-.brd__artes-y-humanidades .programa-title {
+.brd__artes-y-humanidades .programa-title,
+.brd__artes-y-humanidades .preview-title {
   border-right: solid 25px #BF308A;
 }
 
-.brd__ciencias-economicas .programa-title {
+.brd__ciencias-economicas .programa-title,
+.brd__ciencias-economicas .preview-title {
   border-right: solid 25px #F29200;
 }
 
-.brd__ingenierias .programa-title {
+.brd__ingenierias .programa-title,
+.brd__ingenierias .preview-title {
   border-right: solid 25px #87207B;
 }
 
-.brd__ciencias-exactas .programa-title {
+.brd__ciencias-exactas .programa-title,
+.brd__ciencias-exactas .preview-title {
   border-right: solid 25px #016533;
 }
 
@@ -3197,7 +3226,7 @@ a.icon-itm:hover {
 }
 
 .ctn__header-content {
-  margin: 200px 0 30px 0;
+  margin: 200px 0 0 0;
 }
 
 .ctn__info-header {
@@ -3312,6 +3341,7 @@ a.icon-itm:hover {
 .ctn__section-content {
   margin-bottom: 60px;
   position: relative;
+  background: #ffffff;
 }
 
 .ctn__section-content.programa {
@@ -3516,6 +3546,79 @@ a.icon-itm:hover {
   display: block;
 }
 
+/*--------------------------------------------------------------
+## Loops de categor├¡as y post
+--------------------------------------------------------------*/
+.grid-item {
+  margin-bottom: 30px;
+}
+
+.ctn__preview {
+  position: relative;
+  display: block;
+}
+.ctn__preview:hover .preview-title {
+  background: #052D6F;
+}
+
+.ctn__preview-image::before {
+  content: "";
+  padding-top: 80%;
+  display: block;
+}
+
+.preview-image {
+  display: none;
+}
+
+.ctn__preview-title {
+  min-width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.preview-title {
+  transition: all ease 0.5s;
+  margin: 0;
+  padding: 10px;
+  background: rgba(5, 45, 111, 0.7);
+  color: #FFFFFF;
+  line-height: 27.2px;
+  line-height: 1.7rem;
+  font-weight: 500;
+  font-size: 20.8px;
+  font-size: 1.3rem;
+}
+
+.ctn__preview-news_date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.7);
+}
+.ctn__preview-news_date span {
+  color: #ffffff;
+}
+
+.preview-news_date {
+  font-size: 12.8px;
+  font-size: 0.8rem;
+}
+
+@media (min-width: 768px) {
+  .grid-item {
+    display: inline-block;
+    width: 50%;
+    margin-right: -4px;
+    padding: 0 5px;
+  }
+}
+@media (min-width: 993px) {
+  .grid-item {
+    width: calc(100% / 3);
+  }
+}
 /*--------------------------------------------------------------
 # Infinite scroll
 --------------------------------------------------------------*/

@@ -1,5 +1,6 @@
 // @import "../layout/content-sidebar";
 // @import "../layout/sidebar-content";
+@import "../layout/layout-general";
 @import "../layout/header";
 @import "../layout/footer";
 @import "secondary/colores-facultades";
@@ -22,3 +23,8 @@
 ## Comments
 --------------------------------------------------------------*/
 @import "primary/comments";
+
+/*--------------------------------------------------------------
+## Loops de categorías y post
+--------------------------------------------------------------*/
+@import "primary/loops-categorias-post."

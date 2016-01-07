@@ -11,6 +11,7 @@
 *    6. Play/close video button
 *    7. Preloader
 *    8. Caption
+*    9. Media queries
 *    
 *  Sprite: 'rs-universal.png'
 * 
@@ -39,6 +40,7 @@
 .ctn__slider-info{
 	position: absolute;
 	bottom: 0;
+	width: 100%;
 }
 .rsImg{
 	display: none;
@@ -47,13 +49,6 @@
 .rsOverflow{
 	height: 500px !important;
 	transition: all ease 0.5s;
-}
-
-@media (min-width: 768px){
-	.SkinHome,
-	.rsOverflow{
-		height: 370px !important;
-	}
 }
 
 /***************
@@ -493,4 +488,49 @@
 	width: auto;
 	font-size: 12px;
 	border-radius: 2px;
+}
+
+.slider-info_title{
+	margin: 0;
+	padding: 10px;
+	background: rgba(7, 61, 150, 0.9);
+	color: #FFFFFF;
+	line-height: 30px;
+}
+.slider-info_text{
+	font-size: 16px;
+	color: #FFFFFF;
+	background: rgba(0,0,0,0.8);
+	margin: 0;
+	padding: 10px;
+}
+
+
+/***************
+*
+*  8. Media Queries
+*
+****************/
+@media (min-width: 768px){
+	.SkinHome,
+	.rsOverflow{
+		height: 370px !important;
+	}
+	.ctn__slider-info{
+		width: 60%;
+		right: 0;
+	}
+}
+
+@media (min-width: 992px){
+	.SkinHome,
+	.rsOverflow{
+		height: 450px !important;
+	}
+	.ctn__slider-info {
+	    width: 35%;
+	    right: 5%;
+	    top: 50%;
+	    transform: translate(0, -20%);
+	}
 }

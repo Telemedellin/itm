@@ -255,6 +255,18 @@ function itm_scripts() {
 add_action( 'wp_enqueue_scripts', 'itm_scripts' );
 
 /**
+* Skins para los sliders
+*/
+add_filter('new_royalslider_skins', 'new_royalslider_add_custom_skin', 10, 2);
+function new_royalslider_add_custom_skin($skins) {
+      $skins['SkinHome'] = array(
+           'label' => 'Skin para el slider del home',
+           'path' => get_stylesheet_directory_uri() . '/css/slider-home/slider-home.css'  // get_stylesheet_directory_uri returns path to your theme folder
+      );
+      return $skins;
+}
+
+/**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';

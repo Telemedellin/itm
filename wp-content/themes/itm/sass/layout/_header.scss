@@ -13,7 +13,7 @@
 .ctn__search{
 	position: absolute;
     bottom: -44px;
-    width:65%;
+    width:55%;
     left: 15px;
     label{
     	width: 100%;
@@ -24,7 +24,7 @@
 }
 .ctn__header-bottom-bar{
 	background: $color__gray-light;
-	overflow: auto;
+	//overflow: auto;
 	padding: 0;
 }
 .ctn__header-top-bar{

@@ -67,6 +67,16 @@
 	.current_page_ancestor > a,
 	.current-menu-ancestor > a {
 	}
+	.ubermenu-responsive-toggle {
+		float: right;
+		background: $color__primary ;
+		color: #FFFFFF;
+	}
+
+	//Color de fondo del submenu
+	.ubermenu-submenu{
+		background: $color__gray-light;
+	}
 }
 
 /* Small menu. */
@@ -80,6 +90,7 @@
 	float: right;
 	border-radius: 0px;
 }
+
 
 /* Menú horizontal */
 .menu-horizontal{
@@ -260,6 +271,52 @@
 }
 
 /*--------------------------------------------------------------
+# Mega menú
+--------------------------------------------------------------*/
+.ubermenu{
+	//Item de primer nivel
+	.ubermenu-nav{
+		> .ubermenu-item{
+			background: $color__primary;
+			a{
+				color: #FFFFFF;
+			}
+		}
+	}
+	.ubermenu-submenu{	
+		padding: 15px !important;
+		//Item de segund nivel
+		a.ubermenu-target{ 
+			color: $color__gray-dark;
+			padding: 5px 15px;
+		    margin: 15px 0px 0px 0px;
+		    border-left: solid 5px $color__gray-dark;
+		    transition: all ease 0.5s;
+		    &:hover{
+		    	color: $color__primary;
+		    	border-left: solid 5px $color__primary;
+		    	padding-left: 20px;
+		    }
+		}	
+	}
+	//Botón de cerrar para móviles
+	.ubermenu-retractor {
+		&.ubermenu-retractor-mobile{
+			width: 100%;
+			margin-top: 15px;
+			background: $color__gray-dark;
+			color: #ffffff;
+		}
+		&:hover{
+			background: $color__primary !important;
+			color: #FFFFFF;
+		}
+	}
+}
+
+
+
+/*--------------------------------------------------------------
 # Media queries _menus
 --------------------------------------------------------------*/
 
@@ -290,6 +347,9 @@
 					}
 				}
 			}
+		}
+		.ubermenu-responsive-toggle{
+			display: none;
 		}
 	}
 	.users-menu{

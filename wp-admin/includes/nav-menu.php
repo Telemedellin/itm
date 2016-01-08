@@ -890,7 +890,7 @@ function wp_nav_menu_item_taxonomy_meta_box( $object, $taxonomy ) {
 	$taxonomy_name = $taxonomy['args']->name;
 
 	// Paginate browsing for large numbers of objects.
-	$per_page = 50;
+	$per_page = 0;
 	$pagenum = isset( $_REQUEST[$taxonomy_name . '-tab'] ) && isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 1;
 	$offset = 0 < $pagenum ? $per_page * ( $pagenum - 1 ) : 0;
 
@@ -914,7 +914,7 @@ function wp_nav_menu_item_taxonomy_meta_box( $object, $taxonomy ) {
 		return;
 	}
 
-	$num_pages = ceil( wp_count_terms( $taxonomy_name , array_merge( $args, array('number' => '', 'offset' => '') ) ) / $per_page );
+	//$num_pages = ceil( wp_count_terms( $taxonomy_name , array_merge( $args, array('number' => '', 'offset' => '') ) ) / $per_page );
 
 	$page_links = paginate_links( array(
 		'base' => add_query_arg(
@@ -928,7 +928,7 @@ function wp_nav_menu_item_taxonomy_meta_box( $object, $taxonomy ) {
 		'format' => '',
 		'prev_text' => __('&laquo;'),
 		'next_text' => __('&raquo;'),
-		'total' => $num_pages,
+		'total' => '',
 		'current' => $pagenum
 	));
 
@@ -982,7 +982,7 @@ function wp_nav_menu_item_taxonomy_meta_box( $object, $taxonomy ) {
 		?>">
 			<ul id="<?php echo $taxonomy_name; ?>checklist-pop" class="categorychecklist form-no-clear" >
 				<?php
-				$popular_terms = get_terms( $taxonomy_name, array( 'orderby' => 'count', 'order' => 'DESC', 'number' => 10, 'hierarchical' => false ) );
+				$popular_terms = get_terms( $taxonomy_name, array( 'orderby' => 'count', 'order' => 'DESC', 'number' => '', 'hierarchical' => false ) );
 				$args['walker'] = $walker;
 				echo walk_nav_menu_tree( array_map('wp_setup_nav_menu_item', $popular_terms), 0, (object) $args );
 				?>

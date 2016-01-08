@@ -2482,6 +2482,14 @@ a.page-numbers:hover {
   text-decoration: none;
   font-family: "Dosis", sans-serif;
 }
+.main-navigation .ubermenu-responsive-toggle {
+  float: right;
+  background: #052D6F;
+  color: #FFFFFF;
+}
+.main-navigation .ubermenu-submenu {
+  background: #e3e4e5;
+}
 
 /* Small menu. */
 .menu-toggle,
@@ -2658,6 +2666,41 @@ a.page-numbers:hover {
 }
 
 /*--------------------------------------------------------------
+# Mega men├║
+--------------------------------------------------------------*/
+.ubermenu .ubermenu-nav > .ubermenu-item {
+  background: #052D6F;
+}
+.ubermenu .ubermenu-nav > .ubermenu-item a {
+  color: #FFFFFF;
+}
+.ubermenu .ubermenu-submenu {
+  padding: 15px !important;
+}
+.ubermenu .ubermenu-submenu a.ubermenu-target {
+  color: #6e7075;
+  padding: 5px 15px;
+  margin: 15px 0px 0px 0px;
+  border-left: solid 5px #6e7075;
+  transition: all ease 0.5s;
+}
+.ubermenu .ubermenu-submenu a.ubermenu-target:hover {
+  color: #052D6F;
+  border-left: solid 5px #052D6F;
+  padding-left: 20px;
+}
+.ubermenu .ubermenu-retractor.ubermenu-retractor-mobile {
+  width: 100%;
+  margin-top: 15px;
+  background: #6e7075;
+  color: #ffffff;
+}
+.ubermenu .ubermenu-retractor:hover {
+  background: #052D6F !important;
+  color: #FFFFFF;
+}
+
+/*--------------------------------------------------------------
 # Media queries _menus
 --------------------------------------------------------------*/
 @media (min-width: 768px) {
@@ -2686,6 +2729,9 @@ a.page-numbers:hover {
   .main-navigation ul li a:hover {
     background-color: #e3e4e5;
     color: #052D6F;
+  }
+  .main-navigation .ubermenu-responsive-toggle {
+    display: none;
   }
 
   .users-menu a {
@@ -2839,7 +2885,7 @@ a.page-numbers:hover {
 .ctn__search {
   position: absolute;
   bottom: -44px;
-  width: 65%;
+  width: 55%;
   left: 15px;
 }
 .ctn__search label {
@@ -2851,7 +2897,6 @@ a.page-numbers:hover {
 
 .ctn__header-bottom-bar {
   background: #e3e4e5;
-  overflow: auto;
   padding: 0;
 }
 
@@ -3468,6 +3513,26 @@ a.icon-itm:hover {
   font-size: 32px;
   font-size: 2rem;
   font-family: "Dosis", sans-serif;
+}
+
+.ctn__input-result {
+  z-index: 100;
+}
+.ctn__input-result .ui-autocomplete {
+  background-color: rgba(241, 242, 243, 0.79);
+  width: 100% !important;
+  top: 0px !important;
+  left: 0px !important;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+.ctn__input-result .ui-autocomplete li {
+  padding: 5px 0px 5px 22px;
+  border: 1px solid rgba(241, 242, 243, 0.79);
+}
+.ctn__input-result .ui-autocomplete li:hover {
+  background-color: whiteSmoke;
 }
 
 @media (min-width: 768px) {

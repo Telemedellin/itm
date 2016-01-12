@@ -284,7 +284,7 @@
 		}
 	}
 	.ubermenu-submenu{	
-		padding: 15px !important;
+		padding: 0 15px 15px 15px !important;
 		//Item de segund nivel
 		a.ubermenu-target{ 
 			color: $color__gray-dark;
@@ -350,6 +350,13 @@
 		}
 		.ubermenu-responsive-toggle{
 			display: none;
+		}
+	}
+	//Ancho de los ítemes principales en el menu de primer nivel. Se divide el 100% por la cantidad de ítemes
+	.ubermenu-item-level-0{
+		width: calc(100% / 8) !important;
+		> .ubermenu-target {
+			text-align: center;
 		}
 	}
 	.users-menu{

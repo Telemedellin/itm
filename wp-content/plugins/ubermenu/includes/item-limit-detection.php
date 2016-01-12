@@ -41,8 +41,8 @@ function ubermenu_item_limit_notice(){
 
 		$message = array();
 
-		if( ( $r['suhosin_post_maxvars'] != '' && $r['suhosin_post_maxvars'] < 1000 ) || 
-			( $r['suhosin_request_maxvars']!= '' && $r['suhosin_request_maxvars'] < 1000 ) ){
+		if( ( $r['suhosin_post_maxvars'] != '' && $r['suhosin_post_maxvars'] != 0 && $r['suhosin_post_maxvars'] < 1000 ) || 
+			( $r['suhosin_request_maxvars']!= '' && $r['suhosin_request_maxvars']!= 0 && $r['suhosin_request_maxvars'] < 1000 ) ){
 			$message[] = __( "Your server is running Suhosin, and your current maxvars settings may limit the number of menu items you can save." , 'ubermenu' );
 		}
 

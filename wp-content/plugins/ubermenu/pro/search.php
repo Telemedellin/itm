@@ -1,6 +1,9 @@
 <?php
 
-function ubermenu_searchbar( $placeholder = "Search..." ){
+function ubermenu_searchbar( $placeholder = null ){
+	if( is_null( $placeholder ) ){
+		$placeholder = __( 'Search...' , 'ubermenu'  );
+	}
 	?>
 	<!-- UberMenu Search Bar -->
 	<div class="ubermenu-search">
@@ -16,7 +19,7 @@ function ubermenu_searchbar( $placeholder = "Search..." ){
 function ubermenu_searchbar_shortcode( $atts , $content ){
 
 	extract( shortcode_atts( array(
-		'placeholder' => __( 'Search...' , 'uber' ),
+		'placeholder' => __( 'Search...' , 'ubermenu' ),
 	), $atts ) );
 
 	ob_start();

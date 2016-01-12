@@ -6,8 +6,8 @@
  */
 abstract class UberMenuItem{
 
-	protected $type = 'unknown';
-	protected $ID = 0;
+	protected $type = 'unknown';	//Item Type 		getType()			default, dynamic_term, dynamic_post, 
+	protected $ID = 0;				//Menu Item ID 		getID()
 	protected $source_id = 0;
 
 	protected $output;
@@ -77,7 +77,11 @@ abstract class UberMenuItem{
 		}
 
 
-//uberp( $this->item->classes , 2 );
+		//New filter in 4.4 - 'nav_menu_item_args'
+		//Since this filter is most likely going to just break the menu, it is disabled by default, but can be enabled by adding
+		//define( 'UBERMENU_ALLOW_NAV_MENU_ITEM_ARGS_FILTER' , true );
+		//in the wp-config.php
+		if( UBERMENU_ALLOW_NAV_MENU_ITEM_ARGS_FILTER ) $this->args = apply_filters( 'nav_menu_item_args' , $this->args , $this->item );
 
 		$this->init();
 		
@@ -115,6 +119,9 @@ abstract class UberMenuItem{
 	}
 
 	function get_id(){
+		return $this->ID;
+	}
+	function getID(){
 		return $this->ID;
 	}
 
@@ -253,7 +260,7 @@ abstract class UberMenuItem{
 	
 	//1
 	function start_el(){
-		$this->output.= $this->get_start_el();
+		$this->output.= apply_filters( 'walker_nav_menu_start_el' , $this->get_start_el() , $this->item , $this->depth , $this->args );
 	}
 
 	//4
@@ -347,10 +354,11 @@ abstract class UberMenuItem{
 
 	function get_submenu_wrap_start(){
 
-		//$this->classes = array();
+		//Standard WordPress Classes
 		$classes = $this->submenu_classes;
 		$classes[] = 'ubermenu-submenu';
 		$classes[] = 'ubermenu-submenu-id-' . $this->item->ID;
+
 
 		//Submenu Type
 		$submenu_type = $this->getSetting( 'submenu_type' );
@@ -511,6 +519,17 @@ abstract class UberMenuItem{
 		//$this->item_classes = empty( $this->item->classes ) ? array() : (array) $this->item->classes;
 		if( is_array( $this->item->classes ) ){
 			$this->item_classes = array_merge( $this->item_classes , $this->item->classes );
+
+			//Disable Current Menu Item Classes (do this first for efficiency)
+			if( $this->getSetting( 'disable_current' ) == 'on' ){
+				$remove_current = array( 'current-menu-item' , 'current-menu-parent' , 'current-menu-ancestor' );
+				foreach( $this->item_classes as $k => $c ){
+					if( in_array( $c ,  $remove_current ) ){
+						unset( $this->item_classes[$k] );
+					}
+				}
+				$this->item_classes[] = 'nocurrent';
+			}
 		}
 	}
 	function add_class_id(){
@@ -877,7 +896,9 @@ abstract class UberMenuItem{
 		$icon_classes = apply_filters( 'ubermenu_icon_custom_class' , $icon , $this->ID , isset( $this->settings['icon_custom_class'] ) ? $this->settings['icon_custom_class'] : '' );
 		if( $icon_classes ){
 			$atts['class'] .= ' ubermenu-target-with-icon';
-			$icon = '<i class="ubermenu-icon '.$icon_classes.'"></i>';
+			$icon_tag = $this->get_menu_op( 'icon_tag' );
+			if( !$icon_tag ) $icon_tag = 'i';
+			$icon = '<'.$icon_tag.' class="ubermenu-icon '.$icon_classes.'"></'.$icon_tag.'>';
 		}
 
 		//Layout
@@ -1060,6 +1081,9 @@ abstract class UberMenuItem{
 
 	/**
 	 * Get the HTML for the image attached to this menu item
+	 *
+	 * Any set img ID will override image src filtering
+	 * 
 	 * @return string img HTML
 	 */
 	function get_image(){
@@ -1069,11 +1093,17 @@ abstract class UberMenuItem{
 			return '';
 		}
 
-
 		//Image
-		$img = '';
-		$img_id = $this->getSetting( 'item_image' );
+		$img = apply_filters( 'ubermenu_item_image' , '' , $this );
+		if( $img ) return $img;
 
+		//Allow ID filtering
+		$img_id = apply_filters( 'ubermenu_item_image_id' , $this->getSetting( 'item_image' ) , $this );
+
+		//Allow src filtering
+		$img_src = apply_filters( 'ubermenu_item_image_src' , '' , $this );
+
+		//Inherit featured image dynamically
 		if( $this->getSetting( 'inherit_featured_image' ) == 'on' ){
 			if( $this->item->type == 'post_type' ){
 				$thumb_id = get_post_thumbnail_id( $this->item->object_id );
@@ -1081,8 +1111,9 @@ abstract class UberMenuItem{
 			}
 		}
 
-		if( $img_id ){
+		if( $img_id || $img_src ){
 			$atts = array();
+			$img_srcset = $img_sizes = '';
 
 			$atts['class'] = 'ubermenu-image';
 
@@ -1094,17 +1125,31 @@ abstract class UberMenuItem{
 			//echo '['.$img_size.']';
 			$atts['class'].= ' ubermenu-image-size-'.$img_size;
 
-			//Get the reight image file
-			$img_src = wp_get_attachment_image_src( $img_id , $img_size );
+			//If the img_id is set, get the right image src file
+			if( $img_id ){
+				$img_src = wp_get_attachment_image_src( $img_id , $img_size );
+				if( function_exists( 'wp_get_attachment_image_srcset' ) ){
+					$img_srcset = wp_get_attachment_image_srcset( $img_id , $img_size );
+					$img_sizes = wp_get_attachment_image_sizes( $img_id , $img_size );
+				}
+			}
 
 			//Lazy Load
 			if( $this->depth > 0 && $this->get_menu_op( 'lazy_load_images' ) == 'on' ){
 				$atts['class'].= ' ubermenu-image-lazyload';
 				$atts['data-src'] = $img_src[0];
+				if( $img_srcset ){
+					$atts['data-srcset'] = $img_srcset;
+					if( $img_sizes ) $atts['data-sizes'] = $img_sizes;
+				}
 			}
 			//Normal Load
 			else{
 				$atts['src'] = $img_src[0];
+				if( $img_srcset ){
+					$atts['srcset'] = $img_srcset;
+					if( $img_sizes ) $atts['sizes'] = $img_sizes;
+				}
 			}
 
 
@@ -1155,22 +1200,27 @@ abstract class UberMenuItem{
 			} 
 
 			//Add 'alt' & 'title'
-			$meta = get_post_custom( $img_id );
-			$alt = isset( $meta['_wp_attachment_image_alt'] ) ? $meta['_wp_attachment_image_alt'][0] : '';	//Alt field
-			$title = '';
+			if( $img_id ){
+				$meta = get_post_custom( $img_id );
+				$alt = isset( $meta['_wp_attachment_image_alt'] ) ? $meta['_wp_attachment_image_alt'][0] : '';	//Alt field
+				$title = '';
 
-			if( $alt == '' ){
-				$title = get_the_title( $img_id );
-				$alt = $title;
-			}
-			$atts['alt'] = $alt;
+				if( $alt == '' ){
+					$title = get_the_title( $img_id );
+					$alt = $title;
+				}
+				$atts['alt'] = $alt;
 
-			if( $this->get_menu_op( 'image_title_attribute' ) == 'on' ){
-				if( $title == '' ) $title = get_the_title( $img_id );
-				$atts['title'] = $title;
+				if( $this->get_menu_op( 'image_title_attribute' ) == 'on' ){
+					if( $title == '' ) $title = get_the_title( $img_id );
+					$atts['title'] = $title;
+				}
 			}
+
+			
 
 			//Build attributes string
+			$atts = apply_filters( 'ubermenu_item_image_attributes' , $atts , $this );
 			$attributes = '';
 			foreach( $atts as $name => $val ){
 				$attributes.= $name . '="'. esc_attr( $val ) .'" ';

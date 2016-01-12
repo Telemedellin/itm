@@ -174,18 +174,18 @@ function ubermenu_add_toolbar_items( $admin_bar ){
 		//Loading Message
 		$admin_bar->add_node( array(
 			'id'    => 'ubermenu_loading',
-			'title' => ubermenu_toolbar_icon( 'exclamation-triangle' ). ' UberMenu Loading...',
+			'title' => ubermenu_toolbar_icon( 'exclamation-triangle' ). ' UberMenu waiting to load...',
 			'href'  => '#',
 		));
 
-		$loading_msg = __( 'If this message does not disappear, it means that UberMenu\'s javascript has not been able to load.  This most commonly indicates that you have a javascript error on this page, which will need to be resolved in order to allow UberMenu to run.' , 'ubermenu' );
+		$loading_msg = __( 'If this message does not disappear, it means that UberMenu\'s javascript has not been able to load.  This most commonly indicates that you have a javascript error on this page, which will need to be resolved in order to allow UberMenu to run - or that your UberMenu javascript is not being loaded, for example if your theme does not include the wp_footer() hook.' , 'ubermenu' );
 		//$loading_msg.= ' <a target="_blank" href="http://goo.gl/oS6L6C">How to check for javascript errors.</a>';
 
 		$admin_bar->add_node( array(
 			'id'    => 'ubermenu_loading_msg',
 			'parent'	=> 'ubermenu_loading',
 			'title' => $loading_msg,
-			'href'  => 'http://goo.gl/oS6L6C',
+			'href'  => 'http://goo.gl/uV5wCA', // 'http://goo.gl/oS6L6C',
 			'meta'	=> array(
 				'target'	=> '_blank',
 			),

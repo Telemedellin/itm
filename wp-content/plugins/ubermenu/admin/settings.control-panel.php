@@ -43,6 +43,9 @@ function ubermenu_get_settings_fields_instance( $config_id ){
 			),
 			'default'=> 'horizontal',
 			'group'	=> 'basic',
+
+			'customizer'	=> true,
+			'customizer_section' => 'menu_bar',
 		
 		),
 
@@ -259,6 +262,40 @@ function ubermenu_get_settings_fields_instance( $config_id ){
 			'default' 	=> 'Menu',
 			'group'		=> 'responsive',
 			'sanitize_callback' => 'ubermenu_allow_html',
+			'customizer'	=> true,
+			'customizer_section' => 'toggle',
+		),
+
+		435 => array(
+			'name' 		=> 'responsive_toggle_content_alignment',
+			'label' 	=> __( 'Responsive Toggle Content Alignment', 'ubermenu' ),
+			'desc' 		=> __( 'Alignment of the content within the toggle', 'ubermenu' ),
+			'type' 		=> 'radio',
+			'options'	=> array( 
+								'left'		=> __( 'Left' , 'ubermenu' ),
+								'center'	=> __( 'Center' , 'ubermenu' ),
+								'right'		=> __( 'Right' , 'ubermenu' ),
+							),
+			'default' 	=> 'left',
+			'group'		=> 'responsive',
+			'customizer'	=> true,
+			'customizer_section' => 'toggle',
+		),
+
+		437 => array(
+			'name' 		=> 'responsive_toggle_alignment',
+			'label' 	=> __( 'Responsive Toggle Alignment', 'ubermenu' ),
+			'desc' 		=> __( 'Alignment of the toggle button', 'ubermenu' ),
+			'type' 		=> 'radio',
+			'options'	=> array(
+								'full'	=> __( 'Full Width' , 'ubermenu' ), 
+								'left'		=> __( 'Left' , 'ubermenu' ),
+								'right'		=> __( 'Right' , 'ubermenu' ),
+							),
+			'default' 	=> 'full',
+			'group'		=> 'responsive',
+			'customizer'	=> true,
+			'customizer_section' => 'toggle',
 		),
 
 		440 => array(
@@ -557,6 +594,15 @@ function ubermenu_settings_panel_fields_general( $fields ){
 			'desc'	=> __( 'Duration of the scroll animation in milliseconds.  The actual speed will be determined by the distance that needs to be traveled.  <em>1000</em> is 1 second.', 'ubermenu' ),
 			'type'	=> 'text',
 			'default'=> 1000,
+			'group'	=> 'script_config',
+		),
+
+		217 => array(
+			'name'	=> 'collapse_after_scroll',
+			'label'	=> __( 'Collapse Menu after Scroll To (Mobile)' , 'ubermenu' ),
+			'desc'	=> __( 'When a ScrollTo-enabled item is clicked on mobile, collapse the menu after the scroll completes' , 'ubermenu' ),
+			'type'	=> 'checkbox',
+			'default'=> 'on',
 			'group'	=> 'script_config',
 		),
 
@@ -893,7 +939,8 @@ function ubermenu_settings_import_panel(){
 		
 
 		//ACTUAL IMPORT ACTION
-		if( isset( $_POST['ubermenu-settings-import-json'] ) ){
+		if( isset( $_POST['ubermenu-settings-import-json'] ) && check_admin_referer( 'ubermenu-settings-import' , 'ubermenu_nonce' ) ){
+			
 			$config_id = $_POST['config_id'];
 			$json = stripslashes( $_POST['ubermenu-settings-import-json'] );
 
@@ -932,6 +979,7 @@ function ubermenu_settings_import_panel(){
 					<input type="hidden" name="page" value="ubermenu-settings" />
 					<input type="hidden" name="do" value="settings-import" />
 					<input type="hidden" name="config_id" value="<?php echo $config_id; ?>" />
+					<?php wp_nonce_field( 'ubermenu-settings-import' , 'ubermenu_nonce' ); ?>
 
 					<p><?php _e( 'Paste your export data here to import the settings into this configuration' , 'ubermenu' ); ?></p>
 
@@ -1193,7 +1241,7 @@ function ubermenu_settings_panel(){
 	</div>
 	<?php
 
-	echo '<h2><strong>UberMenu</strong> Control Panel <span class="ubermenu-version">v'.UBERMENU_VERSION.'</span></h2>';
+	echo '<h1><strong>UberMenu</strong> Control Panel <span class="ubermenu-version">v'.UBERMENU_VERSION.'</span></h1>';
 
 	do_action( 'ubermenu_settings_before' );	
  

@@ -38,7 +38,7 @@ function ubermenu_load_assets(){
 
 	//Google Maps
 	if( ubermenu_op( 'load_google_maps' , 'general' ) == 'on' ){
-		wp_enqueue_script( 'google-maps', '//maps.googleapis.com/maps/api/js?sensor=false' , array( 'jquery' ), false, true );
+		wp_enqueue_script( 'google-maps', '//maps.googleapis.com/maps/api/js' , array( 'jquery' ), false, true );
 	}
 
 	//UberMenu JS
@@ -64,7 +64,9 @@ function ubermenu_load_assets(){
 		'accessible'		=> ubermenu_op( 'accessible', 'general' ),
 		'retractor_display_strategy' => ubermenu_op( 'retractor_display_strategy' , 'general' ),
 		'touch_off_close'	=> ubermenu_op( 'touch_off_close' , 'general' ),
+		'collapse_after_scroll'	=> ubermenu_op( 'collapse_after_scroll' , 'general' ),
 		'v'					=> UBERMENU_VERSION,
+		'configurations'	=> ubermenu_get_menu_instances(true),
 		'ajax_url' 			=> admin_url( 'admin-ajax.php' ),
 	) );
 
@@ -270,6 +272,11 @@ function ubermenu_get_nav_menu_args( $args , $integration_type , $config_id = 0 
 						return $args;
 					}
 				}
+
+				//Ignore Mobile?
+				if( ubermenu_op( 'disable_mobile' , $config_id ) == 'on' && ubermenu_is_mobile() ){
+					return $args;
+				}
 			}
 
 			break;
@@ -281,7 +288,7 @@ function ubermenu_get_nav_menu_args( $args , $integration_type , $config_id = 0 
 			if( $config_id != 'main' ){
 				$instances = ubermenu_get_menu_instances();
 				if( array_search( $config_id , $instances ) === false ){
-					$notice = '<strong>'.$config_id.'</strong> '. __( 'is not a valid Instance ID.  Please pass a valid instance ID to the ubermenu() function.' , 'ubermenu' );
+					$notice = '<strong>'.$config_id.'</strong> '. __( 'is not a valid Configuration ID.  Please pass a valid Configuration ID to the ubermenu() function.' , 'ubermenu' );
 					ubermenu_admin_notice( $notice );
 				}
 			}
@@ -332,6 +339,8 @@ function ubermenu_get_nav_menu_args( $args , $integration_type , $config_id = 0 
 	}
 
 
+
+
 	//Allow filtering to a different Configuration at this point
 	$config_id = apply_filters( 'ubermenu_configuration_id' , $config_id , $args );
 
@@ -347,6 +356,17 @@ function ubermenu_get_nav_menu_args( $args , $integration_type , $config_id = 0 
 	$args['link_before']		= '';
 	$args['link_after']			= '';
 	$args['uber_integration_type'] = $integration_type;
+
+
+	//Make sure nav menu ID is a string so that it can be used as part of the ID
+	if( is_object( $nav_menu_id ) ){
+		if( isset( $nav_menu_id->term_id ) ){
+			$nav_menu_id = $nav_menu_id->term_id;
+		}
+		else{
+			$nav_menu_id = '_bad_id_';
+		}
+	}
 
 	//ID
 	$args['container_id']		= 'ubermenu-'.$config_id.'-'.$nav_menu_id;
@@ -628,9 +648,15 @@ function ubermenu_responsive_toggle_filter( $nav_menu , $args ){
 
 			$toggle_content = ubermenu_op( 'responsive_toggle_content' , $args->uber_instance );
 			$toggle_tag = ubermenu_op( 'responsive_toggle_tag' , $args->uber_instance );
+			$toggle_content_align = ubermenu_op( 'responsive_toggle_content_alignment' , $args->uber_instance );
+			$toggle_align = ubermenu_op( 'responsive_toggle_alignment' , $args->uber_instance );
+			$toggle_classes = ubermenu_op( 'responsive_collapse', $args->uber_instance ) == 'off' ? 'ubermenu-responsive-toggle-open' : '';
 			$toggle_args = array(
 				'toggle_content'	=> $toggle_content,
 				'tag'				=> $toggle_tag,
+				'content_align'		=> $toggle_content_align,
+				'align'				=> $toggle_align,
+				'classes'			=> $toggle_classes,
 			);
 			if( isset( $args->theme_location ) ) $toggle_args['theme_location'] = $args->theme_location;
 			$ubermenu_toggle = ubermenu_toggle( $args->container_id , $args->uber_instance , false , $toggle_args);
@@ -683,6 +709,11 @@ add_filter( 'wp_nav_menu', 'ubermenu_before_wp_nav_menu' , 20 , 2 );
 
 function ubermenu_get_post_parent_ops( $ops = array() ){
 
+	if( ubermenu_op( 'autocomplete_disable', 'general' ) == 'on' ){
+		$ops[999] = __( 'Autocomplete disabled in Control Panel.  Please enter ID manually' , 'ubermenu' );
+		return $ops;
+	}
+
 	$post_types = get_post_types( array(
 		'public'		=> true,
 		'hierarchical' 	=> true,
@@ -717,6 +748,11 @@ function ubermenu_get_author_ops(){
 
 	$ops = array();
 
+	if( ubermenu_op( 'dynamic_authors_disable', 'general' ) == 'on' ){
+		$ops[999] = __( '[Authors selection disabled via Control Panel]' , 'ubermenu' );
+		return $ops;
+	}
+
 	$authors = get_users( array(
 		'who'	=> 'authors'
 	));;
@@ -749,6 +785,11 @@ function ubermenu_get_post_type_ops(){
 }
 
 function ubermenu_get_term_ops_by_tax( $tax , $ops = array() ){
+
+	if( ubermenu_op( 'autocomplete_disable', 'general' ) == 'on' ){
+		$ops[999] = __( 'Autocomplete disabled in Control Panel.  Please enter ID manually' , 'ubermenu' );
+		return $ops;
+	}
 
 	if( !is_array( $tax ) ) $tax = array( $tax );
 
@@ -789,6 +830,11 @@ function ubermenu_get_taxonomy_ops(){
 
 
 function ubermenu_get_term_ops( $ops = array() ){
+	//trigger_error( "Simulating Autocomplete memory exception" , E_USER_ERROR );
+	if( ubermenu_op( 'autocomplete_disable', 'general' ) == 'on' ){
+		$ops[999] = __( 'Autocomplete disabled in Control Panel.  Please enter ID manually' , 'ubermenu' );
+		return $ops;
+	}
 
 	$taxonomies = ubermenu_get_taxonomies();
 

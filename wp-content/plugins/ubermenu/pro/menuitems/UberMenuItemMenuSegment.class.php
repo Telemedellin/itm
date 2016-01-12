@@ -29,6 +29,7 @@ class UberMenuItemMenuSegment extends UberMenuItem{
 	}
 
 	function get_start_el(){
+		$transient_key = $transient_expiry = '';
 		//up( $this->settings );
 		$menu_segment = $this->getSetting( 'menu_segment' );
 
@@ -57,29 +58,54 @@ class UberMenuItemMenuSegment extends UberMenuItem{
 		}
 
 
-		//Submenus of this item should defer to parent
-		if( $this->depth > 0 ){
-			//If this is top level, we don't need to set
-			$this->settings['submenu_type_calc'] = $this->walker->parent_item()->getSetting('submenu_type_calc');
+
+		$segment_html = false;
+
+		if( $this->getSetting( 'segment_transient_cache' ) == 'on' ){
+			$transient_key = 'ubertk_mseg_'.$this->ID; //$this->get_transient_key( 'mseg_' );
+			$transient_expiry_hours = $this->getSetting( 'segment_transient_cache_expiry' );
+			if( !is_numeric( $transient_expiry_hours ) ) $transient_expiry_hours = 12;
+			$transient_expiry = $transient_expiry_hours * HOUR_IN_SECONDS;
+			$segment_html = get_transient( $transient_key );
 		}
 
-		//Set Depth offset for segment
-		$current_depth_offset = $this->walker->get_offset_depth();
-		$this->walker->set_offset_depth( $this->depth );
+		//If we're not using transients, no transient set, or transient has expired
+		if ( false === ( $segment_html ) ) {
 
-		$html.= wp_nav_menu( array( 
-			'menu' 			=> $menu_segment , 
-			'echo' 			=> false ,
-			'container' 	=> false,
-			'items_wrap'	=> '%3$s',
-			'walker'		=> $this->walker, 
-			'uber_instance'	=> $this->args->uber_instance,
-			'uber_segment'	=> $this->ID,
-			// new UberMenuWalker( $this->depth ),
-		) );
+			//Submenus of this item should defer to parent
+			if( $this->depth > 0 ){
+				//If this is top level, we don't need to set
+				$this->settings['submenu_type_calc'] = $this->walker->parent_item()->getSetting('submenu_type_calc');
+			}
 
-		//Reset depth offset
-		$this->walker->set_offset_depth( $current_depth_offset );
+			//Set Depth offset for segment
+			$current_depth_offset = $this->walker->get_offset_depth();
+			$this->walker->set_offset_depth( $this->depth );
+
+			$segment_html = wp_nav_menu( array( 
+				'menu' 			=> $menu_segment , 
+				'echo' 			=> false ,
+				'container' 	=> false,
+				'items_wrap'	=> '%3$s',
+				'walker'		=> $this->walker, 
+				'uber_instance'	=> $this->args->uber_instance,
+				'uber_segment'	=> $this->ID,
+				// new UberMenuWalker( $this->depth ),
+			) );
+
+			//Reset depth offset
+			$this->walker->set_offset_depth( $current_depth_offset );
+
+			set_transient( $transient_key , $segment_html , $transient_expiry );
+		}
+		else{
+			$html.= "<!-- cached segment $transient_expiry_hours hours / Transient Key: $transient_key -->";
+		}
+
+
+		$html.= $segment_html;
+
+			
 
 		return $html;
 	}
@@ -97,4 +123,11 @@ class UberMenuItemMenuSegment extends UberMenuItem{
 	function get_submenu_wrap_end(){
 		return '';
 	}
+}
+
+
+//Menu Segments need to clear the transient after menu item save
+add_action( 'ubermenu_after_menu_item_save' , 'ubermenu_clear_menu_segment_transient' , 10 , 1 );
+function ubermenu_clear_menu_segment_transient( $menu_item_id ){
+	delete_transient( 'ubertk_mseg_'.$menu_item_id );
 }

@@ -1,6 +1,7 @@
 .DS_Store
 
 custom/custom.css
+custom/custom.js
 
 npm-debug.log
 node_modules

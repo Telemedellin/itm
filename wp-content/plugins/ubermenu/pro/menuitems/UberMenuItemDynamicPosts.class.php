@@ -97,18 +97,24 @@ class UberMenuItemDynamicPosts extends UberMenuItemDynamic{
 					
 					//NOTE: In the alter() function, the current_item() is still our parent
 
-					$pitem = $this->walker->current_item()->item;
+					//$pitem = $this->walker->current_item()->item;
+					$pitem = $this->walker->current_item();
+
+					//Pass through Columns and Rows
+					if( $pitem->getType() == 'column' || $pitem->getType() == 'row' ){
+						$pitem = $this->walker->parent_item();
+					}
 
 					//Dynamic Term Parent
-					if( $pitem->custom_type == 'dynamic_term_item' ){
-						if( $pitem->taxonomy_slug == 'post_tag' ){
-							$post_args['tag_id'] = $pitem->term_id;
+					if( $pitem->item->custom_type == 'dynamic_term_item' ){
+						if( $pitem->item->taxonomy_slug == 'post_tag' ){
+							$post_args['tag_id'] = $pitem->item->term_id;
 						}
 					}
 					//Tag Item Parent
-					else if( $pitem->type == 'taxonomy' ){
-						if( $pitem->object == 'post_tag' ){
-							$post_args['tag_id'] = $pitem->object_id;
+					else if( $pitem->item->type == 'taxonomy' ){
+						if( $pitem->item->object == 'post_tag' ){
+							$post_args['tag_id'] = $pitem->item->object_id;
 						}
 					}
 				}
@@ -130,17 +136,25 @@ class UberMenuItemDynamicPosts extends UberMenuItemDynamic{
 
 					//Use Parent ID
 					if( $term_id == -1 ){
-						$pitem = $this->walker->current_item()->item;
+						
+						//$pitem = $this->walker->current_item()->item;
+						$pitem = $this->walker->current_item();
+
+						//Pass through Columns and Rows
+						if( $pitem->getType() == 'column' || $pitem->getType() == 'row' ){
+							$pitem = $this->walker->parent_item();
+						}
+
 						//Dynamic Term Parent
-						if( $pitem->custom_type == 'dynamic_term_item' ){
-							if( $pitem->taxonomy_slug == $tax_id ){
-								$term_id = $pitem->term_id;
+						if( $pitem->item->custom_type == 'dynamic_term_item' ){
+							if( $pitem->item->taxonomy_slug == $tax_id ){
+								$term_id = $pitem->item->term_id;
 							}
 						}
 						//Custom Taxonomy Item Parent
-						else if( $pitem->type == 'taxonomy' ){
-							if( $pitem->object == $tax_id ){
-								$term_id = $pitem->object_id;
+						else if( $pitem->item->type == 'taxonomy' ){
+							if( $pitem->item->object == $tax_id ){
+								$term_id = $pitem->item->object_id;
 							}
 						}
 					}
@@ -172,22 +186,23 @@ class UberMenuItemDynamicPosts extends UberMenuItemDynamic{
 
 				if( $post_parent == -1 ){
 
-
 					//find_parent_post
 
-
-					$pitem = $this->walker->current_item()->item;
+					//$pitem = $this->walker->current_item()->item;
+					$pitem = $this->walker->current_item();
+					if( $pitem->getType() == 'column' || $pitem->getType() == 'row' ){
+						$pitem = $this->walker->parent_item();
+					}
 
 					//Dynamic Post Parent
-					if( $pitem->custom_type == 'dynamic_post_item' ){
-						//up( $pitem );
-						$post_args['post_parent'] = $pitem->dynamic_post_id;
+					if( $pitem->item->custom_type == 'dynamic_post_item' ){
+						$post_args['post_parent'] = $pitem->item->dynamic_post_id;
 					}
 					//Post Item Parent
-					else if( $pitem->type == 'post_type' ){
+					else if( $pitem->item->type == 'post_type' ){
 						
 						//if( $pitem->object ==  /*'page'*/ ){	//Allow to work with custom post types
-							$post_args['post_parent'] = $pitem->object_id;
+							$post_args['post_parent'] = $pitem->item->object_id;
 						//}
 					}
 
@@ -413,7 +428,8 @@ class UberMenuItemDynamicPosts extends UberMenuItemDynamic{
 					//$term_url = get_term_link( $term_id , $view_all_taxonomy );
 					$term_url = get_term_link( intval( $term_id ) , $view_all_taxonomy );	//Some servers misinterpret as non-int?
 					$view_all_link_text = 'View all <i class="fa fa-angle-double-right"></i>';
-					if( $view_all_link_text_setting = $this->getSetting( 'dp_view_all_text' ) != '' ){
+					if( $this->getSetting( 'dp_view_all_text' ) != '' ){
+						$view_all_link_text_setting = $this->getSetting( 'dp_view_all_text' );
 						$view_all_link_text = $view_all_link_text_setting;
 					}
 					$html.= '<li class="ubermenu-item ubermenu-item-normal ubermenu-item-view-all"><a href="'.$term_url.'" class="ubermenu-target">'.$view_all_link_text.'</a></li>';
@@ -590,14 +606,14 @@ class UberMenuItemDynamicPost extends UberMenuItemDefault{
 		//Disabled (change el)
 		//TODO
 	
-
-
 		//Title
 		$title = '';
 		if( $this->getSetting( 'disable_text' ) == 'off' ){
-			$title .= '<span class="ubermenu-target-title ubermenu-target-text">';
-			$title .= apply_filters( 'the_title', $p->post_title, $p->ID );
-			$title .= '</span>';
+
+			$title = apply_filters( 'the_title', $p->post_title, $p->ID );
+			$title = apply_filters( 'ubermenu_dp_title' , $title , $this->source_id , $p->ID );
+
+			$title = '<span class="ubermenu-target-title ubermenu-target-text">' . $title . '</span>';
 		}
 
 

@@ -84,4 +84,86 @@ class UberMenuItemDefault extends UberMenuItem{
 		return $item_output;
 	}
 
+	function alter_structure(){
+		//if( $this->getSetting( ''))
+		if( is_numeric( $this->getSetting( 'submenu_autocolumns' ) ) ){
+			return $this->alter_structure = true;
+		}
+		return $this->alter_structure;
+	}
+
+
+	function alter( &$children ){
+
+		$autocolumns = $this->getSetting( 'submenu_autocolumns' );
+		if( $autocolumns && 													//Value is set
+			$autocolumns != 'disabled' && 										//Value is not disabled
+			isset( $children[$this->ID] ) ){									//Children exist (otherwise, there are no columns to autocreate, and this will cause an issue)
+
+			$item_count = count( $children[$this->ID] );						//Total original child items
+
+			$new_children = array();											//New child items to be added to $children array, keyed by item IDs
+			$column_map = array();												//Map of Column Index => Item Count
+
+			$remainder = $item_count % $autocolumns;							//If 0, items divide evenly into columns, making things simple
+			$items_per_column = ceil( $item_count / $autocolumns );				//Items per column if they were all filled 100%
+
+			//If things don't divide evenly, figure out how to divide them evenly
+			//All columns will have $items_per_column or $items_per_column-1
+			if( $remainder ){
+				//Traverse each column
+				for( $_k = 0; $_k < $autocolumns; $_k++ ){
+
+					//Assume columns filled to begin with
+					$column_map[$_k] = $items_per_column;
+
+					//If the next column starts the remainder, drop an item
+					if( $_k+1 == $remainder ){
+						$items_per_column--;
+					}
+				}
+			}
+			//If everything divided evenly, then the map has the same value for all columns
+			else{					
+				for( $_k = 0; $_k < $autocolumns; $_k++ ){
+					$column_map[$_k] = $items_per_column;
+				}
+			}
+		
+
+			$child_index = 0;													//A pointer to the current item we're copying in the original item's child array
+			foreach( $column_map as $_col => $column_count ){
+
+				//Create Dummy Column Item, which will be a child of the original item
+				$column_id = $this->ID . '-col-' . $_col;
+				$new_children[$this->ID][] = new UberMenu_dummy_item( 
+							$column_id , 
+							'column' , 
+							'Auto Column' , 
+							$this->ID,
+							array( 'columns' => '1-'.$autocolumns ),
+							array( 'ubermenu-autocolumn' )
+						);
+
+				//Set up the children for this item, taking the proper indexes from the original children array
+				//Take the next $column_count items from the original children array and add it to this column's children array
+				$column_children = array();
+				for( $k = 0; $k < $column_count ; $k++ ){
+					$column_children[] = $children[$this->ID][$child_index];
+					$child_index++;
+				}
+
+				//Add this column's children to the $children array
+				$new_children[$column_id] = $column_children;
+
+			}
+
+			//Add all the new children back into the $children array, overriding the item's original children
+			foreach( $new_children as $item_id => $kiddos ){
+				$children[$item_id] = $kiddos;
+			}
+		}
+
+	}
+
 }

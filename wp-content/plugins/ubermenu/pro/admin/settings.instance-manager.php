@@ -95,6 +95,9 @@ function ubermenu_add_instance_callback(){
 		if( in_array( $new_id , $menus ) ){
 			$response['error'] = 'That ID is already taken. ';
 		}
+		else if( in_array( $new_id , array( 'general' , 'main' , 'help' , 'updates' ) ) ){
+			$response['error'] = 'That ID is reserved for plugin use.  Please choose another.';
+		}
 		else{
 			$menus[] = $new_id;
 			update_option( UBERMENU_MENU_INSTANCES , $menus );
@@ -141,11 +144,15 @@ function ubermenu_delete_instance_callback(){
 			$response['error'] = 'ID not in $menus ['.$id.']';
 		}
 		else{
-			//unset( $menus[$id] );
+			
+			//Remove Menu from menus list in DB
 			$i = array_search( $id , $menus );
 			if( $i !== false ) unset( $menus[$i] );
-
 			update_option( UBERMENU_MENU_INSTANCES , $menus );
+
+			//Remove menu's custom styles
+			ubermenu_delete_menu_styles( $id );
+
 			$response['menus'] = $menus;
 		}
 

@@ -81,7 +81,7 @@ class UberMenuItemDynamicTerms extends UberMenuItemDynamic{
 			//Get the taxonomies to search
 			$taxonomies = $this->getSetting( 'dt_taxonomy' ); //isset( $settings['dt_taxonomy'] ) ? $settings['dt_taxonomy'] : $defaults['dt_taxonomy'];
 			if( empty( $taxonomies ) ){
-				$this->notice = '<strong>'._( 'Please select at least one taxonomy in the Dynamic Terms settings' , 'ubermenu' ).'</strong>';
+				$this->notice = '<strong>'.__( 'Please select at least one taxonomy in the Dynamic Terms settings' , 'ubermenu' ).'</strong>';
 			}
 
 
@@ -100,10 +100,10 @@ class UberMenuItemDynamicTerms extends UberMenuItemDynamic{
 				$this->notice = '<strong>'.$this->item->title.' ('.$this->ID.')</strong>: '.__( 'No results found' , 'ubermenu' );
 
 				if( empty( $taxonomies ) ){
-					$this->notice.= '<br/><strong>'._( 'Please select at least one taxonomy in the Dynamic Terms settings' , 'ubermenu' ).'</strong>';
+					$this->notice.= '<br/><strong>'.__( 'Please select at least one taxonomy in the Dynamic Terms settings' , 'ubermenu' ).'</strong>';
 				}
 				else if( count( $taxonomies ) > 1 ){
-					$this->notice.= '<br/><strong>'._( 'Make sure you only select the taxonomies that you want to display terms from' , 'ubermenu' ).'</strong>';
+					$this->notice.= '<br/><strong>'.__( 'Make sure you only select the taxonomies that you want to display terms from' , 'ubermenu' ).'</strong>';
 				}
 
 				$this->notice.= '<br/><em>'.__( 'Taxonomies' , 'ubermenu' ).':</em>';

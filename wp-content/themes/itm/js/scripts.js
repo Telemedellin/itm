@@ -13,6 +13,12 @@
 		evt.stopPropagation();
 	});
 
+	// Filtros de tipo de programas para extensiones academicas
+	$('.program-filters .checkbox-itm > input, .metodology-filters .checkbox-itm > input').on('change', function(evt) {
+		filtrarProgramas();
+		evt.stopPropagation();
+	});
+
 	// Filtro de extensiones academicas
 	$('.extension-filter > span').on('click', function(evt) {
 		if ($(this).hasClass('select'))
@@ -22,19 +28,13 @@
 			$('.extension-filter').children().removeClass('select');
 			$(this).addClass('select');
 		}
-		//filtrarProgramas();
-		evt.stopPropagation();
-	});
-
-	// Filtros de tipo de programa y metodologías
-	$('.metodology-filters .checkbox-itm > input').on('change', function(evt) {
-		filtrarProgramas();
+		filtrarExtensiones();
 		evt.stopPropagation();
 	});
 
 	// Filtros de tipo de programas para extensiones academicas
-	$('.program-filters .checkbox-itm > input').on('change', function(evt) {
-		//filtrarProgramas();
+	$('.sede-filters .checkbox-itm > input').on('change', function(evt) {
+		filtrarExtensiones();
 		evt.stopPropagation();
 	});
 
@@ -155,6 +155,79 @@
 			}
 		});
 	}
+
+	// Metodo que se encargara de hacer las peticiones ajax para los filtros
+	function filtrarExtensiones()
+	{
+		var data			= {};
+		data['cat']			= $('#primary').attr('cat');
+		data['tipo']		= $('.filter-label.select').attr('rel');
+		var checkbox_list	= $('.checkbox-itm > input');
+
+		$.each(checkbox_list, function (k, v) {
+			v.checked ? data[v.id] = true : data[v.id] = null;
+		});
+
+		$.ajax({
+			url: theme_path + '/ajax/filtro-extensiones.php',
+			method: 'POST',
+			data: data,
+			beforeSend: function()
+			{
+				// Mostrar el efecto de cargando...
+				$('.ctn__section-content').css({
+					height: '573px'
+				});
+				$('.overlay-filter').show();
+			},
+			success: function(data)
+			{
+				var container = $('.ctn__programa.hidden').get(0);
+				var items = [];
+				$.each(data, function(k,v) {
+					// a.ctn__programa
+					var _container = $(container).clone().removeAttr('style').removeClass('hidden').get(0);
+					_container.href = v.enlace;
+					// ctn__programa-image
+					var style = _container.children[0].children[0].style;
+					var img_url = $(v.imagen).attr('src');
+					style.background = 'url("http://lorempixel.com/400/400") 50% 50% / 100% no-repeat';
+					style.backgroundPosition = '50% 50%';
+					style.backgroundSize = '100%';
+					
+					// ctn__programa-image > img
+					//_container.children[0].children[0].children[0].src = img_url;
+					
+					// ctn__programa_top > h3
+					_container.children[0].children[1].innerText = v.titulo;
+
+					// Tipo de programa
+					_container.children[1].children[0].children[1].innerText = v.tipo_text;
+					// Sede
+					_container.children[1].children[0].children[3].innerText = v.sede_text;
+					// Intensidad horaria
+					_container.children[1].children[0].children[5].innerText = v.intensidad_horaria;
+
+					items.push(_container);
+				});
+
+				$('.ctn__programas').html('');
+				if (data.length > 0)
+					$('.ctn__programas').append(items);
+				else
+				{
+					var msg = $('#msg__sin-resultados').clone().removeAttr('style');
+					$('.ctn__programas').append(msg);
+				}
+				$('.overlay-filter').hide();
+				$('.ctn__section-content').css({
+					height: 'auto'
+				});
+			}
+		});
+	}
+
+	
 
 	//Menú lateral para móviles
 	var btn_menu = $(".menu-lateral_titulo h3");//Disparador para el menú principal

@@ -179,6 +179,15 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'group'	=> 'integration',
 	);
 
+	$settings[21] = array(
+		'name'	=> 'disable_mobile',
+		'label'	=> __( 'Disable UberMenu on Mobile' , 'ubermenu' ),
+		'type'	=> 'checkbox',
+		'desc'	=> __( 'When a mobile device is detected via <a href="https://codex.wordpress.org/Function_Reference/wp_is_mobile" target="_blank">wp_is_mobile()</a>, UberMenu will not replace the menu via automatic integration.  By defaut this includes tablets.  <br/>- <strong>Keep in mind if you are using a cache, you must cache desktop and mobile separately in order for this to work properly</strong>.  <br/>- Remember that UberMenu Advanced Items can only be used within UberMenus, so you likely don\'t want to enable this setting if you are using them.  <br/>- To customize what is considered "mobile", you can use the <a href="http://sevenspark.com/docs/ubermenu-3/developers/php-api/filters/ubermenu_is_mobile" target="_blank"><code>ubermenu_is_mobile</code></a> filter', 'ubermenu' ),
+		'default' => 'off',
+		'group'	=> 'integration',
+	);
+
 	$settings[25] = array(
 		'name'	=> 'direct_inject',
 		'label'	=> __( 'Direct Injection Testing (Experimental)' , 'ubermenu' ),
@@ -231,16 +240,19 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 	$settings[160] = array(
 		'name'		=> 'bar_align',
 		'label'		=> __( 'Menu Bar Alignment' , 'ubermenu' ),
-		'desc'		=> __( 'Alignment relative to the theme container.  If you choose "Center", you must set a Menu Bar Width below.' , 'ubermenu' ),
+		'desc'		=> __( 'Alignment relative to the theme container.  <br/>The theme\'s container limits the maximum width of the menu bar.  If the theme\'s container element is 500px, the Full Width setting will make the menu 500px wide.  <br/>If you choose "Center", you must set a Menu Bar Width below.' , 'ubermenu' ),
 		'type'		=> 'radio',
 		'options' 	=> array(
-			'full'	=> 'Full Width',
+			'full'	=> __( 'Full Width (of theme container element)', 'ubermenu' ),
 			'left' 	=> __( 'Left', 'ubermenu' ),
 			'right'	=> __( 'Right', 'ubermenu' ),
 			'center'=> __( 'Center (requires Menu Bar Width)', 'ubermenu' ),
 		),
 		'default' 	=> 'full',
 		'group'	=> 'position',
+		'customizer'	=> true,
+		'customizer_section' => 'menu_bar',
+
 	);
 
 
@@ -252,6 +264,9 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'default' 	=> '',
 		'group'	=> 'position',
 		'custom_style' => 'bar_width',
+
+		'customizer'	=> true,
+		'customizer_section' => 'menu_bar',
 	);
 
 	$settings[172] = array(
@@ -298,6 +313,8 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		),
 		'default' 	=> 'left',
 		'group'	=> 'position',
+		'customizer'	=> true,
+		'customizer_section' => 'menu_bar',
 	);
 
 	/* Won't do anything with floated items.
@@ -508,6 +525,16 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'type' 		=> 'checkbox',
 		'default' 	=> 'off',
 		'group'		=> 'images',
+	);
+
+	$settings[375] = array(
+		'name' 		=> 'image_text_top_padding',
+		'label' 	=> __( 'Image Text Top Padding', 'ubermenu' ),
+		'desc' 		=> __( 'The top padding for the accompanying text when Image Left or Image Right layouts are displayed.  This allows control over the vertical alignment of the text relative to the image.  Can be overriden on individual menu items.', 'ubermenu' ),
+		'type' 		=> 'text',
+		'default' 	=> '',
+		'group'		=> 'images',
+		'custom_style'	=> 'image_text_top_padding', 
 	);
 
 
@@ -762,9 +789,20 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'name'	=> 'style_top_level_item_divider_color',
 		'label'	=> __( 'Top Level Item Divider Color' , 'ubermenu' ),
 		'type'	=> 'color',
-		'desc'	=> __( 'The color of the lines in between the top level items (borders)' ),
+		'desc'	=> __( 'The color of the lines in between the top level items (borders)' , 'ubermenu' ),
 		'group'	=> 'style_customizations',
 		'custom_style'	=> 'top_level_item_divider_color',
+		'customizer'	=> true,
+		'customizer_section' => 'top_level_items',
+	);
+
+	$settings[621] = array(
+		'name'	=> 'style_top_level_item_divider_disable',
+		'label'	=> __( 'Disable Top Level Item Dividers' , 'ubermenu' ),
+		'type'	=> 'checkbox',
+		'desc'	=> __( 'You will likely want to set the Glow Opacity to 0 below as well' , 'ubermenu' ),
+		'group'	=> 'style_customizations',
+		'custom_style'	=> 'top_level_item_divider_disable',
 		'customizer'	=> true,
 		'customizer_section' => 'top_level_items',
 	);
@@ -1110,6 +1148,16 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'customizer'	=> true,
 		'customizer_section' => 'normal',
 	);
+	$settings[836] = array(
+		'name'	=> 'style_flyout_divier',
+		'label'	=> __( 'Flyout Items Divider' , 'ubermenu' ),
+		'type'	=> 'color',
+		'desc'	=> __( 'Horizontal divider between flyout menu items', 'ubermenu' ),
+		'group'	=> 'style_customizations',
+		'custom_style'	=> 'flyout_divider',
+		'customizer'	=> true,
+		'customizer_section' => 'normal',
+	);
 
 
 
@@ -1317,6 +1365,18 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 	//Toggle Bar
 
 	$settings[940] = array(
+		'name'	=> 'style_toggle_font_size',
+		'label'	=> __( 'Responsive Toggle Font Size' , 'ubermenu' ),
+		'type'	=> 'text',
+		//'desc'	=> __( '', 'ubermenu' ),
+		'group'	=> 'style_customizations',
+		'custom_style'	=> 'toggle_font_size',
+		'customizer'	=> true,
+		'customizer_section' => 'toggle',
+	);
+
+
+	$settings[950] = array(
 		'name'	=> 'style_toggle_background',
 		'label'	=> __( 'Responsive Toggle Background' , 'ubermenu' ),
 		'type'	=> 'color',
@@ -1327,7 +1387,7 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'customizer_section' => 'toggle',
 	);
 
-	$settings[950] = array(
+	$settings[955] = array(
 		'name'	=> 'style_toggle_color',
 		'label'	=> __( 'Responsive Toggle Font Color' , 'ubermenu' ),
 		'type'	=> 'color',
@@ -1360,6 +1420,8 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'customizer_section' => 'toggle',
 	);
 
+	
+
 
 	//Search Bar
 	$settings[990] = array(
@@ -1380,6 +1442,17 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		//'desc'	=> __( '', 'ubermenu' ),
 		'group'	=> 'style_customizations',
 		'custom_style'	=> 'search_color',
+		'customizer'	=> true,
+		'customizer_section' => 'search',
+	);
+
+	$settings[997] = array(
+		'name'	=> 'style_search_font_size',
+		'label'	=> __( 'Search Bar Font Size' , 'ubermenu' ),
+		'type'	=> 'text',
+		//'desc'	=> __( '', 'ubermenu' ),
+		'group'	=> 'style_customizations',
+		'custom_style'	=> 'search_font_size',
 		'customizer'	=> true,
 		'customizer_section' => 'search',
 	);
@@ -1437,7 +1510,7 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 
 
 	/* Icons */
-	$settings[1029] = array(
+	$settings[1028] = array(
 		'name'		=> 'icons_header',
 		'label'		=> __( 'Icons' , 'ubermenu' ),
 		'type'		=> 'header',
@@ -1445,13 +1518,26 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 	);
 
 
-	$settings[1030] = array(
+	$settings[1029] = array(
 		'name'		=> 'icon_width',
 		'label'		=> __( 'Icon Width' , 'ubermenu' ),
 		'desc'		=> __( 'The width to allot for the icon.  Icon will be centered within this width.  1.3em by default.' , 'ubermenu' ),
 		'type'		=> 'text',
 		'group'		=> 'icons',
 		'custom_style' => 'icon_width',
+	);
+
+	$settings[1030] = array(
+		'name'		=> 'icon_tag',
+		'label'		=> __( 'Icon Tag' , 'ubermenu' ),
+		'desc'		=> __( 'The HTML tag to use for the icons.' , 'ubermenu' ),
+		'type'		=> 'radio',
+		'default'	=> 'i',
+		'options'	=> array(
+						'i'		=> '&lt;i&gt;',
+						'span'	=> '&lt;span&gt;',
+		),
+		'group'		=> 'icons',
 	);
 
 	$settings[1031] = array(
@@ -1506,6 +1592,17 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 	);
 
 	$settings[1058] = array(
+		'name'		=> 'custom_font_family',
+		'label'		=> __( 'Font Family' , 'ubermenu' ),
+		'desc'		=> __( 'Set a custom <strong>font-family</strong> CSS property for the menu.  Note that this does not load the font asset, just set the CSS property' , 'ubermenu' ),
+		'type'		=> 'text',
+		'group'		=> 'fonts',
+		'custom_style'	=> 'custom_font_family',
+		'customizer'=> true,
+		'customizer_section' => 'fonts',
+	);
+
+	$settings[1059] = array(
 		'name'		=> 'custom_font_property',
 		'label'		=> __( 'Custom Font Property' , 'ubermenu' ),
 		'desc'		=> __( 'Set a custom <strong>font</strong> CSS property for the menu.  Example: <strong><code>bold 12px/24px Helvetica, Arial, sans-serif</code></strong>  Not necessary in conjuction with Google Font setting above.' , 'ubermenu' ),
@@ -1515,6 +1612,8 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'customizer'=> true,
 		'customizer_section' => 'fonts',
 	);
+
+	
 
 
 
@@ -1555,6 +1654,7 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'type'		=> 'textarea',
 		'default'	=> '',
 		'group'		=> 'misc',
+		'sanitize_callback' => 'ubermenu_allow_html',
 	);
 
 	$settings[1090] = array(
@@ -1834,7 +1934,7 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 		'group'		=> 'advanced_menu_items',
 	);
 
-	$fields[260] = array(
+	$fields[255] = array(
 		'name'		=> 'autocomplete_max_post_results',
 		'label'		=> __( 'Maximum Autocomplete Post Results' , 'ubermenu' ),
 		'desc'		=> __( 'The maximum number of results that can appear in a Dynamic Posts post autocomplete setting.  Limited for performance reasons for sites with huge numbers of posts.' , 'ubermenu' ),
@@ -1842,6 +1942,24 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 		'default'	=> 100,
 		'group'		=> 'advanced_menu_items',
 	);
+
+	$fields[260] = array(
+		'name'		=> 'autocomplete_disable',
+		'label'		=> __( 'Disable Autocomplete' , 'ubermenu' ),
+		'desc'		=> __( 'Disable the autocomplete query.  If you have a massive number of terms or posts, this can cause a memory error when querying in the Appearance > Menus screen.  Enable this setting to disable the query' , 'ubermenu' ),
+		'type'		=> 'checkbox',
+		'default'	=> 'off',
+		'group'		=> 'advanced_menu_items',
+	);
+	$fields[261] = array(
+		'name'		=> 'dynamic_authors_disable',
+		'label'		=> __( 'Disable Dynamic Posts Author Selection' , 'ubermenu' ),
+		'desc'		=> __( 'Disable the Dynamic Posts Author query.  If you have a massive number of users on your site, this can cause a memory error when querying in the Appearance > Menus screen.  Enable this setting to disable the query' , 'ubermenu' ),
+		'type'		=> 'checkbox',
+		'default'	=> 'off',
+		'group'		=> 'advanced_menu_items',
+	);
+
 
 
 
@@ -1881,6 +1999,15 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 		'type'	=> 'checkbox',
 		'default'	=> 'off',
 		'desc'	=> __( 'Some themes or plugins filter the core menu item classes, which can break things.  Enable this setting to attempt to remove them.  Please note this is a core hook, and disabling all filters on this hook could also disable functionality you want.', 'ubermenu' ),
+		'group'	=> array( 'misc' , 'theme_integration' ),
+	);
+
+	$fields[298]	= array(
+		'name'	=> 'disable_custom_admin_walker',
+		'label'	=> __( 'Disable Custom Menus Panel Walker' , 'ubermenu' ),
+		'type'	=> 'checkbox',
+		'default'	=> 'off',
+		'desc'	=> __( 'A custom walker allows the theme or another plugin to take over control of the output of the menu item markup in Appearance > Menus.  In most cases, this is not an issue.  But certain themes choose to alter the structures within the menu items and can cause interference, breaking the UberMenu Menu Item Settings.  Enable this setting to try to disable the walker (and revert to the standard WordPress walker).', 'ubermenu' ),
 		'group'	=> array( 'misc' , 'theme_integration' ),
 	);
 

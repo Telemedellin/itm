@@ -1,0 +1,592 @@
+/*--------------------
+  Showcase
+-----------------------*/
+body.post-type-modernteamshowcases #postbox-container-1,
+body.post-type-modernteamshowcases #normal-sortables,
+body.post-type-modernteamshowcases #postdivrich{
+display: none;
+}
+
+.wph_editor_body {
+	border: 1px solid #bbb;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.wph_editor_body[data-wph-plugin="wmts"] .wmts_editor_settingsType
+{
+display: none;
+}
+
+[data-wph-plugin="wmts"] input[type="number"]{
+padding-right: 0;
+}
+
+[data-wph-plugin="wmts"] input{
+width: auto;
+line-height: 1.5em;
+}
+
+[data-wph-plugin="wmts"] {
+margin-bottom: 10px;
+}
+
+.post-type-modernteamforms .inside>strong:first-child,
+.post-type-modernteamshowcases .inside>strong:first-child{
+margin: 10px 0;
+display: block;
+}
+
+/*presets panel*/
+#poststuff .wmts_presets h2,
+.wmts_presets h2{
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+
+#poststuff .wmts_presets>h2:first-child,
+.wmts_presets>h2:first-child{
+	margin-top:10px;
+}
+
+.wmts_presets h2+section{
+	padding-top: 10px;
+}
+
+.wmts_presets section{
+	padding: 15px 0 0 20px;
+}
+
+.wmts_presets .wmts_gap{
+	margin-top: 25px;
+}
+
+.wmts_presets span{
+margin: 25px 0;
+}
+
+.wmts_presets input[type=number]{
+width: 60px; 
+margin-left: 10px;	
+}
+
+.wmts_presets input[type=text]{
+border: 1px solid #ddd
+}
+
+.wmts_presets section>div{
+display: inline;
+margin-left:10px;	
+}
+
+.wmts_presets section div span{
+font-weight: normal;
+margin: 0 20px 0 0;
+}
+
+.wmts_description_field {
+display: none;	
+}
+/*
+.wmts_attributes_components_section {
+display: none;		
+}
+*/
+.wmts_attributes_components,
+.wmts_links_components {
+	display: inline-block!important;
+	vertical-align:top;
+}
+
+.wmts_attributes_components>div,
+.wmts_links_components>div{
+	width: 150px;
+	margin-bottom: 10px;
+	cursor: move;
+}
+
+input.wmts_remap_metas{
+	margin-left: 10px;
+}
+
+.wmts_presets section.wmts_indented{
+	margin-left: 20px;
+}
+
+.wmts_remap_metas_container{
+	margin-top: 10px;
+}
+
+.wmts_remap_metas_container input{
+	width: 150px;
+	font-size: 12px;
+}
+
+.wmts_presets .wmts_remap_metas_container span{
+	width: 150px;
+	display: inline-block;
+	margin: 10px 10px 10px 0;
+}
+
+.wmts_frontend_editor_trigger{
+    background: #008000;
+    color: #FFF;
+    font-size: 13px;
+    padding: 5px 6px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.wph_editor_body[data-wph-plugin="wmts"]>div
+{
+display: none;
+}
+
+.wmts_custom_css {
+	vertical-align: top;
+	margin: 0 10px;
+	width: 600px;
+	height: 300px;
+	display: block;
+	float: left;
+	margin-bottom: 20px;
+}
+
+.wmts_useful_css_selectors{
+	display: inline-block!important;
+}
+
+.wmts_useful_css_selectors>*{
+display: block!important;
+padding: 5px!important;
+}
+
+.wmts_useful_css_selectors>span:nth-child(even){
+background: #ececec;
+}
+
+.wmts_useful_css_selectors strong{
+width: 150px;
+display: inline-block;
+}
+
+/*settings type*/
+div.wmts_editor_settingsType{
+display: none;
+}
+
+.wph_editor_body[data-wph-plugin="wmts"]>div.wmts_editor_settingsType
+{
+display:block; 
+clear:both; 
+width: 84.5%;
+margin-bottom: 7px;
+}
+
+.wph_editor_body[data-wph-plugin="wmts"] .wmts_editor_settingsType>span[data-wph-type]
+{
+display: inline-block;
+}
+
+.wmts_presets  .wmts_remap_metas_container {
+display: none;
+}
+
+/*query*/
+.wph_editor_body[data-wph-plugin="wmts"][data-wph-settingsType="query"]>.wmts_query_panel 
+{
+display:block;
+}
+
+.wmts_query_panel,
+.wmts_template_panel,
+.wmts_target_panel
+{
+	padding: 2px 12px;
+}
+
+.wph_editor_body .wmts_query_panel  select[multiple]{
+min-width: 100px;
+min-height: 100px;
+}
+
+/*template*/
+.wph_editor_body[data-wph-plugin="wmts"][data-wph-settingsType="member_template"]>.wmts_member_template_panel 
+{
+display:block;
+padding: 0 15px 15px;
+}
+
+.wph_template_settings_tab_box[data-wph-type="Style"] textarea, .wmts_device_settings textarea{
+  width: 60%;
+  vertical-align: middle;
+  max-width: 250px;
+  min-height: 100px;
+}
+
+.wmts_meta_key_list_button{
+text-decoration: underline;
+cursor: pointer;
+}
+
+.wph_editor_body .wmts_meta_key_list{
+display: none;
+}
+
+.wmts_meta_key_list{
+background: white;
+width: 1000px;
+margin: 0 auto;
+padding: 20px 0;
+display: block;
+position: relative;
+font-family: Open Sans, arial;
+font-size: 15px;
+text-align: center;
+}
+
+.wmts_meta_key_list .mfp-close {
+  top: 0;
+  right: 0;
+  transform: translateX( 50% ) translateY( -50% );
+  color: #FFF!important;
+  border: 1px solid #989898;
+  background-color: #494949!important;
+  opacity: 1;
+  border-radius: 50%;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.wmts_meta_key_list>em:first-child{
+	width:100%;
+	display:block;
+	margin-bottom:10px;
+}
+
+.wmts_meta_key_list div{
+float: left;
+width: calc( 50% - 2px);
+}
+
+.wmts_meta_key_list>div{
+border-right: 4px solid white;
+}
+
+.wmts_meta_key_list>div:nth-child(3){
+border-right: none;
+}
+
+.wmts_meta_key_list span{
+display: block;
+padding: 10px 0;
+font-weight: bold;
+font-size: 13px;
+}
+
+.wmts_meta_key_list em{
+padding: 10px 0;
+font-weight: normal;
+font-size:.8em;
+font-style: normal;
+}
+
+.wmts_meta_key_list span:nth-child(odd){
+background: #eeeeee;
+}
+
+.wmts_meta_key_list span:hover{
+background: #ccc;
+}
+
+/*overall settings*/
+.wph_editor_body[data-wph-plugin="wmts"][data-wph-settingsType="overall"]>.wmts_overall_settings_panel 
+{
+display:block;
+padding: 0 15px 15px;
+}
+
+.wmts_overall_settings_panel>p:first-child{
+	margin:0;
+    padding: 0;
+}
+
+.wmts_overall_settings_panel input[type="number"]{
+width: 60px;
+}
+
+.wmts_overall_settings_panel .wph_editor_p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.wmts_device_settings{
+background: #FFF;
+width: calc( 100% + 2em );
+left: -1em;
+position: relative;
+padding: 15px;
+margin-bottom: 1em;
+}
+
+.wmts_select_device{
+	padding:0!important;
+}
+
+.wmts_select_device i{
+display: inline-block;
+font-size: 20px;
+padding: 10px;
+height: 40px;
+width: 40px;
+text-align: center;
+}
+
+i.wmts_selected_device{
+background: white;
+}
+
+.wph_editor_body[data-wph-settingstype="member_template"]{
+width: 650px;
+}
+
+.wmts_select_pages_container,
+.wmts_hidden_terms
+{
+display: none;
+}
+
+.wmts_filtering_details{
+display: inline-block;
+vertical-align: top;
+position: relative;left: 20px;margin: 5px 0;}
+
+.wmts_filter_item_details{
+    padding-left: 5px;
+}
+
+.wmts_filter_item_details i{
+	cursor: pointer;
+}
+
+.wmts_filter_item_details input[type="checkbox"]{
+    margin-left: 10px;
+}
+
+.wmts_filter_item_details input:last-child{
+    width: 250px;
+    font-size: 12px;
+}
+
+.wmts_filter_item_details span{
+    width: 110px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0;
+    line-height: 11px;
+}
+
+/*Add dummy members*/
+.wmts_add_dummy_members{
+margin-left: 4px;
+padding: 4px 8px;
+position: relative;
+top: -3px;
+text-decoration: none;
+border: none;
+-webkit-border-radius: 2px;
+border-radius: 2px;
+background: #E0E0E0;
+text-shadow: none;
+font-weight: 600;
+font-size: 13px;
+}
+
+.wmts_add_dummy_members:hover {
+background: #00A0D2;
+color: #FFF;
+}
+
+/*guides*/
+.wmts_guide_keys {
+display: inline-block;
+margin: 0;
+font-size: 0;
+overflow: hidden;
+}
+
+span.wmts_guide_key{
+display: inline-block;
+padding: 8px 16px;
+cursor: pointer;
+border-right: 2px solid #ddd;
+border-left: 1px solid #fff;
+border-bottom: 2px solid transparent;
+border-bottom: 2px solid transparent;
+background: #ececec; /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */
+background: linear-gradient(to bottom, #EAEAEA 0%,#EAEAEA 50%,#DADADA 51%,#D7D7D7 100%); /* W3C */ /* IE6-9 */
+font-size: 12px;
+}
+
+span.wmts_guide_key.wmts_selected{
+background: #F5F5F5;
+border-right-color: #D5D5D5;
+border-left-color: #CACACA;
+text-decoration: underline;
+font-weight: bold;
+}
+
+span.wmts_guide_key:last-child{
+border-right: none;
+}
+
+span.wmts_guide_key:first-child{
+border-left: none;
+}
+
+.wmts_guide{
+display: none;
+background: #F5F5F5;
+margin-top: -5px;
+padding: 10px 15px;
+}
+
+.wmts_guide li{
+font-size: 13px;
+line-height: 24px;
+margin-bottom:15px;
+}
+
+.wmts_screenshot{
+font-family:inherit!important;	
+padding: 5px;
+background: #ddd;
+margin: 0 5px;
+display: inline-block;
+}
+
+.wmts_screenshot:before{
+font-family:'FONTAWESOME'!important;
+margin:0 5px;
+}
+
+#wmts_preview{
+max-width: 1100px;	
+}
+
+/*--------
+  Forms
+-----------*/
+body.post-type-modernteamforms #postbox-container-1,
+body.post-type-modernteamforms #normal-sortables,
+body.post-type-modernteamforms #postdivrich{
+ display: none;
+}
+
+.wmts_form_presets span{
+font-weight: bold;
+margin: 0 5px 0 10px;
+}
+
+.wmts_form_presets span.button{
+margin-left: 10px;
+}
+
+[data-wph-plugin="wmts-form"].wph_editor_body>.wph_editor_settingsType
+{
+	display: none;
+}
+
+[data-wph-plugin="wmts-form"].wph_editor_body>.wph_form_editor_settingsType {
+    display: block;
+    clear: both;
+    width: 84.5%;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+[data-wph-plugin='wmts-form'][data-wph-settingstype="Add Element"].wph_editor_body .wph_editor_form_elements,
+[data-wph-plugin='wmts-form'][data-wph-settingstype="Edit Element"].wph_editor_body .wph_editor_form_options
+{
+	display: inline-block;
+}
+
+.wmts_form_submit_notice{
+    font-size: 15px;
+    line-height: 35px;
+    margin: 10px 0!important;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    border: 3px solid #FFBA00;
+    border-width: 0 3px;
+}
+
+.wmts_form_submit_notice ul{
+list-style-type: disc;
+padding-left: 30px;
+}
+
+.wmts_form_submit_notice ul li{
+	margin-bottom: 20px;
+}
+
+.wmts_form_submit_notice hr{
+    margin: 20px 0;
+}
+
+.wmts_filtering_reset_notice{
+position: relative; 
+left: -20px; 
+margin: 10px 0; 
+display: block; 
+font-style: italic;	
+}
+
+.wmts_faqs_q, .wmts_faqs_a {
+    font-size: 15px;
+    line-height: 35px;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 10px 15px;
+    border: 3px solid #FFBA00;
+    border-width: 0 3px;
+}
+
+.wmts_faqs_q{
+	margin-top: 10px;
+	cursor: pointer;
+	transition: .3s background;
+	-webkit-transition: .3s background;
+}
+
+.wmts_faqs_a{
+	margin-bottom: 10px;
+	display: none;
+}
+
+.wmts_faqs_q>i:first-child{
+	color: #FFBA00;
+	margin-right: 10px;
+	font-size: 20px;
+}
+
+.wmts_faqs_q.wmts_faqs_selected{
+	/*font-weight: bold;*/
+	background: #E6E5E5;
+}
+
+.wmts_faqs_q:hover{
+	background: #E6E5E5;
+}
+
+/*---------------------------
+  Taxonomy Term Form
+------------------------------*/
+#edittag label[for="mtsform"] {
+	font-weight:bold; 
+	width: 200px; 
+	display: inline-block; 
+	margin-right: 15px;"
+}

@@ -18,6 +18,7 @@ function ubermenu_generate_item_styles(){
 		$spacing = 12;
 		$delim = "/* $item_id */";
 		$remainder = $spacing - strlen( $delim );
+		if( $remainder < 0 ) $remainder = 0;
 		$styles.= $delim . str_repeat( ' ' , $remainder );
 
 		$k = 0;
@@ -63,8 +64,8 @@ function ubermenu_delete_item_custom_styles( $post_id ){
 
 
 //Saving is deferred until after all properties have been processed for efficiency
-add_action( 'ubermenu_after_menu_item_save' , 'ubermenu_update_item_styles' );
-function ubermenu_update_item_styles(){
+add_action( 'ubermenu_after_menu_item_save' , 'ubermenu_update_item_styles' , 10 , 1 );
+function ubermenu_update_item_styles( $menu_item_id ){
 	_UBERMENU()->update_item_styles();
 }
 
@@ -222,6 +223,50 @@ function ubermenu_item_save_panels_padding( $item_id , $setting , $val , &$saved
 }
 
 
+/*
+ * SUBMENUS
+ */
+
+function ubermenu_item_save_submenu_column_divider_color( $item_id , $setting , $val , &$saved_settings ){
+	if( !$val ) return;
+
+	$selector = ".ubermenu .ubermenu-submenu-id-$item_id > .ubermenu-column + .ubermenu-column:not(.ubermenu-clear-row)";
+
+	$property_map = array(
+		'border-left' => "1px solid $val",
+	);
+
+	ubermenu_set_item_style( $item_id , $selector , $property_map );
+
+
+	//If auto-clear is on, and we have a new row, remove the left border from the first column in the second row
+	if( isset( $saved_settings['submenu_column_default'] ) && $saved_settings['submenu_column_default'] != 'auto' ){
+		if( isset( $saved_settings['submenu_column_autoclear'] ) && $saved_settings['submenu_column_autoclear'] == 'on' ){
+			$property_map = array(
+				'border-left'	=> 'none',
+			);
+			$def = $saved_settings['submenu_column_default'];
+			$cols = substr( $def , strlen( $def ) - 1 );
+			$selector = ".ubermenu .ubermenu-submenu-id-$item_id > .ubermenu-column + .ubermenu-column-$def:nth-child({$cols}n+1)";
+			ubermenu_set_item_style( $item_id , $selector , $property_map );
+		}
+	}
+
+	
+}
+function ubermenu_item_save_submenu_column_min_height( $item_id , $setting , $val , &$saved_settings ){
+	if( !$val ) return;
+
+	if( is_numeric( $val ) ) $val.='px';
+
+	$selector = ".ubermenu .ubermenu-submenu-id-$item_id > .ubermenu-column";
+
+	$property_map = array(
+		'min-height' => $val,
+	);
+
+	ubermenu_set_item_style( $item_id , $selector , $property_map );
+}
 
 
 function ubermenu_item_save_submenu_background_color( $item_id , $setting , $val , &$saved_settings ){
@@ -283,6 +328,21 @@ function ubermenu_item_save_submenu_min_width( $item_id , $setting , $val , &$sa
 	ubermenu_set_item_style( $item_id , $selector , $property_map );
 }
 
+function ubermenu_item_save_submenu_min_height( $item_id , $setting , $val , &$saved_settings ){
+
+	if( !$val ) return;
+
+	$selector = ".ubermenu .ubermenu-submenu.ubermenu-submenu-id-$item_id";
+
+	if( is_numeric( $val ) ) $val.= 'px';
+
+	$property_map = array(
+		'min-height' => $val
+	);
+
+	ubermenu_set_item_style( $item_id , $selector , $property_map );
+}
+
 function ubermenu_item_save_submenu_background_image( $item_id , $setting , $val , &$saved_settings ){
 
 	if( !$val ) return;
@@ -315,7 +375,7 @@ function ubermenu_item_save_submenu_padding( $item_id , $setting , $val , &$save
 
 	if( !$val ) return;
 
-	$selector = ".ubermenu .ubermenu-submenu.ubermenu-submenu-id-$item_id";
+	$selector = ".ubermenu .ubermenu-active > .ubermenu-submenu.ubermenu-submenu-id-$item_id";
 
 	$property_map = array(
 		'padding'	=>	$val,
@@ -502,7 +562,24 @@ function ubermenu_item_save_image_width_custom( $item_id , $setting , $val , &$s
 	ubermenu_set_item_style( $item_id , false , false );
 }
 
+function ubermenu_item_save_image_text_top_padding( $item_id , $setting , $val , &$saved_settings ){
 
+	if( !$val ) return;
+
+	if( is_numeric( $val ) ) $val.= 'px';
+
+	//$top_padding = $saved_settings['image_text_top_padding'];
+
+	$selector = ".ubermenu .ubermenu-submenu.ubermenu-submenu-id-$item_id";
+	$selector = ".ubermenu .ubermenu-item-$item_id > .ubermenu-item-layout-image_left > .ubermenu-target-title, .ubermenu .ubermenu-item-$item_id > .ubermenu-item-layout-image_right > .ubermenu-target-title" ;
+
+	$property_map = array(
+		'padding-top'	=>	$val,
+	);
+
+	ubermenu_set_item_style( $item_id , $selector , $property_map );
+
+}
 
 
 

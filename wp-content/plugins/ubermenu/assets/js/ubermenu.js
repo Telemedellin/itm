@@ -32,7 +32,8 @@
 			intent_threshold: uber_op( 'intent_threshold' , { datatype: 'numeric' } , 300 ),	//maximum number of pixels mouse can move to be considered intent
 
 			scrollto_offset: uber_op( 'scrollto_offset' , { datatype: 'numeric' } , 0 ),
-			scrollto_duration: uber_op( 'scrollto_duration' , { datatype: 'numeric' } , 1000 )
+			scrollto_duration: uber_op( 'scrollto_duration' , { datatype: 'numeric' } , 1000 ),
+			collapse_after_scroll: uber_op( 'collapse_after_scroll' , {datatype:'boolean'}, true ),
 		}/*,
 		keys = {
 			BACKSPACE: 8,
@@ -157,12 +158,12 @@
 
 
 		//Reflow right items
-		this.last_width = $(window).width();
+		this.last_width = window.innerWidth;
 		var cur_width = this.last_width;
 		var $right_items = plugin.$ubermenu.find( '.ubermenu-item-level-0.ubermenu-align-right' );
-		if( $right_items.size() ){
+		if( $right_items.length ){
 			$(window).ubersmartresize( function(){
-				cur_width = $(window).width();
+				cur_width = window.innerWidth;
 				if( plugin.last_width <= plugin.settings.breakpoint && 
 					cur_width >= plugin.settings.breakpoint ){					
 					$right_items.hide(); $right_items[0].offsetHeight; $right_items.show(); //reflow
@@ -239,6 +240,13 @@
 			var plugin = this;
 			$( '.ubermenu-item-level-0' ).one( 'ubermenuopen' , function(){
 				$( this ).find( '.ubermenu-image-lazyload' ).each( function(){
+					//Responsive images - add srcset and sizes if present
+					if( $( this ).data( 'srcset' ) ){
+						$( this )
+							.attr( 'srcset' , $( this ).data( 'srcset' ) )
+							.attr( 'sizes' , $( this ).data( 'sizes' ) )
+					}
+					//Whether responsive images (4.4+) or not, set src attribute
 					$( this )
 						.attr( 'src' , $( this ).data( 'src' ) )
 						.removeClass( 'ubermenu-image-lazyload' );
@@ -269,7 +277,7 @@
 					plugin.$current_focus = $target;
 					var $item = $target.parent( '.ubermenu-item' );	//get the LI parent of A
 
-					if( $item.size() ){
+					if( $item.length ){
 						//Top level items - just close everything else
 						if( $item.is( '.ubermenu-item-level-0' ) ){
 							plugin.closeAllSubmenus();
@@ -484,8 +492,9 @@
 			if( !this.settings.touchOffClose ) return;  //Don't initialize if touch off close is disabled
 
 			var plugin = this;
-			$( document ).on( this.touchEnd+'.ubermenu_touchoff' , function(e){ plugin.handleTouchoffClose( e, this , plugin ); } );
-			if( !this.suppress_clicks ) $( document ).on( 'mouseup.ubermenu_clickoff' , function(e){ plugin.handleTouchoffClose( e, this , plugin ); } ); //use mouseup instead of click for firefox
+			$( document ).on( this.touchStart+'.ubermenu_touchoff' , function(e){ plugin.handleTouchoffCloseStart( e, this , plugin ); } );
+			$( document ).on( this.touchEnd+'.ubermenu_touchoff' , function(e){ plugin.handleTouchoffClose( e, this , 'touch' , plugin ); } );
+			if( !this.suppress_clicks ) $( document ).on( 'mouseup.ubermenu_clickoff' , function(e){ plugin.handleTouchoffClose( e, this , 'click' , plugin ); } ); //use mouseup instead of click for firefox
 
 		},
 
@@ -493,7 +502,7 @@
 		initializeTabs: function(){
 
 			var plugin  = this;
-			var responsive = $(window).width() <= plugin.settings.breakpoint ? true : false;
+			var responsive = window.innerWidth <= plugin.settings.breakpoint ? true : false;
 
 			plugin.$tab_blocks = plugin.$ubermenu.find( '.ubermenu-tabs' );
 
@@ -506,9 +515,16 @@
 			});
 
 			//When the window is resized, check the tabs
+			plugin.windowwidth = window.innerWidth;
 			$(window).ubersmartresize(function(){
-				plugin.clearTabSizes( plugin );
-				plugin.sizeTabs();
+				plugin.oldwindowwidth = plugin.windowwidth;
+				plugin.windowwidth = window.innerWidth;
+				//only run if width has changed
+				if( plugin.windowwidth != plugin.oldwindowwidth ){
+					plugin.clearTabSizes( plugin );
+					plugin.sizeTabs();
+					plugin.checkActiveTabs( plugin );
+				}
 			});
 
 			//When the submenu is opened (first time only), check the tabs
@@ -524,10 +540,20 @@
 
 		},
 
+		checkActiveTabs: function( plugin ){
+			if( window.innerWidth <= plugin.settings.breakpoint ){
+				//close all open tabs
+				plugin.$tab_blocks.find( '.ubermenu-tab.ubermenu-active' ).removeClass( 'ubermenu-active' );
+			}
+			else{
+				plugin.initializeActiveTab( plugin );
+			}
+		},
+
 		initializeActiveTab: function( plugin ){
 			plugin.$ubermenu.find( '.ubermenu-tabs-show-default > .ubermenu-tabs-group' ).each( function(){
 				//If there are no active tabs, activate the first one
-				if( $(this).find( '> .ubermenu-tab.ubermenu-active' ).size() === 0 ){
+				if( $(this).find( '> .ubermenu-tab.ubermenu-active' ).length === 0 ){
 					plugin.openSubmenu( $(this).find( '> .ubermenu-tab' ).first() , 'tab default' , plugin );
 				}
 			});
@@ -542,7 +568,8 @@
 		sizeTabs: function(){
 
 			var plugin = this;
-			var responsive = $(window).width() <= plugin.settings.breakpoint ? true : false;
+			//var responsive = $(window).width() <= plugin.settings.breakpoint ? true : false;	//NO!  This is inaccurate
+			var responsive = window.innerWidth <= plugin.settings.breakpoint ? true : false;
 
 			if( responsive ) return;
 
@@ -625,7 +652,7 @@
 		},
 
 		initializeSegmentCurrentStates: function(){
-			this.$ubermenu.find( '.ubermenu-current-menu-item' ).first().parents( '.ubermenu-item' ).addClass( 'ubermenu-current-menu-ancestor' );
+			this.$ubermenu.find( '.ubermenu-current-menu-item' ).first().parents( '.ubermenu-item:not( .ubermenu-nocurrent )' ).addClass( 'ubermenu-current-menu-ancestor' );
 		},
 
 		disableTransitions: function(){
@@ -784,8 +811,8 @@
 					//if submenu is already open, close it and allow link to be followed
 					if( $li.hasClass( 'ubermenu-active' ) ){
 
-						//Don't close tabs
-						if( !$li.hasClass( 'ubermenu-tab' ) ){
+						//Don't close tabs, unless we're on mobile
+						if( !$li.hasClass( 'ubermenu-tab' ) || window.innerWidth <= plugin.settings.breakpoint ){
 							plugin.closeSubmenu( $li , 'toggleUberMenuActive' , plugin );
 						}
 						//plugin.followLink( e , $li , plugin );
@@ -835,9 +862,13 @@
 			if( scrolltarget ){
 
 				var $target_el = $( scrolltarget ).first();
-				if( $target_el.size() > 0 ){
+				if( $target_el.length > 0 ){
 					e.preventDefault();
 					$link.trigger( 'ubermenuscrollto' );
+					var $li = $link.parent( '.ubermenu-item' );
+					$li.addClass( 'ubermenu-current-menu-item' );
+					$li.siblings().removeClass( 'ubermenu-current-menu-item' ).removeClass( 'ubermenu-current-menu-parent' ).removeClass( 'uberemnu-current-menu-ancestor' );
+
 					var anim_done = false;
 					$( 'html,body' ).animate({
 							scrollTop: $target_el.offset().top - plugin.settings.scrollto_offset
@@ -846,6 +877,7 @@
 							//after scroll
 							if( !anim_done ){
 								plugin.closeSubmenu( $link.closest( '.ubermenu-item-level-0' ) , 'handeLink' , plugin );
+								if( plugin.settings.collapse_after_scroll && !plugin.$ubermenu.hasClass( 'ubermenu-responsive-nocollapse' ) ) plugin.toggleMenuCollapse( 'toggle' , false , plugin );
 								$link.trigger( 'ubermenuscrollto_complete' );
 								anim_done = true;
 							}
@@ -902,7 +934,7 @@
 
 			var $item = $target.parent( '.ubermenu-item' ); //$( li );
 
-			if( $item.size() ){
+			if( $item.length ){
 				//Check if this is already open
 				if( $item.hasClass( 'ubermenu-active' ) ){
 
@@ -1131,7 +1163,7 @@
 
 			var $item = $target.parent( '.ubermenu-item' ); //$( li );
 
-			if( $item.size() ){
+			if( $item.length ){
 				if( !$item.hasClass( 'ubermenu-active' ) ){
 
 					plugin.triggerSubmenu( e , $item , plugin );
@@ -1204,28 +1236,17 @@
 			//TODO just call off/on click.xyz?  or binding already fired?
 			//Or should we just have a state set that returns, independent of event type
 
-
-			var $toggle = $( toggle );
-
-			//plugin.$ubermenu.slideToggle();
-			
-			plugin.$ubermenu.toggleClass( 'ubermenu-responsive-collapse' );
-
-			if( plugin.transitions ){
-				plugin.$ubermenu.addClass( 'ubermenu-in-transition' );
-				plugin.$ubermenu.on( plugin.transitionend + '_toggleubermenu', function(){
-						plugin.$ubermenu.removeClass( 'ubermenu-in-transition' );
-						plugin.$ubermenu.off( plugin.transitionend  + '_toggleubermenu' );
-					});
-			}
+			plugin.toggleMenuCollapse( 'toggle' , toggle , plugin );
 
 		},
 
-		handleTouchoffClose: function( e , _this , plugin ){
+		handleTouchoffCloseStart: function( e , _this , plugin ){
+			plugin.touchoffclosestart = $( window ).scrollTop();
+		},
 
-			//Only fire if the touch event occurred outside the menu
-			//if( $(e.target).parents().index( plugin.$ubermenu ) == -1){
-			if( !$(e.target).closest( '.ubermenu' ).length ){
+		handleTouchoffClose: function( e , _this , eventtype , plugin ){
+			//Only fire if the touch event occurred outside the menu AND we've clicked OR we've touched but haven't scrolled
+			if( !$(e.target).closest( '.ubermenu' ).length && ( eventtype == 'click' || plugin.touchoffclosestart == $( window ).scrollTop() ) ){
 
 				plugin.log( 'touchoff close ', e );
 			
@@ -1250,6 +1271,48 @@
 
 		/* Controllers */
 
+		toggleMenuCollapse: function( action , toggle , plugin ){
+
+			plugin = plugin || this;
+			toggle = toggle || '.ubermenu-resposive-toggle';
+
+			var $toggle = plugin.$ubermenu.find( toggle );
+			
+			action = action || 'toggle';
+
+			if( action == 'toggle' ){
+				if( plugin.$ubermenu.hasClass( 'ubermenu-responsive-collapse' ) ){
+					action = 'open';
+				}
+				else{
+					action = 'close';
+				}
+			}
+
+			//plugin.$ubermenu.slideToggle();
+			
+			if( action == 'open' ){
+				plugin.$ubermenu.removeClass( 'ubermenu-responsive-collapse' );
+				$toggle.trigger( 'ubermenutoggledopen' );
+				$toggle.toggleClass( 'ubermenu-responsive-toggle-open' );
+			}
+			else{
+				plugin.$ubermenu.addClass( 'ubermenu-responsive-collapse' );
+				$toggle.trigger( 'ubermenutoggledclose' );
+				$toggle.toggleClass( 'ubermenu-responsive-toggle-open' );
+			}
+			//plugin.$ubermenu.toggleClass( 'ubermenu-responsive-collapse' );
+			//$toggle.trigger( 'ubermenutoggled' );
+
+			if( plugin.transitions && !plugin.$ubermenu.hasClass( 'ubermenu-responsive-nocollapse' ) ){
+				plugin.$ubermenu.addClass( 'ubermenu-in-transition' );
+				plugin.$ubermenu.on( plugin.transitionend + '_toggleubermenu', function(){
+						plugin.$ubermenu.removeClass( 'ubermenu-in-transition' );
+						plugin.$ubermenu.off( plugin.transitionend  + '_toggleubermenu' );
+					});
+			}
+		},
+
 		positionSubmenus: function(){
 
 			var plugin = this;
@@ -1269,7 +1332,7 @@
 						var $parent_sub = $parent.closest( '.ubermenu-submenu' );
 
 						//Find the closest relatively positioned element
-						if( $parent_sub.size() === 0 ){
+						if( $parent_sub.length === 0 ){
 							$container = plugin.$ubermenu.offsetParent();
 						}
 						else{
@@ -1374,7 +1437,7 @@
 
 		//Close subs without transition
 		closeSubmenuInstantly: function( $li ){
-			if( $li.size() === 0 ) return;
+			if( $li.length === 0 ) return;
 			var plugin = this;
 			$li.addClass( 'ubermenu-notransition' );
 			$li.removeClass( 'ubermenu-active' ).removeClass( 'ubermenu-in-transition' );
@@ -1491,7 +1554,14 @@
 		//Scroll to non-ID "hashes"
 		if( window.location.hash.substring(1,2) == '.' ){
 			var $scrollTarget = $( window.location.hash.substring(1) );
-			if( $scrollTarget.size() ) window.scrollTo( 0 , $scrollTarget.offset().top );
+			if( $scrollTarget.length ) window.scrollTo( 0 , $scrollTarget.offset().top - ubermenu_data.scrollto_offset );
+		}
+		//Make sure offset is applied to normal hashes
+		else if( window.location.hash.length ){
+			setTimeout( function(){
+				var $scrollTarget = $( window.location.hash );
+				if( $scrollTarget.length ) window.scrollTo( 0 , $scrollTarget.offset().top - ubermenu_data.scrollto_offset  );
+			}, 100 );
 		}
 
 		$( '#wp-admin-bar-ubermenu_loading' ).remove();

@@ -50,8 +50,8 @@ function ubermenu_get_custom_styles(){
 	return $styles;
 }
 
-add_action( 'ubermenu_after_menu_item_save' , 'ubermenu_reset_generated_styles' );
-function ubermenu_reset_generated_styles(){
+add_action( 'ubermenu_after_menu_item_save' , 'ubermenu_reset_generated_styles' , 10 , 1 );
+function ubermenu_reset_generated_styles( $menu_item_id = 0 ){
 	delete_transient( UBERMENU_GENERATED_STYLE_TRANSIENT );
 }
 

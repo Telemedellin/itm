@@ -12,9 +12,46 @@ Template Name: template para la categoría de extensión académica.
 
 get_header();
 
-global $ecp_post, $ecp_category, $facultades;
+global $ecp_post, $ecp_category, $extensiones;
 
 get_ecp_post();
+
+$extensiones = get_categories(array(
+		'type'                     => 'post',
+		'child_of'                 => $ecp_category->term_id,
+		'parent'                   => '',
+		'orderby'                  => 'name',
+		'order'                    => 'ASC',
+		'hide_empty'               => 0,
+		'hierarchical'             => 0,
+		'exclude'                  => '',
+		'include'                  => '',
+		'number'                   => '',
+		'taxonomy'                 => 'category',
+		'pad_counts'               => false 
+	)
+);
+
+foreach ($extensiones as $extension)
+{
+	$ecpPost = get_ecp_post($extension->term_id);
+
+	$extension->tipo_programa	= get_field('tipo_de_programa_academico', $ecpPost->ID);
+	$extension->image			= get_the_post_thumbnail($ecpPost->ID);
+	
+	$field						= get_field_object('ext_tipo_programa', $ecpPost->ID);
+	$tipo						= $field['value'][0];
+	$tipo_text					= $field['choices'][$tipo];
+	$extension->tipo			= $tipo_text;
+
+	$field						= get_field_object('sede', $ecpPost->ID);
+	$sede						= $field['value'][0];
+	$sede_text					= $field['choices'][$sede];
+	$extension->sede			= $sede_text;
+
+	$extension->intensidad		= get_field('intensidad_horaria', $ecpPost->ID);
+	$extension->enlace			= get_category_link($extension->term_id);
+}
 
 ?>
 	<div id="primary" class="content-area" cat="<?php echo get_query_var('cat'); ?>">
@@ -41,6 +78,8 @@ get_ecp_post();
 								</form>
 							</div>
 						</div><!-- ctn__input-filter -->
+						<div class="ctn__input-result">
+						</div><!-- ctn__input-filter -->
 						<div class="ctn__extension-filter padding">
 							<span class="text-filters">Filtra por el tipo de programa</span>
 							<div class="extension-filter">
@@ -55,7 +94,7 @@ get_ecp_post();
 						</div><!-- ctn__faculty-filter -->
 						<div class="ctn__sede-filter padding">
 							<span class="text-filters">Filtra por la sede</span>
-							<div class="program-filters">
+							<div class="sede-filters">
 								<form action="">
 									<div class="ctn__filter checkbox-itm">
 										<input id="campus-robledo" type="checkbox">

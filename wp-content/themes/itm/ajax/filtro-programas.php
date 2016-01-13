@@ -3,7 +3,7 @@
 $parse_uri = explode('wp-content', $_SERVER['SCRIPT_FILENAME']);
 require_once $parse_uri[0] . 'wp-load.php';
 
-set_include_path(get_include_path() . PATH_SEPARATOR . 'linq/');
+set_include_path(get_include_path() . PATH_SEPARATOR . get_template_directory() . '/libs/linq/');
 require_once('PHPLinq/LinqToObjects.php');
 
 if (isset($_POST))

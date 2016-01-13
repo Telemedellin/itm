@@ -776,6 +776,20 @@ h4.ubermenu-radio-group-title{
 	background:#990000;
 	color:#fff;
 }
+.ubermenu-menu-item-setting-tip-below{
+	bottom:auto;
+	top:100%;
+	left:auto;
+	width:auto;
+	margin-top:20px;
+	margin-left:-10px;
+}
+.ubermenu-menu-item-setting-tip-below:before{
+	bottom:100%;
+	top:auto;
+	border-width:0 10px 10px 10px;
+	border-bottom-color:#4D90FE;
+}
 
 .ubermenu-menu-item-status{
 	float:right;

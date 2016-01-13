@@ -104,13 +104,13 @@
 		$form = $( 'form.ubermenu_instance_form' );
 		$form.on( 'submit' , function(e){
 			e.preventDefault();
-			ubermenu_save_instance();
+			ubermenu_save_instance( $form );
 			return false;
 		});
 
 		$( '.ubermenu_instance_create_button' ).on( 'click' , function(e){
 			e.preventDefault();
-			ubermenu_save_instance();
+			ubermenu_save_instance( $form );
 			return false;
 		});
 
@@ -181,7 +181,7 @@
 			//.trigger( 'change' );
 	}
 
-	function ubermenu_save_instance(){
+	function ubermenu_save_instance( $form ){
 		var data = {
 			action: 'ubermenu_add_instance',
 			ubermenu_data: $form.serialize(),
@@ -189,7 +189,7 @@
 		};
 		// We can also pass the url value separately from ajaxurl for front end AJAX implementations
 		jQuery.post( ajaxurl, data, function(response) {
-			console.log( response );
+			//console.log( response );
 
 			if( response == -1 ){
 				$( '.ubermenu_instance_container_wrap' ).fadeOut();

@@ -4,6 +4,10 @@ class UberMenuItemColumn extends UberMenuItem{
 
 	protected $type = 'column';
 
+	function init(){
+		$this->item->custom_type = 'column';
+	}
+
 	function get_start_el(){
 
 		$this->prefix_classes();

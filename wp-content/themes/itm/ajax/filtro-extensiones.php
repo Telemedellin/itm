@@ -3,7 +3,7 @@
 $parse_uri = explode('wp-content', $_SERVER['SCRIPT_FILENAME']);
 require_once $parse_uri[0] . 'wp-load.php';
 
-set_include_path(get_include_path() . PATH_SEPARATOR . 'linq/');
+set_include_path(get_include_path() . PATH_SEPARATOR . get_template_directory() . '/libs/linq/');
 require_once('PHPLinq/LinqToObjects.php');
 
 if (isset($_POST))
@@ -43,7 +43,7 @@ if (isset($_POST))
 			'tipo_text' => $tipo_programa_text,
 			'sede' => $sede,
 			'sede_text' => $sede_text,
-			'intensidad_horaria' => $intensidad_horaria,
+			'intensidad_horaria' => $intensidad_horaria .= ($intensidad_horaria > 1 ) ? ' horas' : ' hora',
 			'enlace' => $enlace
 		);
 	}
@@ -55,6 +55,10 @@ if (isset($_POST))
 	{
 		$result = from('$p')->in($data)
 					->select('$p');
+	}
+	else
+	{
+		$result = $data;
 	}
 
 	header('Content-Type: application/json');

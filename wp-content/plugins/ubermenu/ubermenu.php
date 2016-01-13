@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: UberMenu 3 - The Ultimate WordPress Mega Menu (shared on ProNulled.com)
+Plugin Name: UberMenu 3 - The Ultimate WordPress Mega Menu
 Plugin URI: http://wpmegamenu.com
 Description: Easily create beautiful, flexible, responsive mega menus 
 Author: Chris Mavricos, SevenSpark
 Author URI: http://sevenspark.com
-Version: 3.2.0.2
+Version: 3.2.2.1
 */
 
 // Exit if accessed directly
@@ -55,7 +55,7 @@ final class UberMenu {
 	 */
 	private function setup_constants() {
 		// Plugin version
-		define( 'UBERMENU_VERSION', '3.2.0.2' );
+		define( 'UBERMENU_VERSION', '3.2.2.1' );
 
 		//Override in wp-config.php
 
@@ -92,6 +92,7 @@ final class UberMenu {
 
 
 		define( 'UBERMENU_PREFIX' , 'ubermenu_' );
+		define( 'UBERMENU_VERSION_KEY' , 'ubermenu_db_version' );
 
 		define( 'UBERMENU_MENU_INSTANCES' , 'ubermenu_menus' );								//Key for instances
 
@@ -122,6 +123,9 @@ final class UberMenu {
 			define( 'UBERMENU_TERM_COUNT_WRAP_START' , '(' );
 		if( ! defined( 'UBERMENU_TERM_COUNT_WRAP_END' ) )
 			define( 'UBERMENU_TERM_COUNT_WRAP_END' , ')' );
+
+		if( ! defined( 'UBERMENU_ALLOW_NAV_MENU_ITEM_ARGS_FILTER' ) )
+			define( 'UBERMENU_ALLOW_NAV_MENU_ITEM_ARGS_FILTER' , false );
 
 
 		define( 'UBERMENU_UPDATE_NOTICES_KEY' , '_ubermenu_update_errors' );

@@ -2,7 +2,7 @@
 	font-size:12px;
 }
 
-.postbox{
+.ubermenu-wrap .postbox{
 	background:#4a4a4a;
 	border:none;
 }
@@ -141,6 +141,7 @@ h2.nav-tab-wrapper{
 }
 .ubermenu-wrap .nav-tab{
 	border-bottom:1px solid #E4E4E4;
+	margin:0 4px -1px 0;
 }
 .ubermenu-wrap .nav-tab-active, 
 .ubermenu-wrap .nav-tab-active:hover {

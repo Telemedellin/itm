@@ -14,6 +14,9 @@ function ubermenu_toggle( $target = '_any_' , $config_id = 'main' , $echo = true
 		'tag'				=> 'a',
 		'skin'				=> '',
 		'toggle_id'			=> '',
+		'content_align'		=> 'left',
+		'align'				=> 'full',
+		'classes'			=> '',
 	)));
 
 	//responsive_toggle_text
@@ -26,10 +29,14 @@ function ubermenu_toggle( $target = '_any_' , $config_id = 'main' , $echo = true
 	if( $config_id ) $class.= ' ubermenu-responsive-toggle-'.$config_id;
 	if( $skin ) $class.= ' ubermenu-skin-'.$skin;
 	if( isset( $args['theme_location'] ) )$class.= ' ubermenu-loc-'.sanitize_title( $args['theme_location'] );
+	$class.= ' ubermenu-responsive-toggle-content-align-'.$content_align;
+	$class.= ' ubermenu-responsive-toggle-align-'.$align;
+	if( !$toggle_content ) $class.= ' ubermenu-responsive-toggle-icon-only';
 
 	$id = '';
 	if( $toggle_id ) $id = ' id="'.$toggle_id.'" ';
 
+	$class.= ' '.$classes;
 	$class = apply_filters( 'ubermenu_toggle_class' , $class , $config_id );
 
 	$toggle = '<'.$tag . $id.' class="'.$class.'" data-ubermenu-target="'.

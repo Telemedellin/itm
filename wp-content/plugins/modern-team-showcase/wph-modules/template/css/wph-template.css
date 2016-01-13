@@ -1,0 +1,252 @@
+.wph_template>.wph_template_sortable_container>.wph_template_element{
+background: #ececec;
+}
+
+.wph_template>.wph_template_component_appender{
+display: none;
+}
+
+.wph_template_sortable_container {
+min-height: 30px;
+}
+
+.wph_template_element{
+margin: 15px 0;
+padding: 25px;    
+width: 100%;
+position: relative;
+box-sizing: border-box;    
+text-align: center;    
+border: 1px solid #ccc;
+display: inline-block;
+}
+
+.wph_template_element[data-wph-component="container"]{
+padding-top:2em;
+}
+
+.wph_template_settings_tab.wph_original{
+display: none;
+}
+
+.wph_template_element_label, .wph_template_element_settings_keys{
+background: white;
+border: 1px solid #ccc;
+position: absolute;
+top: 0;
+left: 10px;
+transform: translateY(-50%);
+font-size: 15px;
+line-height: 1em;
+padding: 5px 8px;
+}
+
+.wph_template_container>.wph_template_element>.wph_template_element_settings_keys [data-wph-type="Expand"].fa,
+.wph_template_container>.wph_template_element>.wph_template_element_settings_keys [data-wph-type="Contract"].fa 
+{
+display: inline-block;
+}
+
+/*
+Settings Keys
+*/
+.wph_template_element_settings_keys{
+left: auto;
+right: 10px;
+}
+
+.wph_template_element_settings_key{
+display: inline;
+margin: 0 5px;
+cursor: pointer;
+}
+
+.wph_template_element_label{
+max-width: 200px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+
+.wph_template_element_label:before{
+font-family: fontawesome;
+margin-right:5px;
+width:1em;
+text-align:center;
+}
+
+/*
+Settings Tab
+*/
+
+.wph_template_settings_tab{
+text-align: left;
+}
+
+.wph_template_settings_tab_keys{
+display: block;
+margin-bottom: 10px;
+}
+
+.wph_template_settings_tab_key{
+display: inline-block;
+margin: 5px;
+padding: 5px 0;
+border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+cursor: pointer;
+}
+
+.wph_template_settings_tab_key.wph_selected {
+border-color: black;
+}
+
+.wph_template_settings_tab_box{
+display: none;
+line-height: 2em;
+margin-bottom: 20px;
+}
+
+.wph_template_settings_tab_box input{
+max-width: 100%;
+}
+
+.wph_template_settings_tab_box select[data-wph-icon="true"]{
+width: 170px;
+}
+
+.wph_template_settings_tab_box input[data-wph-type="label"],
+.wph_template_settings_tab_box input[data-wph-type="value"]
+{
+width: 100px;
+}
+
+.wph_template_settings_tab_box input[type="checkbox"]{
+width: 20px!important;
+}
+
+[data-wph-type="Logic"].wph_template_settings_tab_box input{
+width: 150px;
+}
+
+.wph_template_settings_tab_box input,
+.wph_template_settings_tab_box select {
+padding: 5px;
+font-size: 1em;
+}
+
+.wph_template_settings_tab_box textarea{
+width: 100%;
+height: 50px;
+}
+
+.wph_template_set_alt{
+display: none;
+}
+
+/*content*/
+.wph_template_settings_tab_box[ data-wph-type="Content" ]>*,
+.wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="regular_content"] [data-wph-type="tag_html"],
+.wph_template_element[data-wph-component="ribbon"] .wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="tag"],
+.wph_template_element[data-wph-component="HTML"] .wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="tag"]
+{
+display:none;
+}
+
+.wph_template_element[data-wph-component="text"] .wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="regular_content"],
+
+.wph_template_element[data-wph-component="image"] .wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="image_content"],
+.wph_template_element[data-wph-component="image"] .wph_template_set_alt,
+
+.wph_template_element[data-wph-component="attribute"] .wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="attribute_content"],
+
+.wph_template_element[data-wph-component="link"] .wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="link_content"],
+
+.wph_template_element[data-wph-component="video"] .wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="video_content"],
+
+.wph_template_element[data-wph-component="HTML"] .wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="regular_content"],
+.wph_template_element[data-wph-component="HTML"] .wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="tag_html"],
+
+.wph_template_element[data-wph-component="ribbon"] .wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="regular_content"],
+.wph_template_element[data-wph-component="ribbon"] .wph_template_settings_tab_box[ data-wph-type="Content" ] [data-wph-type="tag_html"]
+{
+display:block;
+}
+
+.wph_template_element .sp-preview{
+width: 100px;
+}
+
+.wph_template_element .sp-preview .sp-preview-inner{
+background: none;
+}
+
+/*link*/
+[data-wph-component="link"] [data-wph-toggle="link"]{
+display:none;  
+}
+
+/* Component icons */
+.wph_template_element[data-wph-component="container"]>.wph_template_element_label:before{
+content: "\f00a";
+}
+
+.wph_template_element[data-wph-component="HTML"]>.wph_template_element_label:before{
+content: "\f121";
+}
+
+.wph_template_element[data-wph-component="text"]>.wph_template_element_label:before{
+content: "\f031";
+}
+
+.wph_template_element[data-wph-component="image"]>.wph_template_element_label:before{
+content: "\f03e";
+}
+
+.wph_template_element[data-wph-component="link"]>.wph_template_element_label:before{
+content: "\f0c1";
+}
+
+.wph_template_element[data-wph-component="video"]>.wph_template_element_label:before{
+content: "\f144";
+}
+
+.wph_template_element[data-wph-component="attribute"]>.wph_template_element_label:before{
+content: "\f022";
+}
+
+.wph_template_element[data-wph-component="ribbon"]>.wph_template_element_label:before{
+content: "\f097";
+}
+
+.wph_template_element[data-wph-component="HTML"]>.wph_template_element_label:before{
+content: "\f121";
+}
+
+.wph_template_element[data-wph-component="lightbox"]>.wph_template_element_label:before{
+content: "\f065";
+}
+
+.wph_icon_picker {
+  max-height:300px;
+  overflow-y:scroll;
+  margin:10px 0;
+  display:none;
+}
+
+.wph_icon_picker i {
+  font-size: 15px;
+  margin: 0 5px 5px 0;
+  padding:10px;
+  cursor: pointer;
+}
+
+.wph_icon_picker_group i:hover {
+  background: white;
+}
+
+.wph_template_settings_tab_box[data-wph-type="Style"] textarea{
+  width: 60%;
+  vertical-align: middle;
+  max-width: 250px;
+  min-height: 100px;
+}

@@ -8,8 +8,8 @@ require_once('PHPLinq/LinqToObjects.php');
 
 if (isset($_POST))
 {
-	$category_id = $_POST['facultad'];
-	unset($_POST['facultad']);
+	$category_id = $_POST['cat'];
+	unset($_POST['cat']);
 	extract($_POST);
 	
 	$categories = obtenerProgramas($category_id);
@@ -116,17 +116,6 @@ function obtenerProgramas($category_id)
 			'taxonomy'                 => 'category',
 			'pad_counts'               => false 
 		)
-	);
-}
-
-function data($titulo, $titulo_otorgado, $modalidad, $duracion, $enlace)
-{
-	return array(
-		'titulo' => $titulo,
-		'titulo_otorgado' => $titulo_otorgado,
-		'modalidad' => $modalidad,
-		'duracion' => $duracion,
-		'enlace' => $enlace
 	);
 }
 

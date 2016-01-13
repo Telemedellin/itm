@@ -13,15 +13,37 @@
 		evt.stopPropagation();
 	});
 
+	// Filtro de extensiones academicas
+	$('.extension-filter > span').on('click', function(evt) {
+		if ($(this).hasClass('select'))
+			$('.extension-filter').children().removeClass('select');
+		else
+		{
+			$('.extension-filter').children().removeClass('select');
+			$(this).addClass('select');
+		}
+		//filtrarProgramas();
+		evt.stopPropagation();
+	});
+
 	// Filtros de tipo de programa y metodologías
-	$('.checkbox-itm > input').on('change', function(evt) {
+	$('.metodology-filters .checkbox-itm > input').on('change', function(evt) {
 		filtrarProgramas();
 		evt.stopPropagation();
 	});
 
+	// Filtros de tipo de programas para extensiones academicas
+	$('.program-filters .checkbox-itm > input').on('change', function(evt) {
+		//filtrarProgramas();
+		evt.stopPropagation();
+	});
+
+	// Filtro de autocompletar
 	$('.input-filter input').on('keyup', function(evt) {
 		var element = $(this);
 		var text = element.val();
+		var tipo = element.attr('id');
+
 		if (text.length > 2 && evt.which <= 90 && evt.which >= 48)
 		{
 			var parent = $('#primary').attr('cat');
@@ -30,12 +52,15 @@
 				url: admin_path + "/admin-ajax.php",
 				data: {
 					'action' : 'getProgramasCat',
-					'parent' : parent
+					'parent' : parent,
+					'tipo'	 : tipo
 				},
-				beforeSend: function() {
+				beforeSend: function()
+				{
 					$(".input-filter").append('<div class="loading-search"></div>');
 				},
-				success: function(data) {
+				success: function(data)
+				{
 					var source = data.result;
 					$('.input-filter input').autocomplete({
 						option: true,
@@ -48,7 +73,8 @@
 					});
 				}
 			})
-			.done(function() {
+			.done(function()
+			{
 				$(".loading-search").remove();
 			});
 		}
@@ -61,9 +87,10 @@
 	}
 
 	// Metodo que se encargara de hacer las peticiones ajax para los filtros
-	function filtrarProgramas() {
+	function filtrarProgramas()
+	{
 		var data			= {};
-		data['facultad']	= $('body').attr('class').split('category-')[2].substring(2,0);
+		data['cat']			= $('#primary').attr('cat');
 		var checkbox_list	= $('.checkbox-itm > input');
 
 		$.each(checkbox_list, function (k, v) {

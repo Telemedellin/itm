@@ -1,0 +1,15 @@
+.ctn__extension-filter{
+	padding-bottom: 30px;
+	margin-bottom: 10px;
+	border-bottom: solid 1px $color__gray;
+}
+.extension-filter{
+	margin-top: 15px;
+}
+@media (min-width: 768px){
+}
+@media (min-width: 992px){
+	.ctn__extension-filter{
+		padding-bottom: 20px;
+	}
+}

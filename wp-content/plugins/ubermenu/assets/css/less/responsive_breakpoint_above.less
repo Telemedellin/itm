@@ -9,7 +9,7 @@
 }
 
 
-//Force current submenu always open but below others
+/* Force current submenu always open but below others */
 &.ubermenu-force-current-submenu .ubermenu-item-level-0.ubermenu-current-menu-item > .ubermenu-submenu-drop,
 &.ubermenu-force-current-submenu .ubermenu-item-level-0.ubermenu-current-menu-ancestor > .ubermenu-submenu-drop {
     display: block!important;
@@ -17,14 +17,12 @@
     visibility: visible!important;
     margin: 0!important;
     top: auto!important;
-    //max-height: 600px;
     height: auto;
-    //overflow: auto!important;
     z-index:19;
 }
 
 
-//Invert Horizontal menu to make subs go up
+/* Invert Horizontal menu to make subs go up */
 &.ubermenu-invert.ubermenu-horizontal .ubermenu-item-level-0 > .ubermenu-submenu-drop{
      top:auto;
      bottom:100%;
@@ -35,7 +33,7 @@
 
 
 
-//Invert Vertical menu to make subs go left 
+/* Invert Vertical menu to make subs go left */
 &.ubermenu-invert.ubermenu-vertical .ubermenu-item-level-0 > .ubermenu-submenu-drop{
   right:100%;
   left:auto;

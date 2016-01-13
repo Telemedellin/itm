@@ -5,8 +5,12 @@ require_once( 'plugin-update-checker.php' );
 if( !defined( 'UBERMENU_UPDATES_URL' ) ){
 	define( 'UBERMENU_UPDATES_URL' , 'http://updates.sevenspark.com/ubermenu' );	//TODO
 }
-define( 'UBERMENU_UPDATES_CHECK_PERIOD' , 48 );
-
+if( !defined( 'UBERMENU_AUTO_UPDATES' ) ){
+	define( 'UBERMENU_AUTO_UPDATES' , 0 );
+}
+if( !defined( 'UBERMENU_UPDATES_CHECK_PERIOD' ) ){
+	define( 'UBERMENU_UPDATES_CHECK_PERIOD' , 48 );
+}
 
 function ubermenu_update_checker(){
 
@@ -42,6 +46,34 @@ function ubermenu_update_checker(){
 }
 ubermenu_update_checker();
 
+
+add_action( 'all_admin_notices' , 'ubermenu_updater_check_download_notice' );
+function ubermenu_updater_check_download_notice(){
+	global $pagenow;
+
+	if( $pagenow == 'update-core.php' ){
+		if( !UBERMENU_AUTO_UPDATES ){
+			//echo 'no ups';
+			$plugin_updates = get_plugin_updates();
+			//uberp( $plugin_updates , 3 );
+			if( isset( $plugin_updates[ 'ubermenu/ubermenu.php' ] ) ): ?>
+				<div class="notice notice-warning">
+					<p><strong>UberMenu</strong> automatic updates are in beta.  To test them out, please see <a target="_blank" href="http://sevenspark.com/docs/ubermenu-3/updates/automatic">Automatic Updates</a>.  Make sure to run a backup first!</p>
+				</div>
+			<?php endif; 
+		}
+		else{
+			$plugin_updates = get_plugin_updates();
+			//uberp( $plugin_updates , 3 );
+			if( isset( $plugin_updates[ 'ubermenu/ubermenu.php' ] ) ): ?>
+				<div class="notice notice-success">
+					<p><strong>UberMenu</strong> Automatic Update Beta Testing has been activated.  <a target="_blank" href="http://sevenspark.com/docs/ubermenu-3/updates/automatic">Make sure to run a backup first to be safe!</a></p>
+				</div>
+			<?php endif;
+		}
+    }
+}
+
 //Add the license key to query arguments.
 function ubermenu_filter_update_checks( $queryArgs ) {
 
@@ -54,6 +86,7 @@ function ubermenu_filter_update_checks( $queryArgs ) {
 
 	$queryArgs['site_url'] = get_site_url( null , '' , 'http' );
 	$queryArgs['ubermenu_version'] = UBERMENU_VERSION;
+	$queryArgs['auto_updates'] = UBERMENU_AUTO_UPDATES;
     
     return $queryArgs;
 }
@@ -289,7 +322,9 @@ function ubermenu_field_backup_notice(){
 	}
 
 	
-
+	if( UBERMENU_AUTO_UPDATES ){
+		$msg.= '<br/><br/><p class="notice notice-success clear">UberMenu Automatic Updates beta testing has been activated</p>';
+	}
 	
 
 	
@@ -301,3 +336,16 @@ function ubermenu_field_backup_notice(){
 
 
 
+
+
+function ubermenu_update_db_check() {
+    if( get_site_option( UBERMENU_VERSION_KEY ) != UBERMENU_VERSION ){
+        ubermenu_run_update();
+    }
+}
+add_action( 'plugins_loaded', 'ubermenu_update_db_check' );
+
+function ubermenu_run_update(){
+	ubermenu_restore_custom_assets();
+	update_site_option( UBERMENU_VERSION_KEY , UBERMENU_VERSION );
+}

@@ -130,7 +130,7 @@ class UberMenu_Widget extends WP_Widget {
 		) );
 
 
-		echo '<p>'.__( 'This widget inserts and UberMenu in one of two ways:' , 'ubermenu' ).'</p>';
+		echo '<p>'.__( 'This widget inserts an UberMenu in one of two ways:' , 'ubermenu' ).'</p>';
 		
 		
 

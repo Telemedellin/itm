@@ -13,6 +13,10 @@
 .ubermenu .ubermenu-submenu .ubermenu-submenu-type-flyout{
 	min-width:100%;
 }
+.ubermenu:not(.ubermenu-transition-slide) .ubermenu-submenu.ubermenu-submenu-type-flyout {
+    max-height: 99999px; /* Allows transitions-out to work properly */
+}
+
 
 
 /* Second + */
@@ -30,7 +34,7 @@
 	left:auto;
 	right:100%;
 
-	clip: rect(-10px,5000px,5000px,-10px);
+	clip: rect(-10px,5000px,5000px,-5000px);
 }
 .ubermenu .ubermenu-submenu .ubermenu-item.ubermenu-active > .ubermenu-submenu-type-flyout{
 	top:0;
@@ -48,7 +52,7 @@
 	-ms-box-sizing:content-box;
 	box-sizing:content-box;
 
-	clip: rect(-10px,5000px,5000px,0);
+	clip: rect(-10px,5000px,5000px,-5000px);
 }
 .ubermenu.ubermenu-horizontal .ubermenu-item-level-1:first-child > .ubermenu-submenu-type-flyout,
 .ubermenu.ubermenu-horizontal .ubermenu-item-level-1:first-child > .ubermenu-submenu-type-flyout > .ubermenu-item:first-child > .ubermenu-submenu-type-flyout,

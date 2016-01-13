@@ -77,10 +77,17 @@ jQuery( document ).ready( function($){
 				$current_panel.removeClass( 'ubermenu-menu-item-panel-negative' );
 				$current_panel.addClass( 'ubermenu-menu-item-panel-' + this_menu_item_id );
 				$current_panel.attr( 'data-menu-item-target-id' , this_menu_item_id_num );
+
+				//If settings have loaded properly, remove the error notice
+				if( $current_panel.find( '.ubermenu-settings-completion-marker' ).length ){
+					$current_panel.find( '.ubermenu-menu-item-load-error-notice' ).remove();
+				}
 			
 				var hash = '#' + this_menu_item_id;
 
 				var item_type = $current_menu_item.find('.item-type:first').text();
+				if( $current_menu_item.find('.item-type').length > 1 && typeof console != "undefined" ) 
+					console.warn( '[UberMenu Notice] Multiple menu item types defined by custom nav walker.  If you are not seeing the proper settings, try enabling "Disable Custom Menus Panel Walker" in the UberMenu Control Panel > General Settings > Theme Integration' );
 				var item_type_class = item_type.replace( '[' , '' ).replace( ']' , '' ).replace( ' ' , '_' ).toLowerCase();
 				$current_panel.addClass( 'ubermenu-menu-item-panel-type-' + item_type_class );
 

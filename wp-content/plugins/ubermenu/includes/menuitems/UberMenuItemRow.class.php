@@ -45,6 +45,9 @@ class UberMenuItemRow extends UberMenuItem{
 			$classes[] = 'ubermenu-grid-row';
 		}
 
+		//Custom menu item class
+		if( isset( $this->item->classes[0] ) ) $classes[] = $this->item->classes[0];
+
 		$classes = implode( ' ' , $classes );
 
 		return '<ul class="ubermenu-row ubermenu-row-id-'.$this->item->ID.' ' . $autoclear .' '. $classes.'">';

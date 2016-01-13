@@ -42,14 +42,25 @@ function ubermenu_get_menu_style_custom_font( $field , $menu_id , &$menu_styles 
 	}
 }
 
+function ubermenu_get_menu_style_custom_font_family( $field , $menu_id , &$menu_styles ){
+
+	$font_value = ubermenu_op( $field['name'] , $menu_id );
+	if( $font_value ){
+		
+		$selector = ".ubermenu-responsive-toggle-$menu_id, .ubermenu-$menu_id, .ubermenu-$menu_id .ubermenu-target, .ubermenu-$menu_id .ubermenu-nav .ubermenu-item-level-0 .ubermenu-target";
+		$menu_styles[$selector]['font-family'] = $font_value;
+	}
+}
+
 
 function ubermenu_get_font_ops(){
 
 	$fonts = ubermenu_get_registered_fonts();
+	ksort( $fonts );
 
 	$font_select = array( '' => 'None' );
 	foreach( $fonts as $font_id => $font_ops ){
-		$font_select[$font_id] = $font_ops['label'];		
+		$font_select[$font_id] = $font_ops['label'];	
 	}
 	//up( $font_select , 2 );
 	return $font_select;
@@ -371,6 +382,54 @@ function ubermenu_register_default_fonts(){
 			'stack'		=> "'Bree Serif', sans-serif",
 		)
 	);
+
+
+
+	//3.3
+	ubermenu_register_font( 'slabo' , array(
+			'label'		=> 'Slabo (Normal only)',
+			'family'	=> 'Slabo+27px',
+			'stack'		=> "'Bree 27px', serif",
+		)
+	);
+
+	ubermenu_register_font( 'titillium_web' , array(
+			'label'		=> 'Titillium Web',
+			'family'	=> 'Titillium+Web',
+			'stack'		=> "'Titillium Web', sans-serif",
+		)
+	);
+
+	ubermenu_register_font( 'oxygen' , array(
+			'label'		=> 'Oxygen',
+			'family'	=> 'Oxygen',
+			'stack'		=> "'Oxygen', sans-serif",
+		)
+	);
+
+	ubermenu_register_font( 'noto_sans' , array(
+			'label'		=> 'Noto Sans (no lite)',
+			'family'	=> 'Noto+Sans',
+			'stack'		=> "'Noto Sans', sans-serif",
+		)
+	);
+
+	ubermenu_register_font( 'cabin' , array(
+			'label'		=> 'Cabin (no lite)',
+			'family'	=> 'Cabin',
+			'stack'		=> "'Cabin', sans-serif",
+		)
+	);
+
+	ubermenu_register_font( 'vollkorn' , array(
+			'label'		=> 'Vollkorn (no lite)',
+			'family'	=> 'Vollkorn',
+			'stack'		=> "'Vollkorn', serif",
+		)
+	);
+
+
+
 
 }
 

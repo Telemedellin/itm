@@ -90,7 +90,7 @@ function ubermenu_register_theme_customizer( $config_id , $config_id_root , $wp_
 
 		//Normal Submenu Items
 		$wp_customize->add_section( $panel_id.'_normal', array(
-			'title'		=> __( 'Normal Items', 'ubermenu' ),
+			'title'		=> __( 'Normal &amp; Flyout Items', 'ubermenu' ),
 			'priority'	=> 50,
 			'panel'		=> $panel_id,
 		) );

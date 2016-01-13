@@ -708,6 +708,14 @@ function ubermenu_pro_item_settings( $settings ){
 		'desc'		=> __( 'Useful for items like a search dropdown.' , 'ubermenu' ),
 	);
 
+	$settings['general'][85] = array(
+		'id' 		=> 'disable_current',
+		'title'		=> __( 'Disable Current', 'ubermenu' ),
+		'type'		=> 'checkbox',
+		'default' 	=> 'off',
+		'desc'		=> __( 'Disable the current menu item classes for this item' , 'ubermenu' ),
+	);
+
 	$settings['general'][90] = array(
 		'id' 		=> 'target_class',
 		'title'		=> 'Anchor Class',
@@ -790,7 +798,7 @@ function ubermenu_pro_item_settings( $settings ){
 					'desc'	=> __( 'Do not inherit the image' , 'ubermenu' )
 				),
 				'cache'	=> array(
-					'name'	=> __( 'Assign Image on Save' , 'ubermenu' ),
+					'name'	=> __( 'Assign Featured Image on Save' , 'ubermenu' ),
 					'desc'	=> __( '[More efficient] When this item is saved, the current featured image from the post will be assigned.  It will not be updated until you save this item again.', 'ubermenu' )
 				),
 				'on'	=> array(
@@ -858,6 +866,15 @@ function ubermenu_pro_item_settings( $settings ){
 		'default'	=> '',
 	);
 
+	$settings['image'][55] = array(
+		'id'		=> 'image_text_top_padding',
+		'title'		=> __( 'Image Text Top Padding' , 'ubermenu' ),
+		'desc'		=> __( 'The top padding for the accompanying text when Image Left or Image Right layouts are displayed.  This allows control over the vertical alignment of the text relative to the image.', 'ubermenu' ),
+		'type'		=> 'text',
+		'default'	=> '',
+		'on_save'	=> 'image_text_top_padding',
+	);
+
 	$settings['image'][60] = array(
 		'id'		=> 'disable_padding',
 		'title'		=> __( 'Disable Item Padding' , 'ubermenu' ),
@@ -923,6 +940,51 @@ function ubermenu_pro_item_settings( $settings ){
 
 
 	/** SUBMENU **/
+
+	$settings['submenu'][65] = array(
+		'id'		=> 'submenu_autocolumns',
+		'title'		=> __( 'Submenu Automatic Columns' , 'ubermenu' ),
+		'desc'		=> __( 'Automatically divide posts evenly across columns, organized vertically - top to bottom.  Useful for creating columns without headers when all submenu items are second level items.  Leave this disabled if you are using Column Headers (second and third level items), or if you want to use uneven columns, in which case you can use advanced [Column] items to organize your menu.', 'ubermenu' ),
+		'tip'		=> __( 'How does this differ from "Submenu Column Default"? If you set "Submenu Automatic Columns" to 5, it\'ll create 5 even submenu columns and automatically divide the child items of this item into those columns, organized top to bottom.  If you set "Submenu Column Default" to 1/5, each child item will be 20% (1/5) of the submenu width and be organized left to right.  In practice, you\'d use "Submenu Automtic Columns" for submenus without column headers, and the "Submenu Column Default" setting for submenus with column headers', 'ubermenu' ),
+		'type'		=> 'radio',
+		'ops'		=> array( 'group' => array(
+						'disabled'	=> array(
+							'name'	=> __( 'Disabled' , 'ubermenu' ),
+						),
+						1 	=> 1, 
+						2 	=> 2,
+						3 	=> 3,
+						4 	=> 4,
+						5 	=> 5,
+						6 	=> 6,
+						7 	=> 7,
+						8 	=> 8,
+						9 	=> 9,
+						10 	=> 10
+					)),
+		'default' => 'disabled',
+
+	);
+
+	$settings['submenu'][70] = array(
+		'id'		=> 'submenu_column_dividers',
+		'title'		=> __( 'Submenu Columns Dividers' , 'ubermenu' ),
+		'type'		=> 'color',
+		'default'	=> '',
+		'desc'		=> __( 'The color of the border between each submenu column.  Note this only affects columns that are children of this item, not further descendants', 'ubermenu' ),
+		'scenario'	=> __( 'Mega Submenu' , 'ubermenu' ),
+		'tip'		=> __( 'You will likely want to set a Minimum Height below as well.' , 'ubermenu' ),
+		'on_save'	=> 'submenu_column_divider_color'
+	);
+	$settings['submenu'][71] = array(
+		'id'		=> 'submenu_column_min_height',
+		'title'		=> __( 'Submenu Columns Minimum Height' , 'ubermenu' ),
+		'type'		=> 'text',
+		'default'	=> '',
+		'desc'		=> __( 'Useful when using the Submenu Columns Dividers setting', 'ubermenu' ),
+		'scenario'	=> __( 'Mega Submenu' , 'ubermenu' ),
+		'on_save'	=> 'submenu_column_min_height'
+	);
 
 	$settings['submenu'][75] = array(
 		'id' 		=> 'submenu_grid',
@@ -1191,6 +1253,20 @@ function ubermenu_pro_item_settings( $settings ){
 		'default'	=> '',
 		'desc'		=> __( 'Select a menu to insert its items into the menu tree.' , 'ubermenu' ),
 
+	);
+	$settings['menu_segment'][20] = array(
+		'id'		=> 'segment_transient_cache',
+		'title'		=> __( 'Cache Segment (Experimental)', 'ubermenu' ),
+		'type'		=> 'checkbox',
+		'default'	=> 'off',
+		'desc'		=> __( 'Cache this menu segment via transients.  Note that saving this menu item will flush the cache and the segment will be rebuilt the next time the menu is generated.' , 'ubermenu' ),
+	);
+	$settings['menu_segment'][30] = array(
+		'id'		=> 'segment_transient_cache_expiry',
+		'title'		=> __( 'Cache Expiration', 'ubermenu' ),
+		'type'		=> 'text',
+		'default'	=> '',
+		'desc'		=> __( '(Hours) How long until the transient expires and the cache refreshes.  Defaults to 12 hours.' , 'ubermenu' ),
 	);
 
 

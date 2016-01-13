@@ -102,7 +102,7 @@ function ubermenu_menu_item_settings_panel(){
 
 						<a class="ubermenu-clear-settings">
 							<i class="fa fa-eraser"></i>
-							<div class="ubermenu-menu-item-setting-tip"><i class="ubermenu-tip-icon fa fa-lightbulb-o"></i> <?php 
+							<div class="ubermenu-menu-item-setting-tip ubermenu-menu-item-setting-tip-below"><i class="ubermenu-tip-icon fa fa-lightbulb-o"></i> <?php 
 								_e( 'Clear the settings for this item.' , 'ubermenu' ); ?>
 							</div>
 						</a>
@@ -124,6 +124,16 @@ function ubermenu_menu_item_settings_panel(){
 								</span>
 							</span>
 						</span>
+					</div>
+
+					<div class="ubermenu-menu-item-load-error-notice ubermenu-admin-notice ubermenu-admin-notice-warning">
+						<p>If you are seeing this error, your settings have not loaded properly.  This is most commonly caused by a memory exception 
+							from trying to load too many posts or terms.  Please visit the <em>UberMenu Control Panel &gt; General Settings &gt; Advanced Menu Items</em> and enable the following settings:</p>
+						<ul>
+							<li><strong>Disable Autocomplete</strong></li>
+							<li><strong>Disable Dynamic Posts Author Selection</strong></li>
+						</ul>
+						<p>If this does not resolve the issue, please enable WP_DEBUG and check for PHP errors in your Appearance &gt; Menus panel.</p>
 					</div>
 
 					<?php foreach( $ordered_panels as $order => $panel_id ): 
@@ -204,7 +214,7 @@ function ubermenu_menu_item_settings_panel(){
 
 					<?php endforeach; ?>
 
-					
+					<span class="ubermenu-settings-completion-marker"></span>
 				</form>
 			</div>
 		</div>
@@ -899,6 +909,16 @@ function ubermenu_menu_item_settings(){
 		'on_save'	=> 'submenu_min_width',
 	);
 
+	$settings['submenu'][56] = array(
+		'id' 		=> 'submenu_min_height',
+		'title'		=> 'Submenu Minimum Height',
+		'type'		=> 'text',
+		'default' 	=> '',
+		'desc'		=> __( 'By default, submenus will be sized to their contents.  In 99% of cases, this will not be needed.  Note that this setting is not compatible with the Slide Reveal submenu transition.' , 'ubermenu' ),
+		//'tip'		=> __( '', 'ubermenu' ),
+		'on_save'	=> 'submenu_min_height',
+	);
+
 
 	$settings['submenu'][60] = array(
 		'id' 		=> 'submenu_column_default',
@@ -910,7 +930,7 @@ function ubermenu_menu_item_settings(){
 	);
 
 
-	$settings['submenu'][70] = array(
+	$settings['submenu'][63] = array(
 		'id' 		=> 'submenu_column_autoclear',
 		'title'		=> __( 'Auto Row' , 'ubermenu' ),
 		'type'		=> 'checkbox',
@@ -1033,6 +1053,7 @@ function ubermenu_pro_defaults(){
 		'submenu_padding'					=> '',
 		'submenu_footer_content'			=> '',
 		'submenu_grid'						=> 'off',
+		'submenu_autocolumns'				=> 'disabled',
 		
 		'tab_layout'						=> 'left',
 		'tab_block_columns'					=> 'full',
@@ -1672,7 +1693,7 @@ function ubermenu_save_menu_item_callback() {
 	}
 	
 
-	do_action( 'ubermenu_after_menu_item_save' );
+	do_action( 'ubermenu_after_menu_item_save' , $menu_item_id );
 
 	$response = array();
 
@@ -1718,6 +1739,7 @@ function ubermenu_dp_custom_tax_ops( $args ){
 function ubermenu_dt_parent_ops(){
 	return ubermenu_get_term_ops( array(
 		'-1' 	=> 'Automatic: Inherit Parent',
+		'0'		=> '[Top Level Terms Only]'
 	));
 }
 

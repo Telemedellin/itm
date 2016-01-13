@@ -104,6 +104,9 @@
 	overflow:visible !important;
 	z-index:100;
 }
+.ubermenu-nav{
+	text-align:inherit;
+}
 .ubermenu-nav,
 .ubermenu-submenu,
 .ubermenu-row{
@@ -145,6 +148,24 @@
 	width: 1.3em;
 	text-align: center;
 	margin-right:.6em;
+}
+.ubermenu-responsive-toggle-icon-only .fa{
+	margin-right:0;
+}
+.ubermenu-responsive-toggle-align-left{
+	float:left;
+}
+.ubermenu-responsive-toggle-align-right{
+	float:right;
+}
+.ubermenu-responsive-toggle-content-align-left{
+	text-align:left;
+}
+.ubermenu-responsive-toggle-content-align-center{
+	text-align:center;
+}
+.ubermenu-responsive-toggle-content-align-right{
+	text-align:right;
 }
 
 
@@ -283,6 +304,7 @@
 	font-style: normal;
 	font-weight: normal;
 	line-height: 1;
+	color:inherit;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -291,6 +313,9 @@
 }
 .ubermenu-sub-indicators .ubermenu-item-has-children > .ubermenu-target.ubermenu-noindicator{
 	padding-right:20px;
+}
+.ubermenu-sub-indicators .ubermenu-item-mini.ubermenu-item-has-children > .ubermenu-target.ubermenu-noindicator{
+    padding-right:5px;
 }
 .ubermenu-sub-indicators .ubermenu-has-submenu-drop > .ubermenu-noindicator:after{
 	content: '';
@@ -560,6 +585,9 @@
 	display:block;
 	float:none;
 	min-width:0;
+}
+.ubermenu .ubermenu-autocolumn + .ubermenu-item-view-all{
+    clear:both; /* View all link in a stack needs to clear properly */
 }
 /* Indented Stacks */
 .ubermenu .ubermenu-submenu-type-stack.ubermenu-submenu-indent{

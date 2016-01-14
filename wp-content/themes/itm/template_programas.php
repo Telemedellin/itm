@@ -66,6 +66,11 @@ switch ($facultad->slug)
 							$label = $field['choices'][ $value ];
 							echo $value
 						?>
+
+						<?php
+							$sidebar	= get_field('sidebar', $ecp_post->ID);
+							dynamic_sidebar($sidebar);
+						?>
 						
 						<?php
 							$titulo_otorgado	= get_field('titulo_otorgado', $ecp_post->ID);

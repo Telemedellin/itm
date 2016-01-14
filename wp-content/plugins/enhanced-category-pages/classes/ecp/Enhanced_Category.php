@@ -175,7 +175,7 @@ class Enhanced_Category extends WP_Custom_Post {
 		if (!empty($category_r)) {
 			$category = array(
 				'term_id' => $category_r->category_id,
-				'slug' => $post->post_name,
+				//'slug' => $post->post_name,
 				'name' => $post->post_title,
 				'description' => $post->post_excerpt,
 			);

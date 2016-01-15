@@ -2403,14 +2403,14 @@ label {
 ## Links
 --------------------------------------------------------------*/
 a {
-  color: royalblue;
+  color: #052D6F;
   transition: all ease 0.5s;
 }
 a:visited {
-  color: purple;
+  color: #03193e;
 }
 a:hover, a:focus, a:active {
-  color: midnightblue;
+  color: #0955d1;
 }
 a:focus {
   outline: thin dotted;

@@ -7,7 +7,16 @@
  * @package itm
  */
 
-get_header(); ?>
+get_header();
+
+$term		= get_the_category();
+$term		= $term[0];
+$ecpPost	= get_ecp_post($term->term_id);
+
+$menu		= get_field('menu', $ecpPost->ID);
+$sidebar	= get_field('sidebar', $ecpPost->ID);
+
+?>
 
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
@@ -27,18 +36,15 @@ get_header(); ?>
 				</div><!-- ctn__info-header -->
 			</header><!-- ctn__header-content -->
 			<section class="ctn__section-content programa clearfix">
+				<?php if (!is_null($menu) || !is_null($sidebar)):  ?>
 				<div class="col-md-3 ctn__menu-lateral">
 					<div class="menu-lateral_titulo <?php echo $class; ?>">
 						<h3>Menú de navegación</h3>
 					</div>
 					<?php
-						$field = get_field_object('menu', $ecp_post->ID);
-						$value = get_field('menu', $ecp_post->ID);
-						$label = $field['choices'][ $value ];
-						echo $value
+						echo $menu;
 					?>
-					<?php get_sidebar(); ?>
-					<div class="clearfix padding"></div>
+					<?php dynamic_sidebar($sidebar); ?>
 				</div>
 				<div class="col-md-9">
 					<?php echo $post_date; ?>
@@ -55,6 +61,20 @@ get_header(); ?>
 
 					<?php endwhile; // End of the loop. ?>
 				</div>
+				<?php else: ?>
+				<?php while ( have_posts() ) : the_post(); ?>
+
+					<?php get_template_part( 'template-parts/content', 'single' ); ?>
+
+					<?php
+						// If comments are open or we have at least one comment, load up the comment template.
+						if ( comments_open() || get_comments_number() ) :
+							comments_template();
+						endif;
+					?>
+
+				<?php endwhile; // End of the loop. ?>
+				<?php endif; ?>
 			</section><!-- ctn__section-content -->
 		</div>
 

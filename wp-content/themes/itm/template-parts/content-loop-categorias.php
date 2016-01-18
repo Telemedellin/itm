@@ -28,7 +28,8 @@ switch ($category->slug)
 		break;
 }
 
-?>		
+?>
+
 <div class="grid-item">
 	<a href="<?php echo $enlace; ?>" class="ctn__preview">
 		<div class="ctn__preview-image" style="background: url(http://lorempixel.com/400/400) no-repeat; background-size: 100%; background-position: center center">

@@ -7,33 +7,28 @@
  * @package itm
  */
 
+$post_date		= mysql2date('j F Y', $post->post_date);
+$post_date		= explode(' ', $post_date);
+$post_date[1]	= ucfirst($post_date[1]);
+$post_date		= join($post_date, " de ");
+
+$title			= get_the_title();
+$image			= ($img = get_the_post_thumbnail() == "") ? 'http://lorempixel.com/400/400' : $img;
+$permalink		= get_the_permalink();
+
 ?>
-<div class="ctn_cover-image">
-</div>
-<div class="ctn__content container">
-	<header class="ctn__header-content">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-		<div class="ctn__info-header">
-			<div class="ctn__breadcrumbs">
-				<span><a href="#">Home</a></span><span><a href="#">Estudiar en el ITM</a></span><span><a href="#">Programas universitarios</a></span>
-			</div><!-- ctn__breadcrumbs -->
-		</div><!-- ctn__info-header -->
-	</header><!-- ctn__header-content -->
-	<section class="ctn__section-content padding-content">
-		<div class="grid-item">
-			<a href="#" class="ctn__preview ctn__preview-news">
-				<div class="ctn__preview-image" style="background: url(http://lorempixel.com/400/400) no-repeat; background-size: 100%; background-position: center center">
-					<img src="" alt="" class="preview-image">
-				</div>
-				<div class="ctn__preview-title">
-					<h2 class="preview-title">
-						Título del artículo o de la noticia, que puede ser un poco largo
-					</h2>
-				</div>
-				<div class="ctn__preview-news_date">
-					<span class="preview-news_date">31 de mayo de 2016</span>
-				</div>
-			</a href="#"><!-- ctn__preview -->
-		</div><!-- /grid-item -->
-	</section><!-- ctn__section-content -->
-</div>
+<div class="grid-item">
+	<a href="<?php echo $permalink; ?>" class="ctn__preview ctn__preview-news">
+		<div class="ctn__preview-image" style="background: url(<?php echo $image; ?>) no-repeat; background-size: 100%; background-position: center center">
+			<img src="<?php echo $image; ?>" alt="<?php echo $title; ?>" class="preview-image">
+		</div>
+		<div class="ctn__preview-title">
+			<h2 class="preview-title">
+				<?php echo $title; ?>
+			</h2>
+		</div>
+		<div class="ctn__preview-news_date">
+			<span class="preview-news_date"><?php echo $post_date; ?></span>
+		</div>
+	</a href="#"><!-- ctn__preview -->
+</div><!-- /grid-item -->

@@ -8,9 +8,11 @@ require_once('PHPLinq/LinqToObjects.php');
 
 if (isset($_POST))
 {
-	$category_id = $_POST['cat'];
+	$category_id	= $_POST['cat'];
+	$_tipo			= $_POST['tipo'];
+	
 	unset($_POST['cat']);
-	extract($_POST);
+	unset($_POST['tipo']);
 
 	$categories = obtenerProgramas($category_id);
 	$data = array();
@@ -28,19 +30,19 @@ if (isset($_POST))
 		$tipo_text			= $field['choices'][$tipo];
 
 		$field				= get_field_object('sede', $ecpPost->ID);
-		$sede				= $field['value'][0];
+		$sede				= $field['value'];
 		$sede_text			= $field['choices'][$sede];
 
 		$intensidad_horaria	= get_field('intensidad_horaria', $ecpPost->ID);
 		$enlace				= get_category_link($category->term_id);
-		
-		$data[] = (object)array(
+
+		$data[$tipo][] = (object)array(
 			'tipo_programa' => $tipo_programa,
 			'category_id' => $category->term_id,
 			'titulo' => $titulo,
 			'imagen' => $imagen,
-			'tipo' => $_tipo_programa,
-			'tipo_text' => $tipo_programa_text,
+			'tipo' => $tipo,
+			'tipo_text' => $tipo_text,
 			'sede' => $sede,
 			'sede_text' => $sede_text,
 			'intensidad_horaria' => $intensidad_horaria .= ($intensidad_horaria > 1 ) ? ' horas' : ' hora',
@@ -48,17 +50,70 @@ if (isset($_POST))
 		);
 	}
 
-	$w = "";
-	$result = "";
+	$w = '';
+	$w1 = '';
+	$w2 = '';
+	$sedes = '';
+	$result = array();
 
-	if (empty($tipo))
+	if (!empty($_tipo))
+		$w1 = '$p->tipo == "'.$_tipo.'"';
+
+	$cont = 0;
+	foreach ($_POST as $key => $value)
 	{
-		$result = from('$p')->in($data)
-					->select('$p');
+		if ($cont == 0 && $value == 'true')
+		{
+			$sedes .= $key;
+			$cont++;
+		}
+		else
+		{
+			if ($value == 'true')
+			{
+				$sedes .= '|'.$key;
+			}
+		}
+	}
+
+	if (!empty($sedes))
+		$w2 = 'preg_match("['.$sedes.']", $p->sede) == true';
+
+	if (!empty($w1) && !empty($w2))
+		$w .= $w1 . ' && ' . $w2;
+	if (!empty($w1) && empty($w2))
+		$w .= $w1;
+	if (empty($w1) && !empty($w2))
+		$w .= $w2;
+
+	if (empty($w))
+	{
+		$result = $data;
 	}
 	else
 	{
-		$result = $data;
+		if (empty($w1))
+			foreach ($data as $key => $extension)
+			{
+				$result[$key] = from('$p')->in($data[$key])
+							->where($w)
+							->select('$p');
+							
+				if(count($result[$key]) == 0)
+					unset($result[$key]);
+			}
+		else
+		{
+			if (isset($data[$_tipo]))
+			{
+				$result[$_tipo] = from('$p')->in($data[$_tipo])
+							->where($w)
+							->select('$p');
+
+				if(count($result[$_tipo]) == 0)
+					unset($result[$_tipo]);
+			}
+		}
 	}
 
 	header('Content-Type: application/json');

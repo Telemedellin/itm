@@ -12,11 +12,14 @@ Template Name: template para la categoría de extensión académica.
 
 get_header();
 
-global $ecp_post, $ecp_category, $extensiones;
+global $ecp_post, $ecp_category, $extensiones, $tipos;
 
 get_ecp_post();
 
-$extensiones = get_categories(array(
+set_include_path(get_include_path() . PATH_SEPARATOR . get_template_directory() . '/libs/linq/');
+require_once('PHPLinq/LinqToObjects.php');
+
+$data = get_categories(array(
 		'type'                     => 'post',
 		'child_of'                 => $ecp_category->term_id,
 		'parent'                   => '',
@@ -32,7 +35,9 @@ $extensiones = get_categories(array(
 	)
 );
 
-foreach ($extensiones as $extension)
+$extensiones = array();
+
+foreach ($data as $extension)
 {
 	$ecpPost = get_ecp_post($extension->term_id);
 
@@ -42,15 +47,19 @@ foreach ($extensiones as $extension)
 	$field						= get_field_object('ext_tipo_programa', $ecpPost->ID);
 	$tipo						= $field['value'][0];
 	$tipo_text					= $field['choices'][$tipo];
-	$extension->tipo			= $tipo_text;
+	$extension->tipo			= $tipo;
+	$extension->tipo_text		= $tipo_text;
 
 	$field						= get_field_object('sede', $ecpPost->ID);
-	$sede						= $field['value'][0];
+	$sede						= $field['value'];
 	$sede_text					= $field['choices'][$sede];
-	$extension->sede			= $sede_text;
+	$extension->sede			= $sede;
+	$extension->sede_text		= $sede_text;
 
 	$extension->intensidad		= get_field('intensidad_horaria', $ecpPost->ID);
 	$extension->enlace			= get_category_link($extension->term_id);
+
+	$extensiones[$tipo_text][] = $extension;
 }
 
 ?>

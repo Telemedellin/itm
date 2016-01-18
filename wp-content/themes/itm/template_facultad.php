@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Template categoría programas academicos
+Template Name: Template categoría facultad X
 */
 /*
  * Template para visualizar la página inicial de un programa académico.
@@ -16,11 +16,8 @@ global $ecp_post, $ecp_category;
 
 get_ecp_post();
 
-// Facultad actual
-$facultad	= get_category(get_category($ecp_category->parent)->parent);
-
 $class = '';
-switch ($facultad->slug)
+switch ($ecp_category->slug)
 {
 	case 'facultad-de-artes-y-humanidades':
 		$class = ' artes-y-humanidades';
@@ -36,6 +33,10 @@ switch ($facultad->slug)
 		break;
 }
 
+$menu		= get_field('menu', $ecp_post->ID);
+$sidebar	= get_field('sidebar', $ecp_post->ID);
+$title		= get_the_title($ecp_post->ID);
+
 ?>
 
 	<div id="primary" class="content-area">
@@ -45,7 +46,7 @@ switch ($facultad->slug)
 			</div>
 			<div class="ctn__content container">
 				<header class="ctn__header-content">
-					<h1 class="entry-title<?php echo $class; ?>"><?php echo get_the_title($ecp_post->ID); ?></h1>
+					<h1 class="entry-title<?php echo $class; ?>"><?php echo $title; ?></h1>
 					<div class="ctn__info-header">
 						<div class="ctn__breadcrumbs breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
 							<?php if(function_exists('bcn_display'))
@@ -61,35 +62,12 @@ switch ($facultad->slug)
 							<h3>Menú de navegación</h3>
 						</div>
 						<?php
-							$field = get_field_object('menu', $ecp_post->ID);
-							$value = get_field('menu', $ecp_post->ID);
-							$label = $field['choices'][ $value ];
-							echo $value
+							echo $menu;
 						?>
 
 						<?php
-							$sidebar	= get_field('sidebar', $ecp_post->ID);
 							dynamic_sidebar($sidebar);
 						?>
-						
-						<?php
-							$titulo_otorgado	= get_field('titulo_otorgado', $ecp_post->ID);
-
-							$field				= get_field_object('modalidad', $ecp_post->ID);
-							$modalidad			= $field['choices'][$field['value'][0]];
-
-							$duracion			= get_field('duracion', $ecp_post->ID);
-						?>
-						<div class="ctn__programa-bottom clearfix<?php echo $class; ?>">
-							<dl>
-								<dt>Título a otorgar</dt>
-									<dd><?php echo $titulo_otorgado; ?></dd>
-								<dt>Modalidad</dt>
-									<dd><?php echo $modalidad; ?></dd>
-								<dt>Duración</dt>
-									<dd><?php echo $duracion; ?></dd>
-							</dl>
-						</div>
 						<div class="clearfix padding"></div>
 					</div>
 					<div class="col-md-9">

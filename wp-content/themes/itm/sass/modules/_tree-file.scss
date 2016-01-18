@@ -1,0 +1,14 @@
+ul{
+	&.jqueryFileTree{
+		font-family: $font__main !important;
+	}
+}
+
+.directory{
+	> a{
+		font:{
+			size: 1rem;
+		}
+		margin: 5px 0;
+	}
+}

@@ -1,0 +1,80 @@
+//Estilos para los acordeones
+.acordeon-itm,{
+	.vc_tta-panel-heading{ //Color de fondo del título estado normal
+		background: $color__gray-light !important;
+		border-radius: 0 !important;
+		a{
+			&:hover{
+				background: $color__gray !important;
+			}
+		}
+	}
+	.vc_active{
+		.vc_tta-panel-heading{ //Color de fondo del título en estado activo
+			background: $color__primary !important;
+			border-radius: 0 !important;
+			a{
+				color: #ffffff !important;
+				background: $color__primary !important;
+			}
+		}
+		.vc_tta-controls-icon{ //Color del triángulo en estado activo
+			&::before{
+				border-color: #FFFFFF !important;
+			}
+		}
+	}
+	.vc_tta-panel-body{
+		background: lighten($color__gray-light, 5%) !important;
+	}
+}
+
+
+//Estilos para las pestañas
+.pestana-itm{
+	.vc_tta-tabs-list{
+		border-bottom: solid 5px $color__primary;
+	}
+	.vc_tta-tab{
+		> a{
+			border-radius: 0 !important;
+			margin-right: 5px;
+			border: none !important;
+			background: $color__gray-light !important;
+			&:hover{
+				background: $color__gray !important;
+				//color: #FFFFFF !important;
+			}
+		}
+		&.vc_active{
+			a{
+				background: $color__primary !important;
+				color: #FFFFFF !important;
+			}
+		}
+	}
+	.vc_tta-panel-heading{ //Color de fondo del título estado normal
+		background: $color__gray-light !important;
+		border-radius: 0 !important;
+		a{
+			&:hover{
+				background: $color__gray !important;
+			}
+		}
+	}
+	.vc_active{
+		.vc_tta-panel-heading{ //Color de fondo del título en estado activo
+			background: $color__primary !important;
+			border-radius: 0 !important;
+			a{
+				color: #ffffff !important;
+				background: $color__primary !important;
+			}
+		}
+		.vc_tta-controls-icon{ //Color del triángulo en estado activo
+			&::before{
+				border-color: #FFFFFF !important;
+			}
+		}
+	}
+}

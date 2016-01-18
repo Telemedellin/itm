@@ -2950,6 +2950,35 @@ ul.jqueryFileTree {
   padding: 20px;
 }
 
+.ctn__preview-grid {
+  margin-top: 30px;
+}
+
+@media (min-width: 768px) {
+  .ctn__preview-grid .ctn__preview-grid__primary-col .grid-item {
+    width: 100%;
+  }
+  .ctn__preview-grid .ctn__preview-grid__secondary-col .grid-item {
+    width: 49%;
+    display: inline-block;
+  }
+}
+@media (min-width: 992px) {
+  .ctn__preview-grid .ctn__preview-grid__primary-col {
+    width: 49%;
+    display: inline-block;
+  }
+  .ctn__preview-grid .ctn__preview-grid__primary-col .grid-item {
+    margin-bottom: 10px;
+  }
+  .ctn__preview-grid .ctn__preview-grid__secondary-col {
+    width: 49%;
+    display: inline-block;
+  }
+  .ctn__preview-grid .ctn__preview-grid__secondary-col .grid-item {
+    margin-bottom: 10px;
+  }
+}
 .site-branding {
   display: block;
   width: 80%;

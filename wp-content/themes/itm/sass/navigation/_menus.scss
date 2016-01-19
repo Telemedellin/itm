@@ -274,6 +274,7 @@
 # Mega menú
 --------------------------------------------------------------*/
 .ubermenu{
+	margin-top: 50px !important;
 	//Item de primer nivel
 	.ubermenu-nav{
 		> .ubermenu-item{
@@ -350,6 +351,9 @@
 		}
 		.ubermenu-responsive-toggle{
 			display: none;
+		}
+		.ubermenu{
+			margin-top: 0px !important;
 		}
 	}
 	//Ancho de los ítemes principales en el menu de primer nivel. Se divide el 100% por la cantidad de ítemes

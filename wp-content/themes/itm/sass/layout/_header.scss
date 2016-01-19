@@ -6,6 +6,7 @@
 	text-indent: -9999px;
 	background: url(images/logotipo-ITM.png) no-repeat center;
 	background-size: contain;
+	transition: all 0.4s ease;
 }
 .middle-bar{
 	position: relative;
@@ -15,6 +16,7 @@
     bottom: -44px;
     width:55%;
     left: 15px;
+    transition: all 0.4s ease;
     label{
     	width: 100%;
     	input{
@@ -26,11 +28,13 @@
 	background: $color__gray-light;
 	//overflow: auto;
 	padding: 0;
+	transition: all 0.4s ease;
 }
 .ctn__header-top-bar{
 	display: none;
 }
 .ctn__header-middle-bar{
+	transition: all 0.4s ease;
 	.middle-bar{
 		padding-left: 0;
 		padding-right: 0;
@@ -175,6 +179,42 @@
 					font-weight: 500;
 				}
 			}
+		}
+	}
+	//Sticky header
+	.admin-bar{
+		.sticky{
+			.ctn__header-bottom-bar{
+				top: 32px;
+			}
+			.ctn__site-branding{
+				top: 32px !important;
+			}
+		}
+	}
+	.sticky{
+		.ctn__header-top-bar,
+		.ctn__users-navigation,
+		.ctn__search {
+			display: none;
+		}
+		.ctn__site-branding{
+			position: fixed !important;
+		    top: 0px !important;
+		    width: 14% !important;
+		    z-index: 19;;
+		    .site-title{
+		    	box-shadow: 1px 1px 16px #9A9A9A;
+		    }
+		}
+		.ctn__header-bottom-bar{
+			position: fixed;
+		    top: 0px;
+		    width: 100%;
+		    z-index: 18;
+		    .ubermenu{
+		    	padding-left: 158px;
+		    }
 		}
 	}
 }

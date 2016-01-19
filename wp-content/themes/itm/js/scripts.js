@@ -273,4 +273,15 @@
 	btn_submenu2.on('click', function(event) {
 		slideMenu(submenu2);
 	});
+
+
+	//Sticky head
+	$(window).scroll(function() {
+	if ($(this).scrollTop() > 150){  
+	    $('.site-header').addClass("sticky");
+	  }
+	  else{
+	    $('header').removeClass("sticky");
+	  }
+	});
 })(jQuery);

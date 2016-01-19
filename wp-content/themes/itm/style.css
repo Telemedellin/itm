@@ -2987,6 +2987,7 @@ ul.jqueryFileTree {
   text-indent: -9999px;
   background: url(images/logotipo-ITM.png) no-repeat center;
   background-size: contain;
+  transition: all 0.4s ease;
 }
 
 .middle-bar {
@@ -2998,6 +2999,7 @@ ul.jqueryFileTree {
   bottom: -44px;
   width: 55%;
   left: 15px;
+  transition: all 0.4s ease;
 }
 .ctn__search label {
   width: 100%;
@@ -3009,12 +3011,16 @@ ul.jqueryFileTree {
 .ctn__header-bottom-bar {
   background: #e3e4e5;
   padding: 0;
+  transition: all 0.4s ease;
 }
 
 .ctn__header-top-bar {
   display: none;
 }
 
+.ctn__header-middle-bar {
+  transition: all 0.4s ease;
+}
 .ctn__header-middle-bar .middle-bar {
   padding-left: 0;
   padding-right: 0;
@@ -3158,6 +3164,37 @@ ul.jqueryFileTree {
     float: left;
     font-size: 2.3rem;
     font-weight: 500;
+  }
+
+  .admin-bar .sticky .ctn__header-bottom-bar {
+    top: 32px;
+  }
+  .admin-bar .sticky .ctn__site-branding {
+    top: 32px !important;
+  }
+
+  .sticky .ctn__header-top-bar,
+  .sticky .ctn__users-navigation,
+  .sticky .ctn__search {
+    display: none;
+  }
+  .sticky .ctn__site-branding {
+    position: fixed !important;
+    top: 0px !important;
+    width: 14% !important;
+    z-index: 19;
+  }
+  .sticky .ctn__site-branding .site-title {
+    box-shadow: 1px 1px 16px #9A9A9A;
+  }
+  .sticky .ctn__header-bottom-bar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 18;
+  }
+  .sticky .ctn__header-bottom-bar .ubermenu {
+    padding-left: 158px;
   }
 }
 @media (min-width: 1200px) {

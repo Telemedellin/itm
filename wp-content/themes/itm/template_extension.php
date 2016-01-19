@@ -88,7 +88,7 @@ foreach ($data as $extension)
 							</div>
 						</div><!-- ctn__input-filter -->
 						<div class="ctn__input-result">
-						</div><!-- ctn__input-filter -->
+						</div><!-- ctn__input-result -->
 						<div class="ctn__extension-filter padding">
 							<span class="text-filters">Filtra por el tipo de programa</span>
 							<div class="extension-filter">

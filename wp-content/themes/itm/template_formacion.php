@@ -67,7 +67,7 @@ switch ($facultades[0]->slug)
 						</div><!-- ctn__input-filter -->
 						<div class="ctn__program-filter padding">
 							<span class="text-filters">Filtra por el tipo de programa</span>
-							<div class="program-filters">
+							<div class="formacion-filters">
 								<form action="">
 									<div class="ctn__filter checkbox-itm">
 										<input id="posgrado" type="checkbox">
@@ -82,7 +82,7 @@ switch ($facultades[0]->slug)
 						</div><!-- ctn__program-filter -->
 						<div class="ctn__metodology-filters padding">
 							<span class="text-filters">Metodología</span>
-							<div class="metodology-filters">
+							<div class="metodology-formacion-filters">
 								<form action="">
 									<div class="ctn__filter checkbox-itm">
 										<input id="virtual" type="checkbox">

@@ -9,13 +9,19 @@
 	$('.faculty-filter > span').on('click', function(evt) {
 		$('.faculty-filter').children().removeClass('select');
 		$(this).addClass('select');
+		filtrarProgramasFacultades();
+		evt.stopPropagation();
+	});
+
+	// Filtros de tipo de programas academicos
+	$('.formacion-filters .checkbox-itm > input, .metodology-formacion-filters .checkbox-itm > input').on('change', function(evt) {
 		filtrarProgramas();
 		evt.stopPropagation();
 	});
 
-	// Filtros de tipo de programas para extensiones academicas
-	$('.program-filters .checkbox-itm > input, .metodology-filters .checkbox-itm > input').on('change', function(evt) {
-		filtrarProgramas();
+	// Filtros de tipo de programas academicos para oferta academica
+	$('.oferta-filters .checkbox-itm > input, .metodology-oferta-filters .checkbox-itm > input').on('change', function(evt) {
+		filtrarProgramasFacultades();
 		evt.stopPropagation();
 	});
 
@@ -46,7 +52,7 @@
 
 		if (text.length > 2 && evt.which <= 90 && evt.which >= 48)
 		{
-			var parent = $('#primary').attr('cat');
+			var parent = $('#primary').attr('cat') == undefined ? 0 : $('#primary').attr('cat');
 			$.ajax({
 				method: "POST",
 				url: admin_path + "/admin-ajax.php",
@@ -84,6 +90,90 @@
 	function autocompleteItemSelect(item)
 	{
 		window.location = item.url;
+	}
+
+	function filtrarProgramasFacultades()
+	{
+		var data			= {};
+		data['tipo']		= $('.filter-label.select').attr('rel') == undefined ? '' : $('.filter-label.select').attr('rel');
+		var checkbox_list	= $('.checkbox-itm > input');
+
+		$.each(checkbox_list, function (k, v) {
+			v.checked ? data[v.id] = true : data[v.id] = null;
+		});
+
+		$.ajax({
+			url: theme_path + '/ajax/filtro-programas-facultades.php',
+			method: 'POST',
+			data: data,
+			beforeSend: function()
+			{
+				// Mostrar el efecto de cargando...
+				$('.ctn__section-content').css({
+					height: '573px'
+				});
+				$('.overlay-filter').show();
+			},
+			success: function(data)
+			{
+				// grid container
+				var container = $('.ctn__facultad.hidden').get(0);
+				// grid item
+				var grid_item = $('.ctn__programa.hidden').get(0);
+
+				var grid_items = [];
+				var container_items = [];
+
+				$('.ctn__grids').html('');
+
+				$.each(data, function(tipo,programas) {
+					var params = tipo.split('::');
+					var _container = $(container).clone().removeAttr('style').removeClass('hidden').get(0);
+					_container.children[0].children[0].innerText = params[0];
+					$(_container.children[1]).addClass('brd__' + params[1])
+					$.each(programas, function (key, programa) {
+						var _grid_item = $(grid_item).clone().removeAttr('style').removeClass('hidden').get(0);
+						// a.ctn__programa
+						_grid_item.href = programa.enlace;
+						// ctn__programa-image
+						var style = _grid_item.children[0].children[0].style;
+						var img_url = $(programa.imagen).attr('src');
+						style.background = 'url("http://lorempixel.com/400/400") 50% 50% / 100% no-repeat';
+						style.backgroundPosition = '50% 50%';
+						style.backgroundSize = '100%';
+						
+						// ctn__programa-image > img
+						//_container.children[0].children[0].children[0].src = img_url;
+						
+						// ctn__programa_top > h3
+						_grid_item.children[0].children[1].innerText = programa.titulo;
+
+						// Título a otorgar
+						_grid_item.children[1].children[0].children[1].innerText = programa.titulo_otorgado;
+						// Modalidad
+						_grid_item.children[1].children[0].children[3].innerText = programa.modalidad_text;
+						// Duración
+						_grid_item.children[1].children[0].children[5].innerText = programa.duracion;
+
+						$(_container.children[1]).append(_grid_item);
+					});
+
+					container_items.push(_container);
+					$('.ctn__grids').append(container_items);
+				});
+
+				if (container_items.length == 0)
+				{
+					var msg = $('#msg__sin-resultados').clone().removeAttr('style');
+					$('.ctn__grids').append(msg);
+				}
+
+				$('.overlay-filter').hide();
+				$('.ctn__section-content').css({
+					height: 'auto'
+				});
+			}
+		});
 	}
 
 	// Metodo que se encargara de hacer las peticiones ajax para los filtros

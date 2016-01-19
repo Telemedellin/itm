@@ -16,14 +16,11 @@ global $ecp_post, $ecp_category, $facultades;
 
 get_ecp_post();
 
-// Facultad actual
-$facultad	= get_category($ecp_category->parent);
-
 // Facultades
 $facultades = get_categories(array(
 		'type'                     => 'post',
 		'child_of'                 => '',
-		'parent'                   => $facultad->parent,
+		'parent'                   => 65,
 		'orderby'                  => 'name',
 		'order'                    => 'ASC',
 		'hide_empty'               => false,
@@ -36,8 +33,75 @@ $facultades = get_categories(array(
 	)
 );
 
-?>
+$_facultades = $facultades;
 
+$programas = array();
+
+foreach ($facultades as $facultad):
+
+	$formaciones = get_categories(array(
+			'type'                     => 'post',
+			'child_of'                 => $facultad->term_id,
+			'parent'                   => '',
+			'orderby'                  => 'name',
+			'order'                    => 'ASC',
+			'hide_empty'               => false,
+			'hierarchical'             => false,
+			'exclude'                  => '',
+			'include'                  => '',
+			'number'                   => '',
+			'taxonomy'                 => 'category',
+			'pad_counts'               => false
+		)
+	);
+
+	switch ($facultad->slug)
+	{
+		case 'facultad-de-artes-y-humanidades':
+			$class = 'artes-y-humanidades';
+			break;
+		case 'facultad-de-ciencias-economicas':
+			$class = 'ciencias-economicas';
+			break;
+		case 'facultad-de-ciencias-exactas-y-aplicadas':
+			$class = 'ciencias-exactas';
+			break;
+		case 'facultad-de-ingenierias':
+			$class = 'ingenierias';
+			break;
+	}
+
+	$programas[$facultad->name.'::'.$class] = array();
+	foreach ($formaciones as $formacion)
+	{
+		if (strpos($formacion->slug, 'formacion') !== false)
+		{
+			$programas[$facultad->name.'::'.$class] = array_merge_recursive($programas[$facultad->name.'::'.$class], get_categories(array(
+					'type'                     => 'post',
+					'child_of'                 => '',
+					'parent'                   => $formacion->term_id,
+					'orderby'                  => 'name',
+					'order'                    => 'ASC',
+					'hide_empty'               => false,
+					'hierarchical'             => false,
+					'exclude'                  => '',
+					'include'                  => '',
+					'number'                   => '',
+					'taxonomy'                 => 'category',
+					'pad_counts'               => false
+				)
+			));
+		}
+	}
+
+	if (count($programas[$facultad->name.'::'.$class]) == 0)
+		unset($programas[$facultad->name.'::'.$class]);
+
+endforeach;
+
+$facultades = $programas;
+
+?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
@@ -56,35 +120,32 @@ $facultades = get_categories(array(
 						<div class="ctn__input-filter padding">
 							<div class="input-filter">
 								<form action="">
-									<input type="text" placeholder="Escribe el nombre del programa">
+									<input id="oferta-academica" type="text" placeholder="Escribe el nombre del programa">
 								</form>
 							</div>
 						</div><!-- ctn__input-filter -->
+						<div class="ctn__input-result">
+						</div><!-- ctn__input-result -->
 						<div class="ctn__faculty-filter padding">
 							<span class="text-filters">Filtra por Facultad</span>
 							<div class="faculty-filter">
-								<span class="filter-label facultades">Todas las facultades</span>
-								<?php foreach ($facultades as $value): ?>
-
-								<?php $select = ''; ?>
-								<?php if ($facultad->slug == $value->slug): ?>
-									<?php $select = ' select' ?>
-								<?php endif; ?>
+								<span class="filter-label facultades" rel="">Todas las facultades</span>
+								<?php foreach ($_facultades as $value): ?>
 
 								<?php if ($value->slug == 'facultad-de-artes-y-humanidades'): ?>
-								<span class="filter-label artes-y-humanidades<?php echo $select; ?>"><?php echo $value->name; ?></span>
+								<span class="filter-label artes-y-humanidades" rel="<?php echo $value->slug; ?>"><?php echo $value->name; ?></span>
 								<?php endif; ?>
 
 								<?php if ($value->slug == 'facultad-de-ciencias-economicas'): ?>
-								<span class="filter-label ciencias-economicas<?php echo $select; ?>"><?php echo $value->name; ?></span>
+								<span class="filter-label ciencias-economicas" rel="<?php echo $value->slug; ?>"><?php echo $value->name; ?></span>
 								<?php endif; ?>
 
 								<?php if ($value->slug == 'facultad-de-ciencias-exactas-y-aplicadas'): ?>
-								<span class="filter-label ciencias-exactas<?php echo $select; ?>"><?php echo $value->name; ?></span>
+								<span class="filter-label ciencias-exactas" rel="<?php echo $value->slug; ?>"><?php echo $value->name; ?></span>
 								<?php endif; ?>
 
 								<?php if ($value->slug == 'facultad-de-ingenierias'): ?>
-								<span class="filter-label ingenierias<?php echo $select; ?>"><?php echo $value->name; ?></span>
+								<span class="filter-label ingenierias" rel="<?php echo $value->slug; ?>"><?php echo $value->name; ?></span>
 								<?php endif; ?>
 
 								<?php endforeach; ?>
@@ -92,22 +153,22 @@ $facultades = get_categories(array(
 						</div><!-- ctn__faculty-filter -->
 						<div class="ctn__program-filter padding">
 							<span class="text-filters">Filtra por el tipo de programa</span>
-							<div class="program-filters">
+							<div class="oferta-filters">
 								<form action="">
 									<div class="ctn__filter checkbox-itm">
-										<input id="posgrados" type="checkbox">
-										<label for="posgrados">Posgrados</label>
+										<input id="posgrado" type="checkbox">
+										<label for="posgrado">Posgrados</label>
 									</div>
 									<div class="ctn__filter checkbox-itm">
-										<input id="pregrados" type="checkbox">
-										<label for="pregrados">Pregrados</label>
+										<input id="pregrado" type="checkbox">
+										<label for="pregrado">Pregrados</label>
 									</div>
 								</form>
 							</div>
 						</div><!-- ctn__program-filter -->
 						<div class="ctn__metodology-filters padding">
 							<span class="text-filters">Metodología</span>
-							<div class="metodology-filters">
+							<div class="metodology-oferta-filters">
 								<form action="">
 									<div class="ctn__filter checkbox-itm">
 										<input id="virtual" type="checkbox">

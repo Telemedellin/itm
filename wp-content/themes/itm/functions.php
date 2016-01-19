@@ -77,22 +77,40 @@ function getProgramasCat()
 	if( isset($_POST['parent']) )
 	{
 		extract($_POST);
-
-		$categories = get_categories(array(
-				'type'                     => 'post',
-				'child_of'                 => $parent,
-				'parent'                   => '',
-				'orderby'                  => 'name',
-				'order'                    => 'ASC',
-				'hide_empty'               => 0,
-				'hierarchical'             => 0,
-				'exclude'                  => '',
-				'include'                  => '',
-				'number'                   => '',
-				'taxonomy'                 => 'category',
-				'pad_counts'               => false 
-			)
+		$args = array(
+			'type'                     => 'post',
+			'child_of'                 => $parent,
+			'parent'                   => '',
+			'orderby'                  => 'name',
+			'order'                    => 'ASC',
+			'hide_empty'               => 0,
+			'hierarchical'             => 0,
+			'exclude'                  => '',
+			'include'                  => '',
+			'number'                   => '',
+			'taxonomy'                 => 'category',
+			'pad_counts'               => false 
 		);
+
+		$cats = array();
+		if ($tipo == 'oferta-academica')
+		{
+			$args['child_of'] = 65;
+			foreach (get_categories($args) as $category)
+			{
+				if (preg_match("[Extensi|Formaci]", $category->name) == true)
+				{
+					$cats[] = $category->term_id;
+				}
+			}
+		}
+
+		$categories = array();
+		foreach ($cats as $cat)
+		{
+			$args['child_of'] = $cat;
+			$categories = array_merge_recursive($categories, get_categories($args));
+		}
 
 		$cont = 0;
 		foreach ($categories as $category)

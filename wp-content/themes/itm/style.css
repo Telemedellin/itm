@@ -2670,6 +2670,9 @@ a.page-numbers:hover {
 /*--------------------------------------------------------------
 # Mega men├║
 --------------------------------------------------------------*/
+.ubermenu {
+  margin-top: 50px !important;
+}
 .ubermenu .ubermenu-nav > .ubermenu-item {
   background: #052D6F;
 }
@@ -2734,6 +2737,9 @@ a.page-numbers:hover {
   }
   .main-navigation .ubermenu-responsive-toggle {
     display: none;
+  }
+  .main-navigation .ubermenu {
+    margin-top: 0px !important;
   }
 
   .ubermenu-item-level-0 {
@@ -2950,6 +2956,35 @@ ul.jqueryFileTree {
   padding: 20px;
 }
 
+.ctn__preview-grid {
+  margin-top: 30px;
+}
+
+@media (min-width: 768px) {
+  .ctn__preview-grid .ctn__preview-grid__primary-col .grid-item {
+    width: 100%;
+  }
+  .ctn__preview-grid .ctn__preview-grid__secondary-col .grid-item {
+    width: 49%;
+    display: inline-block;
+  }
+}
+@media (min-width: 992px) {
+  .ctn__preview-grid .ctn__preview-grid__primary-col {
+    width: 49%;
+    display: inline-block;
+  }
+  .ctn__preview-grid .ctn__preview-grid__primary-col .grid-item {
+    margin-bottom: 10px;
+  }
+  .ctn__preview-grid .ctn__preview-grid__secondary-col {
+    width: 49%;
+    display: inline-block;
+  }
+  .ctn__preview-grid .ctn__preview-grid__secondary-col .grid-item {
+    margin-bottom: 10px;
+  }
+}
 .site-branding {
   display: block;
   width: 80%;
@@ -2958,6 +2993,7 @@ ul.jqueryFileTree {
   text-indent: -9999px;
   background: url(images/logotipo-ITM.png) no-repeat center;
   background-size: contain;
+  transition: all 0.4s ease;
 }
 
 .middle-bar {
@@ -2969,6 +3005,7 @@ ul.jqueryFileTree {
   bottom: -44px;
   width: 55%;
   left: 15px;
+  transition: all 0.4s ease;
 }
 .ctn__search label {
   width: 100%;
@@ -2980,12 +3017,16 @@ ul.jqueryFileTree {
 .ctn__header-bottom-bar {
   background: #e3e4e5;
   padding: 0;
+  transition: all 0.4s ease;
 }
 
 .ctn__header-top-bar {
   display: none;
 }
 
+.ctn__header-middle-bar {
+  transition: all 0.4s ease;
+}
 .ctn__header-middle-bar .middle-bar {
   padding-left: 0;
   padding-right: 0;
@@ -3130,6 +3171,37 @@ ul.jqueryFileTree {
     font-size: 2.3rem;
     font-weight: 500;
   }
+
+  .admin-bar .sticky .ctn__header-bottom-bar {
+    top: 32px;
+  }
+  .admin-bar .sticky .ctn__site-branding {
+    top: 32px !important;
+  }
+
+  .sticky .ctn__header-top-bar,
+  .sticky .ctn__users-navigation,
+  .sticky .ctn__search {
+    display: none;
+  }
+  .sticky .ctn__site-branding {
+    position: fixed !important;
+    top: 0px !important;
+    width: 14% !important;
+    z-index: 19;
+  }
+  .sticky .ctn__site-branding .site-title {
+    box-shadow: 1px 1px 16px #9A9A9A;
+  }
+  .sticky .ctn__header-bottom-bar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 18;
+  }
+  .sticky .ctn__header-bottom-bar .ubermenu {
+    padding-left: 158px;
+  }
 }
 @media (min-width: 1200px) {
   .main-navigation {
@@ -3181,6 +3253,10 @@ a.icon-itm:hover {
 .ctn__direccion {
   text-align: center;
   font-family: "Dosis", sans-serif;
+}
+
+.w3eden {
+  display: none;
 }
 
 @media (min-width: 992px) {
@@ -3472,7 +3548,6 @@ a.icon-itm:hover {
 }
 
 .ctn__section-content.programa {
-  margin-top: -30px;
   background-color: #fff;
   min-height: 200px;
   padding-top: 15px;

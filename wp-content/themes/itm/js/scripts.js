@@ -247,7 +247,7 @@
 	var menu = $(".ctn__menu-lateral .menu");//Selección del contendor del menú principal
 	var btn_submenu = $(".menu > li > .sub-menu").siblings('a');//Disparador del sebmenú
 	var submenu = $(".menu > li > .sub-menu");//Selección del contenedor del submenu de segundo nivel
-	var btn_submenu2 = $(".menu > li > .sub-menu > li > .sub-menu").siblings('a');//Disparador para el sebmenú de tercer nivel
+	var btn_submenu2 = $(".menu > li > .sub-menu > li > .sub-menu").siblings('a');//Disparador para el submenú de tercer nivel
 	var submenu2 = $(".menu > li > .sub-menu > li > .sub-menu");//Selección del contenedor del submenu de tercer nivel
 
 
@@ -266,12 +266,12 @@
 	});
 
 	btn_submenu.on('click', function(event) {
-		slideMenu(submenu);
+		slideMenu($(this).next());
 		iconRotate();
 	});
 
 	btn_submenu2.on('click', function(event) {
-		slideMenu(submenu2);
+		slideMenu($(this).next());
 	});
 
 

@@ -3249,6 +3249,10 @@ a.icon-itm:hover {
   font-family: "Dosis", sans-serif;
 }
 
+.w3eden {
+  display: none;
+}
+
 @media (min-width: 992px) {
   .ctn__footer-menu {
     display: block;

@@ -77,6 +77,7 @@ function getProgramasCat()
 	if( isset($_POST['parent']) )
 	{
 		extract($_POST);
+
 		$args = array(
 			'type'                     => 'post',
 			'child_of'                 => $parent,
@@ -93,6 +94,8 @@ function getProgramasCat()
 		);
 
 		$cats = array();
+		$categories = array();
+
 		if ($tipo == 'oferta-academica')
 		{
 			$args['child_of'] = 65;
@@ -103,14 +106,15 @@ function getProgramasCat()
 					$cats[] = $category->term_id;
 				}
 			}
-		}
 
-		$categories = array();
-		foreach ($cats as $cat)
-		{
-			$args['child_of'] = $cat;
-			$categories = array_merge_recursive($categories, get_categories($args));
+			foreach ($cats as $cat)
+			{
+				$args['child_of'] = $cat;
+				$categories = array_merge_recursive($categories, get_categories($args));
+			}
 		}
+		else
+			$categories = get_categories($args);
 
 		$cont = 0;
 		foreach ($categories as $category)

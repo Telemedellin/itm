@@ -7,7 +7,16 @@
  * @package itm
  */
 
-$imagen = get_field('imagen_portada', $ecp_post->ID);
+$ecpPost = get_ecp_post($category->term_id);
+
+if (has_post_thumbnail($ecpPost->ID ))
+{
+	$image = wp_get_attachment_image_src(get_post_thumbnail_id( $ecpPost->ID ), 'single-post-thumbnail');
+	$image = $image[0];
+}
+else
+	$image = get_field('imagen_portada', $ecpPost->ID);
+
 $titulo = $category->name;
 $enlace = get_category_link($category->term_id);
 $class  = '';
@@ -32,7 +41,7 @@ switch ($category->slug)
 
 <div class="grid-item">
 	<a href="<?php echo $enlace; ?>" class="ctn__preview">
-		<div class="ctn__preview-image" style="background: url(http://lorempixel.com/400/400) no-repeat; background-size: 100%; background-position: center center">
+		<div class="ctn__preview-image" style="background: url(<?php echo $image; ?>) no-repeat; background-size: 100%; background-position: center center">
 			<img src="" alt="" class="preview-image">
 		</div>
 		<div class="ctn__preview-title brd__<?php echo $class; ?>">

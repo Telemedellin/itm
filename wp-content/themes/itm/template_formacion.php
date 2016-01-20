@@ -18,6 +18,7 @@ get_ecp_post();
 
 // Facultad actual
 $facultades[0]	= get_category($ecp_category->parent);
+$cover_page		= get_field('imagen_portada', $ecp_post->ID);
 
 $class = '';
 switch ($facultades[0]->slug)
@@ -41,8 +42,7 @@ switch ($facultades[0]->slug)
 	<div id="primary" class="content-area" cat="<?php echo get_query_var('cat'); ?>">
 		<main id="main" class="site-main" role="main">
 
-			<div class="ctn_cover-image">
-			</div>
+			<div class="ctn_cover-image" style="background: url(<?php echo $cover_page; ?>) no-repeat;background-size: cover;"></div>
 			<div class="ctn__content container">
 				<header class="ctn__header-content">
 					<h1 class="entry-title<?php echo $class; ?>"><?php echo get_the_title($ecp_post->ID); ?></h1>

@@ -33,17 +33,17 @@ switch ($ecp_category->slug)
 		break;
 }
 
-$menu		= get_field('menu', $ecp_post->ID);
-$sidebar	= get_field('sidebar', $ecp_post->ID);
+$menu		= get_field('menu', $ecp_category);
+$sidebar	= get_field('sidebar', $ecp_category);
 $title		= get_the_title($ecp_post->ID);
+$cover_page	= get_field('imagen_portada', $ecp_post->ID);
 
 ?>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
-			<div class="ctn_cover-image">
-			</div>
+			<div class="ctn_cover-image" style="background: url(<?php echo $cover_page; ?>) no-repeat;background-size: cover;"></div>
 			<div class="ctn__content container">
 				<header class="ctn__header-content">
 					<h1 class="entry-title<?php echo $class; ?>"><?php echo $title; ?></h1>

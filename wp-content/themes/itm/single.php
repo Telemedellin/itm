@@ -13,16 +13,38 @@ $term		= get_the_category();
 $term		= $term[0];
 $ecpPost	= get_ecp_post($term->term_id);
 
-$menu		= get_field('menu', $ecpPost->ID);
-$sidebar	= get_field('sidebar', $ecpPost->ID);
+$menu		= get_field('menu', $term);
+$sidebar	= get_field('sidebar', $term);
+
+$facultad	= get_category($term->parent);
+
+$ecpPost	= get_ecp_post($term->term_id);
+
+$cover_page	= get_field('imagen_portada', $ecpPost->ID);
+
+$class = '';
+switch ($facultad->slug)
+{
+	case 'facultad-de-artes-y-humanidades':
+		$class = ' artes-y-humanidades';
+		break;
+	case 'facultad-de-ciencias-economicas':
+		$class = ' ciencias-economicas';
+		break;
+	case 'facultad-de-ciencias-exactas-y-aplicadas':
+		$class = ' ciencias-exactas';
+		break;
+	case 'facultad-de-ingenierias':
+		$class = ' ingenierias';
+		break;
+}
 
 ?>
 
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
 
-		<div class="ctn_cover-image">
-		</div>
+		<div class="ctn_cover-image" style="background: url(<?php echo $cover_page; ?>) no-repeat;background-size: cover;"></div>
 		<div class="ctn__content container">
 			<header class="ctn__header-content">
 				<h1 class="entry-title<?php echo $class; ?>"><?php echo get_the_title($ecp_post->ID); ?></h1>

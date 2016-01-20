@@ -11,9 +11,16 @@ $post_date		= mysql2date('j F Y', $post->post_date);
 $post_date		= explode(' ', $post_date);
 $post_date[1]	= ucfirst($post_date[1]);
 $post_date		= join($post_date, " de ");
-
 $title			= get_the_title();
-$image			= ($img = get_the_post_thumbnail() == "") ? 'http://lorempixel.com/400/400' : $img;
+
+if (has_post_thumbnail($post->ID ))
+{
+	$image = wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail');
+	$image = $image[0];
+}
+else
+	$image = '';
+
 $permalink		= get_the_permalink();
 
 ?>

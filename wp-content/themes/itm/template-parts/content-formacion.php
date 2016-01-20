@@ -103,8 +103,16 @@ global $facultades;
 		<?php foreach($programas as $programa): ?>
 		<?php
 			$ecppost 			= get_ecp_post($programa->term_id);
-			// RECORDAR PONER LA IMAGEN DESTACADA
-			$cover_page			= get_field('imagen_portada', $ecppost->ID);
+
+			// Si no tiene imagen destacada configurada, procedemos a usar la imagen del portada.
+			if (has_post_thumbnail($ecppost->ID ))
+			{
+				$image = wp_get_attachment_image_src(get_post_thumbnail_id( $ecppost->ID ), 'single-post-thumbnail');
+				$image = $image[0];
+			}
+			else
+				$image			= get_field('imagen_portada', $ecppost->ID);
+
 			$titulo_prgrama		= get_the_title($ecppost->ID);
 			$titulo_otorgado	= get_field('titulo_otorgado', $ecppost->ID);
 
@@ -115,8 +123,8 @@ global $facultades;
 		?>
 		<a href="<?php echo get_category_link($programa->term_id); ?>" class="ctn__programa">
 			<div class="ctn__programa_top">
-				<div class="ctn__programa-image" style="background: url(http://lorempixel.com/400/400<?php //echo $cover_page; ?>) no-repeat; background-size: 100%; background-position: center center">
-					<img src="http://lorempixel.com/400/400<?php //echo $cover_page; ?>" alt="">
+				<div class="ctn__programa-image" style="background: url(<?php echo $image; ?>) no-repeat; background-size: 100%; background-position: center center">
+					<img src="<?php echo $image; ?>" alt="">
 				</div>
 				<h3 class="programa-title"><?php echo $titulo_prgrama; ?></h3>
 			</div>

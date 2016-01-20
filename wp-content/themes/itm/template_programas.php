@@ -61,14 +61,12 @@ switch ($facultad->slug)
 							<h3>Menú de navegación</h3>
 						</div>
 						<?php
-							$field = get_field_object('menu', $ecp_post->ID);
-							$value = get_field('menu', $ecp_post->ID);
-							$label = $field['choices'][ $value ];
-							echo $value
+							$menu = get_field('menu', $ecp_category);
+							echo $menu;
 						?>
 
 						<?php
-							$sidebar	= get_field('sidebar', $ecp_post->ID);
+							$sidebar	= get_field('sidebar', $ecp_category);
 							dynamic_sidebar($sidebar);
 						?>
 						

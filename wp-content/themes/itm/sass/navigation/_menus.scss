@@ -62,14 +62,14 @@
 		font-family: $font__secondary;
 	}
 
-	.current_page_item > a,
-	.current-menu-item > a,
-	.current_page_ancestor > a,
-	.current-menu-ancestor > a {
-		background: #052D6F !important;
-		color: #FFFFFF !important;
-		border-left: solid 5px #052D6F !important;
-	}
+	//.current_page_item > a,
+	//.current-menu-item > a,
+	//.current_page_ancestor > a,
+	//.current-menu-ancestor > a {
+	//	background: #052D6F !important;
+	//	color: #FFFFFF !important;
+	//	border-left: solid 5px #052D6F !important;
+	//}
 	.ubermenu-responsive-toggle {
 		float: right;
 		background: $color__primary ;
@@ -86,11 +86,11 @@
 {
 	.current_page_item > a,
 	.current-menu-item > a,
-	.current_page_ancestor > a,
-	.current-menu-ancestor > a,
+	.current_page_ancestor > a
+	/*.current-menu-ancestor > a,
 	.current-post-ancestor > a,
 	.current-menu-parent > a,
-	.current-post-parent > a {
+	.current-post-parent > a*/ {
 		background: #052D6F !important;
 		color: #FFFFFF !important;
 		border-left: solid 5px #052D6F !important;

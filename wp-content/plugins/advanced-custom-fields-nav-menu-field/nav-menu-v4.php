@@ -138,7 +138,7 @@ class ACF_Field_Nav_Menu_V4 extends acf_field {
 		$nav_menus = array();
 
 		if ( $allow_null ) {
-			$nav_menus[''] = ' - Select - ';
+			$nav_menus[''] = ' Seleccione una opción ';
 		}
 
 		foreach ( $navs as $nav ) {

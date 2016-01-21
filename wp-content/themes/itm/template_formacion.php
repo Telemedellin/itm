@@ -12,16 +12,17 @@ Template Name: Template categoría formación
 
 get_header();
 
-global $ecp_post, $ecp_category, $facultades;
+global $ecp_post, $ecp_category, $facultad;
 
 get_ecp_post();
 
 // Facultad actual
-$facultades[0]	= get_category($ecp_category->parent);
-$cover_page		= get_field('imagen_portada', $ecp_post->ID);
+$facultad[0]	= get_category($ecp_category->parent);
+$data			= get_category_setting($ecp_category);
+extract($data);
 
 $class = '';
-switch ($facultades[0]->slug)
+switch ($facultad[0]->slug)
 {
 	case 'facultad-de-artes-y-humanidades':
 		$class = ' artes-y-humanidades';
@@ -42,7 +43,7 @@ switch ($facultades[0]->slug)
 	<div id="primary" class="content-area" cat="<?php echo get_query_var('cat'); ?>">
 		<main id="main" class="site-main" role="main">
 
-			<div class="ctn_cover-image" style="background: url(<?php echo $cover_page; ?>) no-repeat;background-size: cover;"></div>
+			<div class="ctn_cover-image" style="background: url(<?php echo $cover; ?>) no-repeat;background-size: cover;"></div>
 			<div class="ctn__content container">
 				<header class="ctn__header-content">
 					<h1 class="entry-title<?php echo $class; ?>"><?php echo get_the_title($ecp_post->ID); ?></h1>

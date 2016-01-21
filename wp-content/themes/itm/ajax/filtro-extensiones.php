@@ -22,8 +22,13 @@ if (isset($_POST))
 		$ecpPost = get_ecp_post($category->term_id);
 
 		$tipo_programa		= get_field('tipo_de_programa_academico', $ecpPost->ID);
-		$titulo				= get_the_title($ecpPost->ID);
-		$imagen				= get_the_post_thumbnail($ecpPost->ID);
+		$titulo				= $category->name;
+		$imagen_destacada	= get_field('imagen_destacada', $category);
+
+		if (!empty($imagen_destacada) || !is_null($imagen_destacada))
+			$imagen			= $imagen_destacada;
+		else
+			$imagen			= get_field('imagen_portada', $programa);
 
 		$field				= get_field_object('ext_tipo_programa', $ecpPost->ID);
 		$tipo				= $field['value'][0];

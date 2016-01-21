@@ -12,16 +12,16 @@ Template Name: Template para recorrer categorias.
 
 get_header();
 
-global $ecp_post;
+global $ecp_post, $ecp_category;
 
 get_ecp_post();
 
-$cover_page	= get_field('imagen_portada', $ecp_post->ID);
+$cover = get_field('imagen_portada', $ecp_category);
 
 ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
-			<div class="ctn_cover-image" style="background: url(<?php echo $cover_page; ?>) no-repeat;background-size: cover;"></div>
+			<div class="ctn_cover-image" style="background: url(<?php echo $cover; ?>) no-repeat;background-size: cover;"></div>
 			<div class="ctn__content container">
 				<header class="ctn__header-content">
 					<h1 class="entry-title"><?php echo get_the_title($ecp_post->ID); ?></h1>

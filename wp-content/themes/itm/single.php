@@ -11,16 +11,11 @@ get_header();
 
 $term		= get_the_category();
 $term		= $term[0];
-$ecpPost	= get_ecp_post($term->term_id);
 
-$menu		= get_field('menu', $term);
-$sidebar	= get_field('sidebar', $term);
-
+$data		= get_category_setting($term);
 $facultad	= get_category($term->parent);
 
-$ecpPost	= get_ecp_post($term->term_id);
-
-$cover_page	= get_field('imagen_portada', $ecpPost->ID);
+extract($data);
 
 $class = '';
 switch ($facultad->slug)
@@ -39,12 +34,20 @@ switch ($facultad->slug)
 		break;
 }
 
+$post_date		= mysql2date('j F Y', $post->post_date);
+$post_date		= explode(' ', $post_date);
+$post_date[1]	= ucfirst($post_date[1]);
+$post_date		= join($post_date, " de ");
+
+$field			= get_field_object('ocultar_fecha');
+$ocultar_fecha	= $field['value'];
+
 ?>
 
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
 
-		<div class="ctn_cover-image" style="background: url(<?php echo $cover_page; ?>) no-repeat;background-size: cover;"></div>
+		<div class="ctn_cover-image" style="background: url(<?php echo $cover; ?>) no-repeat;background-size: cover;"></div>
 		<div class="ctn__content container">
 			<header class="ctn__header-content">
 				<h1 class="entry-title<?php echo $class; ?>"><?php echo get_the_title($ecp_post->ID); ?></h1>
@@ -69,30 +72,37 @@ switch ($facultad->slug)
 					<?php dynamic_sidebar($sidebar); ?>
 				</div>
 				<div class="col-md-9">
-					<?php echo $post_date; ?>
+					<?php
+						if ($ocultar_fecha == 'no')
+							echo $post_date;
+					?>
 					<?php while ( have_posts() ) : the_post(); ?>
 
 						<?php get_template_part( 'template-parts/content', 'single' ); ?>
 
 						<?php
 							// If comments are open or we have at least one comment, load up the comment template.
-							if ( comments_open() || get_comments_number() ) :
+							/*if ( comments_open() || get_comments_number() ) :
 								comments_template();
-							endif;
+							endif;*/
 						?>
 
 					<?php endwhile; // End of the loop. ?>
 				</div>
 				<?php else: ?>
+				<?php
+					if ($ocultar_fecha == 'no')
+						echo $post_date;
+				?>
 				<?php while ( have_posts() ) : the_post(); ?>
 
 					<?php get_template_part( 'template-parts/content', 'single' ); ?>
 
 					<?php
 						// If comments are open or we have at least one comment, load up the comment template.
-						if ( comments_open() || get_comments_number() ) :
+						/*if ( comments_open() || get_comments_number() ) :
 							comments_template();
-						endif;
+						endif;*/
 					?>
 
 				<?php endwhile; // End of the loop. ?>

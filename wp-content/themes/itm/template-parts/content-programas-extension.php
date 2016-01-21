@@ -54,17 +54,9 @@ global $extensiones, $tipos;
 		<div class="ctn__programas grid">
 			<div class="grid-sizer"></div>
 			<?php foreach ($_extensiones as $extension): ?>
-			<?php
-				$imagen_destacada	= get_field('imagen_destacada', $extension);
-
-				if (!empty($imagen_destacada) || !is_null($imagen_destacada))
-					$image			= $imagen_destacada;
-				else
-					$image			= get_field('imagen_portada', $extension);
-			?>
 			<a href="<?php echo $extension->enlace; ?>" class="ctn__programa grid-item">
 				<div class="ctn__programa_top">
-					<div class="ctn__programa-image" style="background: url(<?php echo $image; ?>) no-repeat; background-size: 100%; background-position: center center">
+					<div class="ctn__programa-image" style="background: url(<?php echo $extension->image; ?>) no-repeat; background-size: 100%; background-position: center center">
 						<img src="<?php echo $image; ?>" alt="">
 					</div>
 					<h3 class="programa-title"><?php echo $extension->name; ?></h3>

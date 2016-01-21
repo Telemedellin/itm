@@ -132,25 +132,33 @@
 					_container.children[0].children[0].innerText = params[0];
 					$(_container.children[1]).addClass('brd__' + params[1])
 					$.each(programas, function (key, programa) {
+						var imagen = programa.imagen;
 						var _grid_item = $(grid_item).clone().removeAttr('style').removeClass('hidden').get(0);
+
+						if (imagen == "" || imagen == null || imagen == undefined)
+							imagen = theme_path + '/images/no-image.jpg';
+
 						// a.ctn__programa
 						_grid_item.href = programa.enlace;
+
 						// ctn__programa-image
 						var style = _grid_item.children[0].children[0].style;
-						style.background = 'url("' + programa.imagen + '") 50% 50% / 100% no-repeat';
+						style.background = 'url("' + imagen + '") 50% 50% / 100% no-repeat';
 						style.backgroundPosition = '50% 50%';
 						style.backgroundSize = '100%';
 						
 						// ctn__programa-image > img
-						_grid_item.children[0].children[0].children[0].src = programa.imagen;
+						_grid_item.children[0].children[0].children[0].src = imagen;
 						
 						// ctn__programa_top > h3
 						_grid_item.children[0].children[1].innerText = programa.titulo;
 
 						// Título a otorgar
 						_grid_item.children[1].children[0].children[1].innerText = programa.titulo_otorgado;
+
 						// Modalidad
 						_grid_item.children[1].children[0].children[3].innerText = programa.modalidad_text;
+
 						// Duración
 						_grid_item.children[1].children[0].children[5].innerText = programa.duracion;
 
@@ -203,25 +211,33 @@
 				var container = $('.ctn__programa.hidden').get(0);
 				var items = [];
 				$.each(data, function(k,v) {
-					// a.ctn__programa
+					var imagen = v.imagen;
 					var _container = $(container).clone().removeAttr('style').removeClass('hidden').get(0);
+
+					if (imagen == "" || imagen == null || imagen == undefined)
+						imagen = theme_path + '/images/no-image.jpg';
+
+					// a.ctn__programa
 					_container.href = v.enlace;
+
 					// ctn__programa-image
 					var style = _container.children[0].children[0].style;
-					style.background = 'url("' + v.imagen + '") 50% 50% / 100% no-repeat';
+					style.background = 'url("' + imagen + '") 50% 50% / 100% no-repeat';
 					style.backgroundPosition = '50% 50%';
 					style.backgroundSize = '100%';
 					
 					// ctn__programa-image > img
-					_container.children[0].children[0].children[0].src = v.imagen;
+					_container.children[0].children[0].children[0].src = imagen;
 					
 					// ctn__programa_top > h3
 					_container.children[0].children[1].innerText = v.titulo;
 
 					// Titulo otorgado
 					_container.children[1].children[0].children[1].innerText = v.titulo_otorgado;
+
 					// Modalidad
 					_container.children[1].children[0].children[3].innerText = v.modalidad_text;
+
 					// Duración
 					_container.children[1].children[0].children[5].innerText = v.duracion;
 
@@ -284,25 +300,33 @@
 					var _container = $(container).clone().removeAttr('style').removeClass('hidden').get(0);
 					_container.children[0].children[0].innerText = data[tipo][0].tipo_text;
 					$.each(extensiones, function (key, extension) {
+						var imagen = extension.imagen;
 						var _grid_item = $(grid_item).clone().removeAttr('style').removeClass('hidden').get(0);
+
+						if (imagen == "" || imagen == null || imagen == undefined)
+							imagen = theme_path + '/images/no-image.jpg';
+
 						// a.ctn__programa
 						_grid_item.href = extension.enlace;
+
 						// ctn__programa-image
 						var style = _grid_item.children[0].children[0].style;
-						style.background = 'url("' + extension.imagen + '") 50% 50% / 100% no-repeat';
+						style.background = 'url("' + imagen + '") 50% 50% / 100% no-repeat';
 						style.backgroundPosition = '50% 50%';
 						style.backgroundSize = '100%';
 						
 						// ctn__programa-image > img
-						_grid_item.children[0].children[0].children[0].src = extension.imagen;
+						_grid_item.children[0].children[0].children[0].src = imagen;
 						
 						// ctn__programa_top > h3
 						_grid_item.children[0].children[1].innerText = extension.titulo;
 
 						// Tipo de programa
 						_grid_item.children[1].children[0].children[1].innerText = extension.tipo_text;
+
 						// Sede
 						_grid_item.children[1].children[0].children[3].innerText = extension.sede_text;
+
 						// Intensidad horaria
 						_grid_item.children[1].children[0].children[5].innerText = extension.intensidad_horaria;
 

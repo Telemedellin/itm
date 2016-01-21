@@ -19,7 +19,7 @@ if (has_post_thumbnail($post->ID ))
 	$image = $image[0];
 }
 else
-	$image = '';
+	$image = get_template_directory_uri() . '/images/no-image.jpg';
 
 $permalink		= get_the_permalink();
 

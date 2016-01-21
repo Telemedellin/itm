@@ -107,10 +107,10 @@ global $facultad;
 			// Si no tiene imagen destacada configurada, procedemos a usar la imagen del portada.
 			$imagen_destacada	= get_field('imagen_destacada', $programa);
 
-			if (!empty($imagen_destacada) && !is_null($imagen_destacada))
-				$image			= $imagen_destacada;
+			if (is_bool($imagen_destacada))
+				$image			= get_template_directory_uri() . '/images/no-image.jpg';
 			else
-				$image			= get_field('imagen_portada', $programa);
+				$image			= $imagen_destacada;
 
 			$titulo_prgrama		= get_the_title($ecppost->ID);
 			$titulo_otorgado	= get_field('titulo_otorgado', $ecppost->ID);

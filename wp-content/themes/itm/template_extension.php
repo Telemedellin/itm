@@ -45,7 +45,16 @@ foreach ($data as $extension)
 	$ecpPost = get_ecp_post($extension->term_id);
 
 	$extension->tipo_programa	= get_field('tipo_de_programa_academico', $ecpPost->ID);
-	$extension->image			= get_the_post_thumbnail($ecpPost->ID);
+
+	// Si no tiene imagen destacada configurada, procedemos a usar la imagen del portada.
+	$imagen_destacada	= get_field('imagen_destacada', $extension);
+
+	if (is_bool($imagen_destacada))
+		$image			= get_template_directory_uri() . '/images/no-image.jpg';
+	else
+		$image			= $imagen_destacada;
+
+	$extension->image			= $image;
 	
 	$field						= get_field_object('ext_tipo_programa', $ecpPost->ID);
 	$tipo						= $field['value'][0];

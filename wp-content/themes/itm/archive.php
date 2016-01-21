@@ -1,51 +1,66 @@
 <?php
-/**
- * The template for displaying archive pages.
+/*
+Template Name: Template para recorrer las noticias.
+*/
+/*
+ * Template para recorrer categorías o artículos.
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package itm
  */
 
-get_header(); ?>
+get_header();
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+global $ecp_category;
 
-		<?php if ( have_posts() ) : ?>
+get_ecp_post();
 
-			<header class="page-header">
-				<?php
-					the_archive_title( '<h1 class="page-title">', '</h1>' );
-					the_archive_description( '<div class="taxonomy-description">', '</div>' );
-				?>
-			</header><!-- .page-header -->
+$data		= get_category_setting($ecp_category);
+extract($data);
 
-			<?php /* Start the Loop */ ?>
-			<?php while ( have_posts() ) : the_post(); ?>
+?>
 
-				<?php
+<div id="primary" class="content-area">
+	<main id="main" class="site-main" role="main">
+		<div class="ctn_cover-image" style="background: url(<?php echo $cover; ?>) no-repeat;background-size: cover;"></div>
+		<div class="ctn__content container">
+			<header class="ctn__header-content">
+				<h1 class="entry-title"><?php echo $ecp_category->name; ?></h1>
+				<div class="ctn__info-header">
+					<div class="ctn__breadcrumbs breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
+						<?php if(function_exists('bcn_display'))
+						{
+							bcn_display();
+						}?>
+					</div><!-- ctn__breadcrumbs -->
+				</div><!-- ctn__info-header -->
+			</header><!-- ctn__header-content -->
+			<section class="ctn__section-content padding-content">
+				<div class="row">
+					<div class="col-md-3 ctn__menu-lateral">
+						<?php if (!empty($menu)): ?>
+						<div class="menu-lateral_titulo">
+							<h3>Menú de navegación</h3>
+						</div>
+						<?php
+							echo $menu;
+						?>
+						<?php endif; ?>
+						<?php dynamic_sidebar($sidebar); ?>
+					</div>
+					<div class="col-md-9">
+						<?php if (have_posts()): ?>
+							<?php while ( have_posts() ) : the_post(); ?>
+								<?php get_template_part( 'template-parts/content', 'loop-archive' ); ?>
+							<?php endwhile; // End of the loop. ?>
+						<?php else: ?>
+						<?php endif; ?>
+					</div>
+				</div>
+			</section><!-- ctn__section-content -->
+		</div>
+	</main><!-- #main -->
+</div><!-- #primary -->
 
-					/*
-					 * Include the Post-Format-specific template for the content.
-					 * If you want to override this in a child theme, then include a file
-					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-					 */
-					get_template_part( 'template-parts/content', get_post_format() );
-				?>
-
-			<?php endwhile; ?>
-
-			<?php the_posts_navigation(); ?>
-
-		<?php else : ?>
-
-			<?php get_template_part( 'template-parts/content', 'none' ); ?>
-
-		<?php endif; ?>
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
-
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

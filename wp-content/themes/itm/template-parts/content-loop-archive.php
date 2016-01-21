@@ -21,7 +21,7 @@ if (has_post_thumbnail($post->ID ))
 else
 	$image = '';
 
-$permalink		= get_the_permalink();
+$permalink = get_the_permalink();
 
 $field			= get_field_object('ocultar_fecha');
 $ocultar_fecha	= $field['value'];

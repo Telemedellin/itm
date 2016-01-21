@@ -58,8 +58,14 @@ global $facultades;
 			<?php foreach($facultad as $programa): ?>
 			<?php
 				$ecppost 			= get_ecp_post($programa->term_id);
-				// RECORDAR PONER LA IMAGEN DESTACADA
-				$cover_page			= get_field('imagen_portada', $ecppost->ID);
+
+				$imagen_destacada	= get_field('imagen_destacada', $programa);
+
+				if (!empty($imagen_destacada) || !is_null($imagen_destacada))
+					$image			= $imagen_destacada;
+				else
+					$image			= get_field('imagen_portada', $programa);
+
 				$titulo_otorgado	= get_field('titulo_otorgado', $ecppost->ID);
 
 				$field				= get_field_object('modalidad', $ecppost->ID);
@@ -69,8 +75,8 @@ global $facultades;
 			?>
 			<a href="<?php echo get_category_link($programa->term_id); ?>" class="ctn__programa">
 				<div class="ctn__programa_top">
-					<div class="ctn__programa-image" style="background: url(http://lorempixel.com/400/400<?php //echo $cover_page; ?>) no-repeat; background-size: 100%; background-position: center center">
-						<img src="http://lorempixel.com/400/400<?php //echo $cover_page; ?>" alt="">
+					<div class="ctn__programa-image" style="background: url(<?php echo $image; ?>) no-repeat; background-size: 100%; background-position: center center">
+						<img src="<?php echo $image; ?>" alt="">
 					</div>
 					<h3 class="programa-title"><?php echo $programa->name; ?></h3>
 				</div>

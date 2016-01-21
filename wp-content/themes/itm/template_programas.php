@@ -18,6 +18,8 @@ get_ecp_post();
 
 // Facultad actual
 $facultad	= get_category(get_category($ecp_category->parent)->parent);
+$data		= get_category_setting($ecp_category);
+extract($data);
 
 $class = '';
 switch ($facultad->slug)
@@ -41,8 +43,7 @@ switch ($facultad->slug)
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
-			<div class="ctn_cover-image">
-			</div>
+			<div class="ctn_cover-image" style="background: url(<?php echo $cover; ?>) no-repeat;background-size: cover;"></div>
 			<div class="ctn__content container">
 				<header class="ctn__header-content">
 					<h1 class="entry-title<?php echo $class; ?>"><?php echo get_the_title($ecp_post->ID); ?></h1>
@@ -61,12 +62,10 @@ switch ($facultad->slug)
 							<h3>Menú de navegación</h3>
 						</div>
 						<?php
-							$menu = get_field('menu', $ecp_category);
 							echo $menu;
 						?>
 
 						<?php
-							$sidebar	= get_field('sidebar', $ecp_category);
 							dynamic_sidebar($sidebar);
 						?>
 						

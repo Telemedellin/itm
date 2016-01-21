@@ -16,15 +16,13 @@ global $ecp_post, $ecp_category;
 
 get_ecp_post();
 
-$menu = get_field('menu', $ecp_category);
-$sidebar = get_field('sidebar', $ecp_category);
+$data		= get_category_setting($ecp_category);
+$facultad	= get_category($ecp_category->parent);
 
-$cover_page	= get_field('imagen_portada', $ecp_post->ID);
+extract($data);
 
-$parent = get_category($ecp_category->parent);
-
-$class = '';
-switch ($parent->slug)
+$class 	= '';
+switch ($facultad->slug)
 {
 	case 'facultad-de-artes-y-humanidades':
 		$class = ' artes-y-humanidades';
@@ -44,10 +42,10 @@ switch ($parent->slug)
 
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
-		<div class="ctn_cover-image" style="background: url(<?php echo $cover_page; ?>) no-repeat;background-size: cover;"></div>
+		<div class="ctn_cover-image" style="background: url(<?php echo $cover; ?>) no-repeat;background-size: cover;"></div>
 		<div class="ctn__content container">
 			<header class="ctn__header-content">
-				<h1 class="entry-title"><?php echo get_the_title($ecp_post->ID); ?></h1>
+				<h1 class="entry-title <?php echo $class; ?>"><?php echo get_the_title($ecp_post->ID); ?></h1>
 				<div class="ctn__info-header">
 					<div class="ctn__breadcrumbs breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
 						<?php if(function_exists('bcn_display'))

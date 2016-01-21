@@ -7,21 +7,21 @@
  * @package itm
  */
 
-global $facultades;
+global $facultad;
 
 ?>
 
-<?php foreach ($facultades as $facultad): ?>
+<?php foreach ($facultad as $_facultad): ?>
 <div class="ctn__facultad">
 	<div class="ctn__facultad-title">
-		<h2 class="facultad-title"><?php echo $facultad->name; ?></h2>
+		<h2 class="facultad-title"><?php echo $_facultad->name; ?></h2>
 	</div>
 	<?php
 		$class		= '';
 
 		$formaciones = get_categories(array(
 				'type'                     => 'post',
-				'child_of'                 => $facultad->term_id,
+				'child_of'                 => $_facultad->term_id,
 				'parent'                   => '',
 				'orderby'                  => 'name',
 				'order'                    => 'ASC',
@@ -59,7 +59,7 @@ global $facultades;
 			}
 		}
 
-		switch ($facultad->slug)
+		switch ($_facultad->slug)
 		{
 			case 'facultad-de-artes-y-humanidades':
 				$class = 'artes-y-humanidades';
@@ -105,13 +105,12 @@ global $facultades;
 			$ecppost 			= get_ecp_post($programa->term_id);
 
 			// Si no tiene imagen destacada configurada, procedemos a usar la imagen del portada.
-			if (has_post_thumbnail($ecppost->ID ))
-			{
-				$image = wp_get_attachment_image_src(get_post_thumbnail_id( $ecppost->ID ), 'single-post-thumbnail');
-				$image = $image[0];
-			}
+			$imagen_destacada	= get_field('imagen_destacada', $programa);
+
+			if (!empty($imagen_destacada) && !is_null($imagen_destacada))
+				$image			= $imagen_destacada;
 			else
-				$image			= get_field('imagen_portada', $ecppost->ID);
+				$image			= get_field('imagen_portada', $programa);
 
 			$titulo_prgrama		= get_the_title($ecppost->ID);
 			$titulo_otorgado	= get_field('titulo_otorgado', $ecppost->ID);

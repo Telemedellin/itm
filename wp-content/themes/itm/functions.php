@@ -63,6 +63,54 @@ function get_ecp_post($category_id = null)
 	}
 }
 
+function get_category_setting($term)
+{
+	$field		= get_field_object('hereda', $term);
+	$hereda		= $field['value'];
+
+	$menu		= null;
+	$sidebar	= null;
+	$cover		= null;
+	$data		= array(
+		'menu' => null,
+		'sidebar' => null,
+		'cover' => null
+	);
+	
+	switch ($hereda)
+	{
+		case 'si':
+			$category	= get_field('categoria', $term);
+
+			$field		= get_field_object('que_hereda', $term);
+			$fields		= $field['value'];
+
+			foreach ($fields as $field)
+			{
+				switch ($field)
+				{
+					case 'menu':
+						$data['menu'] = get_field('menu', $category);
+						break;
+					case 'sidebar':
+						$data['sidebar'] = get_field('sidebar', $category);
+						break;
+					case 'cover':
+						$data['cover'] = get_field('imagen_portada', $category);
+						break;
+				}
+			}
+			break;
+		case 'no':
+			$data['menu']		= get_field('menu', $term);
+			$data['sidebar']	= get_field('sidebar', $term);
+			$data['cover']		= get_field('imagen_portada', $term);
+			break;
+	}
+
+	return $data;
+}
+
 /**
 * Funcion para alimentar los search-control en los programas
 * Cuando quieres hacer el filtro por una categoria padre que traiga

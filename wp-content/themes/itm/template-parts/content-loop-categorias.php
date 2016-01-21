@@ -7,15 +7,12 @@
  * @package itm
  */
 
-$ecpPost = get_ecp_post($category->term_id);
+$imagen_destacada	= get_field('imagen_destacada', $category);
 
-if (has_post_thumbnail($ecpPost->ID ))
-{
-	$image = wp_get_attachment_image_src(get_post_thumbnail_id( $ecpPost->ID ), 'single-post-thumbnail');
-	$image = $image[0];
-}
+if (!empty($imagen_destacada) && !is_null($imagen_destacada))
+	$image = $imagen_destacada;
 else
-	$image = get_field('imagen_portada', $ecpPost->ID);
+	$image = get_field('imagen_portada', $category);
 
 $titulo = $category->name;
 $enlace = get_category_link($category->term_id);

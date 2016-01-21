@@ -144,7 +144,7 @@ class acf_field_sidebar_selector extends acf_field {
 		<div>
 			<select name='<?php echo $field['name'] ?>'>
 				<?php if ( !empty( $field['allow_null'] ) ) : ?>
-					<option value=''><?php _e( 'Select a Sidebar', 'acf' ) ?></option>
+					<option value=''><?php _e( 'Seleccione una opción', 'acf' ) ?></option>
 				<?php endif ?>
 				<?php
 					foreach( $wp_registered_sidebars as $sidebar ) :

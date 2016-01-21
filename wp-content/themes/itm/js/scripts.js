@@ -137,13 +137,12 @@
 						_grid_item.href = programa.enlace;
 						// ctn__programa-image
 						var style = _grid_item.children[0].children[0].style;
-						var img_url = $(programa.imagen).attr('src');
-						style.background = 'url("http://lorempixel.com/400/400") 50% 50% / 100% no-repeat';
+						style.background = 'url("' + programa.imagen + '") 50% 50% / 100% no-repeat';
 						style.backgroundPosition = '50% 50%';
 						style.backgroundSize = '100%';
 						
 						// ctn__programa-image > img
-						//_container.children[0].children[0].children[0].src = img_url;
+						_grid_item.children[0].children[0].children[0].src = programa.imagen;
 						
 						// ctn__programa_top > h3
 						_grid_item.children[0].children[1].innerText = programa.titulo;
@@ -209,13 +208,12 @@
 					_container.href = v.enlace;
 					// ctn__programa-image
 					var style = _container.children[0].children[0].style;
-					var img_url = $(v.imagen).attr('src');
-					style.background = 'url("http://lorempixel.com/400/400") 50% 50% / 100% no-repeat';
+					style.background = 'url("' + v.imagen + '") 50% 50% / 100% no-repeat';
 					style.backgroundPosition = '50% 50%';
 					style.backgroundSize = '100%';
 					
 					// ctn__programa-image > img
-					//_container.children[0].children[0].children[0].src = img_url;
+					_container.children[0].children[0].children[0].src = v.imagen;
 					
 					// ctn__programa_top > h3
 					_container.children[0].children[1].innerText = v.titulo;
@@ -291,13 +289,12 @@
 						_grid_item.href = extension.enlace;
 						// ctn__programa-image
 						var style = _grid_item.children[0].children[0].style;
-						var img_url = $(extension.imagen).attr('src');
-						style.background = 'url("http://lorempixel.com/400/400") 50% 50% / 100% no-repeat';
+						style.background = 'url("' + extension.imagen + '") 50% 50% / 100% no-repeat';
 						style.backgroundPosition = '50% 50%';
 						style.backgroundSize = '100%';
 						
 						// ctn__programa-image > img
-						//_container.children[0].children[0].children[0].src = img_url;
+						_grid_item.children[0].children[0].children[0].src = extension.imagen;
 						
 						// ctn__programa_top > h3
 						_grid_item.children[0].children[1].innerText = extension.titulo;

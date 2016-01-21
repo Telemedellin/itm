@@ -19,6 +19,9 @@ get_ecp_post();
 set_include_path(get_include_path() . PATH_SEPARATOR . get_template_directory() . '/libs/linq/');
 require_once('PHPLinq/LinqToObjects.php');
 
+$data = get_category_setting($ecp_category);
+extract($data);
+
 $data = get_categories(array(
 		'type'                     => 'post',
 		'child_of'                 => $ecp_category->term_id,
@@ -65,8 +68,7 @@ foreach ($data as $extension)
 ?>
 	<div id="primary" class="content-area" cat="<?php echo get_query_var('cat'); ?>">
 		<main id="main" class="site-main" role="main">
-			<div class="ctn_cover-image">
-			</div>
+			<div class="ctn_cover-image" style="background: url(<?php echo $cover; ?>) no-repeat;background-size: cover;"></div>
 			<div class="ctn__content container">
 				<header class="ctn__header-content">
 					<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Template categoría formación
+Template Name: Template para la categoría formación
 */
 /*
  * Template para visualizar el loop de todos los programas universitarios en cada facultad.

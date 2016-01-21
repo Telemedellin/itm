@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Template para recorrer las noticias.
+Template Name: Template para recorrer los posts.
 */
 /*
  * Template para recorrer categorías o artículos.

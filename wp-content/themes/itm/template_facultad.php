@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Template categoría facultad X
+Template Name: Template para el inicio micrositio
 */
 /*
  * Template para visualizar la página inicial de un programa académico.

@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Template para la categoría extension academica
+Template Name: Template para el inicio de extension academica
 */
 /*
  * Template para visualizar la página inicial de un programa académico.

@@ -68,7 +68,7 @@ switch ($facultad->slug)
 					</div>
 					<div class="col-md-9">
 						<?php while ( have_posts() ) : the_post(); ?>
-							<?php get_template_part( 'template-parts/content', 'loop-noticias' ); ?>
+							<?php get_template_part( 'template-parts/content', 'loop-post' ); ?>
 						<?php endwhile; // End of the loop. ?>
 					</div>
 				</div>

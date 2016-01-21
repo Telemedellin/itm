@@ -52,7 +52,7 @@ extract($data);
 					<div class="col-md-9">
 						<?php if (have_posts()): ?>
 							<?php while ( have_posts() ) : the_post(); ?>
-								<?php get_template_part( 'template-parts/content', 'loop-archive' ); ?>
+								<?php get_template_part( 'template-parts/content', 'loop-post' ); ?>
 							<?php endwhile; // End of the loop. ?>
 						<?php else: ?>
 						<?php endif; ?>

@@ -54,7 +54,7 @@ global $facultades;
 		<div class="ctn__facultad-title">
 			<h2 class="facultad-title"><?php echo $params[0]; ?></h2>
 		</div>
-		<div class="ctn__programas brd__<?php echo $params[1]; ?>">
+		<div class="ctn__programas brd__<?php echo trim($params[1]); ?>">
 			<?php foreach($facultad as $programa): ?>
 			<?php
 				$ecppost 			= get_ecp_post($programa->term_id);

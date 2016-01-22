@@ -58,21 +58,7 @@ foreach ($facultades as $facultad):
 		)
 	);
 
-	switch ($facultad->slug)
-	{
-		case 'facultad-de-artes-y-humanidades':
-			$class = 'artes-y-humanidades';
-			break;
-		case 'facultad-de-ciencias-economicas':
-			$class = 'ciencias-economicas';
-			break;
-		case 'facultad-de-ciencias-exactas-y-aplicadas':
-			$class = 'ciencias-exactas';
-			break;
-		case 'facultad-de-ingenierias':
-			$class = 'ingenierias';
-			break;
-	}
+	$class		= get_class_border($facultad->slug);
 
 	$programas[$facultad->name.'::'.$class] = array();
 	foreach ($formaciones as $formacion)
@@ -138,7 +124,7 @@ $facultades = $programas;
 								<span class="filter-label artes-y-humanidades" rel="<?php echo $value->slug; ?>"><?php echo $value->name; ?></span>
 								<?php endif; ?>
 
-								<?php if ($value->slug == 'facultad-de-ciencias-economicas'): ?>
+								<?php if ($value->slug == 'facultad-de-ciencias-economicas-y-administrativas'): ?>
 								<span class="filter-label ciencias-economicas" rel="<?php echo $value->slug; ?>"><?php echo $value->name; ?></span>
 								<?php endif; ?>
 

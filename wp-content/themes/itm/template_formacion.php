@@ -19,24 +19,9 @@ get_ecp_post();
 // Facultad actual
 $facultad[0]	= get_category($ecp_category->parent);
 $data			= get_category_setting($ecp_category);
-extract($data);
+$class			= get_class_border($facultad[0]->slug);
 
-$class = '';
-switch ($facultad[0]->slug)
-{
-	case 'facultad-de-artes-y-humanidades':
-		$class = ' artes-y-humanidades';
-		break;
-	case 'facultad-de-ciencias-economicas':
-		$class = ' ciencias-economicas';
-		break;
-	case 'facultad-de-ciencias-exactas-y-aplicadas':
-		$class = ' ciencias-exactas';
-		break;
-	case 'facultad-de-ingenierias':
-		$class = ' ingenierias';
-		break;
-}
+extract($data);
 
 ?>
 

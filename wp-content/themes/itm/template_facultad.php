@@ -22,7 +22,7 @@ switch ($ecp_category->slug)
 	case 'facultad-de-artes-y-humanidades':
 		$class = ' artes-y-humanidades';
 		break;
-	case 'facultad-de-ciencias-economicas':
+	case 'facultad-de-ciencias-economicas-y-administrativas':
 		$class = ' ciencias-economicas';
 		break;
 	case 'facultad-de-ciencias-exactas-y-aplicadas':

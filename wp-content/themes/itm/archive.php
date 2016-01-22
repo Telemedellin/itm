@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Template para recorrer las noticias.
+Template Name: Template para el archive.
 */
 /*
  * Template para recorrer categorías o artículos.
@@ -17,6 +17,14 @@ global $ecp_category;
 get_ecp_post();
 
 $data		= get_category_setting($ecp_category);
+$category_a	= get_category($ecp_category->parent);
+$category_b	= get_category($category_a->parent);
+$class 		= '';
+
+if (empty($class)) $class = get_class_border($ecp_category->slug);
+if (empty($class)) $class = get_class_border($category_a->slug);
+if (empty($class)) $class = get_class_border($category_b->slug);
+
 extract($data);
 
 ?>

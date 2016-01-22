@@ -111,6 +111,28 @@ function get_category_setting($term)
 	return $data;
 }
 
+function get_class_border($slug)
+{
+	$class = '';
+	switch ($slug)
+	{
+		case 'facultad-de-artes-y-humanidades':
+			$class = ' artes-y-humanidades';
+			break;
+		case 'facultad-de-ciencias-economicas-y-administrativas':
+			$class = ' ciencias-economicas';
+			break;
+		case 'facultad-de-ciencias-exactas-y-aplicadas':
+			$class = ' ciencias-exactas';
+			break;
+		case 'facultad-de-ingenierias':
+			$class = ' ingenierias';
+			break;
+	}
+
+	return $class;
+}
+
 /**
 * Funcion para alimentar los search-control en los programas
 * Cuando quieres hacer el filtro por una categoria padre que traiga

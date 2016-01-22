@@ -17,26 +17,15 @@ global $ecp_post, $ecp_category;
 get_ecp_post();
 
 $data		= get_category_setting($ecp_category);
-$facultad	= get_category($ecp_category->parent);
+$category_a	= get_category($ecp_category->parent);
+$category_b	= get_category($category_a->parent);
+$class 		= '';
+
+if (empty($class)) $class = get_class_border($ecp_category->slug);
+if (empty($class)) $class = get_class_border($category_a->slug);
+if (empty($class)) $class = get_class_border($category_b->slug);
 
 extract($data);
-
-$class 	= '';
-switch ($facultad->slug)
-{
-	case 'facultad-de-artes-y-humanidades':
-		$class = ' artes-y-humanidades';
-		break;
-	case 'facultad-de-ciencias-economicas':
-		$class = ' ciencias-economicas';
-		break;
-	case 'facultad-de-ciencias-exactas-y-aplicadas':
-		$class = ' ciencias-exactas';
-		break;
-	case 'facultad-de-ingenierias':
-		$class = ' ingenierias';
-		break;
-}
 
 ?>
 

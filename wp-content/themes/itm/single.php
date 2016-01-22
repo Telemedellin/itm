@@ -9,31 +9,13 @@
 
 get_header();
 
-$term		= get_the_category();
-$term		= $term[0];
-
-$data		= get_category_setting($term);
-$facultad	= get_category($term->parent);
-
-extract($data);
-
-$class = '';
-switch ($facultad->slug)
-{
-	case 'facultad-de-artes-y-humanidades':
-		$class = ' artes-y-humanidades';
-		break;
-	case 'facultad-de-ciencias-economicas':
-		$class = ' ciencias-economicas';
-		break;
-	case 'facultad-de-ciencias-exactas-y-aplicadas':
-		$class = ' ciencias-exactas';
-		break;
-	case 'facultad-de-ingenierias':
-		$class = ' ingenierias';
-		break;
-}
-
+// Categoría actual
+$term			= get_the_category();
+$term			= $term[0];
+$category_a		= get_category($term->parent);
+$category_b		= get_category($category_a->parent);
+$data			= get_category_setting($term);
+$class 			= '';
 $post_date		= mysql2date('j F Y', $post->post_date);
 $post_date		= explode(' ', $post_date);
 $post_date[1]	= ucfirst($post_date[1]);
@@ -41,6 +23,12 @@ $post_date		= join($post_date, " de ");
 
 $field			= get_field_object('ocultar_fecha');
 $ocultar_fecha	= $field['value'];
+
+if (empty($class)) $class = get_class_border($term->slug);
+if (empty($class)) $class = get_class_border($category_a->slug);
+if (empty($class)) $class = get_class_border($category_b->slug);
+
+extract($data);
 
 ?>
 

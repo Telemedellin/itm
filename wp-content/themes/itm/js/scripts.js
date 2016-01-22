@@ -351,8 +351,6 @@
 		});
 	}
 
-	
-
 	//Menú lateral para móviles
 	var btn_menu = $(".menu-lateral_titulo h3");//Disparador para el menú principal
 	var menu = $(".ctn__menu-lateral .menu");//Selección del contendor del menú principal
@@ -367,7 +365,7 @@
 		selector.slideToggle('slow/400/fast');
 		if (selector.siblings('a').hasClass('current') ) {
 			selector.siblings('a').removeClass('current')
-		} else{
+		} else {
 			selector.siblings('a').addClass('current');
 		};
 	}
@@ -385,14 +383,18 @@
 		slideMenu($(this).next());
 	});
 
-
 	//Sticky head
 	$(window).scroll(function() {
-	if ($(this).scrollTop() > 150){  
-	    $('.site-header').addClass("sticky");
-	  }
-	  else{
-	    $('header').removeClass("sticky");
-	  }
+		if ($(this).scrollTop() > 150) {
+			$('.site-header').addClass("sticky");
+		}
+		else {
+			$('header').removeClass("sticky");
+		}
 	});
+
+	// Desplegar menu al estar un hijo activo "2 Niveles"
+	$('.menu .current-menu-item').parent().css({'display':'block'}).prev().addClass('current')
+		.parent().parent().css({'display':'block'}).prev().addClass('current');
+
 })(jQuery);

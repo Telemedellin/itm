@@ -47,13 +47,18 @@ extract($data);
 			<section class="ctn__section-content padding-content">
 				<div class="row">
 					<div class="col-md-3 ctn__menu-lateral">
+						<?php if ((!empty($menu)) && (!is_null($menu)) && (!is_bool($menu))): ?>
 						<div class="menu-lateral_titulo <?php echo $class; ?>">
 							<h3>Menú de navegación</h3>
 						</div>
 						<?php
 							echo $menu;
+						endif;
+
+						if ((!empty($sidebar)) && (!is_null($sidebar)) && (!is_bool($sidebar))):
+							dynamic_sidebar($sidebar);
+						endif;
 						?>
-						<?php dynamic_sidebar($sidebar); ?>
 					</div>
 					<div class="col-md-9">
 						<?php while ( have_posts() ) : the_post(); ?>

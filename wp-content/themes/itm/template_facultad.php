@@ -58,15 +58,17 @@ $cover		= get_field('imagen_portada', $ecp_category);
 				</header><!-- ctn__header-content -->
 				<section class="ctn__section-content programa clearfix">
 					<div class="col-md-3 ctn__menu-lateral">
+						<?php if ((!empty($menu)) && (!is_null($menu)) && (!is_bool($menu))): ?>
 						<div class="menu-lateral_titulo <?php echo $class; ?>">
 							<h3>Menú de navegación</h3>
 						</div>
 						<?php
 							echo $menu;
-						?>
+						endif;
 
-						<?php
+						if ((!empty($sidebar)) && (!is_null($sidebar)) && (!is_bool($sidebar))):
 							dynamic_sidebar($sidebar);
+						endif;
 						?>
 						<div class="clearfix padding"></div>
 					</div>

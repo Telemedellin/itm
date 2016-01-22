@@ -40,6 +40,185 @@ if ( is_plugin_active( 'enhanced-category-pages/enhanced-category-pages.php' ) )
     }
 }
 
+/* Portfolio categories new parameter */
+function news_categories_settings_field($settings, $value)
+{   
+    $categories = get_terms('category');
+    $dependency = vc_generate_dependencies_attributes($settings);
+    $data = '<select name="'.$settings['param_name'].'" class="wpb_vc_param_value wpb-input wpb-select '.$settings['param_name'].' '.$settings['type'].'">';
+    $data .= '<option class="0">Todas</option>';
+    foreach($categories as $val)
+	{
+        $selected = '';
+        if ($value!=='' && $val->term_id === $value)
+		{
+			$selected = ' selected="selected"';
+        }
+        $data .= '<option class="'.$val->term_id.'" value="'.$val->term_id.'"'.$selected.'>'.$val->name.'</option>';
+    }
+    $data .= '</select>';
+
+    return $data;
+}
+add_shortcode_param('news_categories' , 'news_categories_settings_field');
+
+/* VC Grid noticias */
+vc_map( array(
+	"name" => "Grid Noticias",
+	"base" => "grid_noticias",
+	"category" => "ITM",
+	"icon" => get_template_directory_uri()."/images/vc_table.png",
+	"params" => array(
+		array(
+			"type" => "news_categories",
+			"holder" => "hidden",
+			"heading" => "Categoría",
+			"param_name" => "category",
+			"description" => "Selecciona la categoría."
+		),
+		array(
+			"type" => "dropdown",
+			"holder" => "hidden",
+			"class" => "",
+			"heading" => "Ordenar por",
+			"param_name" => "orderby",
+			"value" => array('Seleccione una opción'=>'default', 'Fecha'=>'date', 'ID'=>'ID', 'Titulo'=>'title'),  
+			"description" => "Seleccione el campo por el cual desea ordenar."
+		),
+		array(
+			"type" => "dropdown",
+			"holder" => "hidden",
+			"class" => "",
+			"heading" => "Orden",
+			"param_name" => "order",
+			"value" => array('Seleccione una opción'=>'', 'Ascendente'=>'ASC', 'Descendente'=>'DESC'),
+			"description" => "Seleccione el tipo de orden."
+		)
+	)
+));
+/* END VC Grid noticias */
+
+/* Grid noticias shortcode */
+function grid_noticias($atts, $content)
+{
+    extract(shortcode_atts(array(
+		'category'=> '',
+		'orderby' => '',
+		'order' => ''
+	), $atts ) );
+
+    $tax_query = '';
+
+    if($category && $category!='Todas')
+	{
+        $tax_query = array(
+            array(
+                'taxonomy' => 'category',
+                'field' => 'id',
+                'terms' => $category
+            )
+		);
+    }
+
+    $args = array(
+        'post_type' => 'post',
+        'orderby' => $orderby,
+        'order' => $order,
+		'showposts' => 5,
+        'tax_query' => $tax_query
+    );
+
+    $noticias_posts = new WP_Query($args);
+
+	// Contador de vuelta para el while
+	$cont = 0;
+	// Inicio de construcción de la grid
+	$html = '<div class="ctn__preview-grid">';
+
+    while ($noticias_posts->have_posts()):
+        $noticias_posts->the_post();
+        $noticias_cat = "";
+        if (get_the_terms(get_the_ID(), 'category'))
+		{
+            $first_item = false;
+            foreach (get_the_terms(get_the_ID(), 'category') as $cat)
+			{
+                if($first_item)
+                    $noticias_cat .= " ";
+
+                $first_item = true;
+                $noticias_cat .= strtolower(str_replace(" ", "-", $cat->name));
+            }
+        }
+
+        $noticias_subtitle = get_post_meta(get_the_ID(), '', $single = true);
+		$image_class = 'post-thumbnail';
+
+        if (has_post_thumbnail(get_the_ID()))
+		{
+			$image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), $image_class);
+			$image = $image[0];
+		}
+        else
+		{
+			$image = get_template_directory_uri() . '/images/no-image.jpg';
+        }
+
+		$post_date		= mysql2date('j F Y', get_the_date());
+		$post_date		= explode(' ', $post_date);
+		$post_date[1]	= ucfirst($post_date[1]);
+		$post_date		= join($post_date, " de ");
+
+		if ($cont < 1)
+		{
+			$html .= '<div class="ctn__preview-grid__primary-col">';
+			$html .= '<div class="grid-item">';
+			$html .= '<a href="'.get_permalink().'" class="ctn__preview ctn__preview-news">';
+			$html .= '<div class="ctn__preview-image" style="background: url('.$image.') no-repeat; background-size: 100%; background-position: center center">';
+			$html .= '<img src="'.$image.'" alt="" class="preview-image">';
+			$html .= '</div>';
+			$html .= '<div class="ctn__preview-title">';
+			$html .= '<h2 class="preview-title">'.get_the_title().'</h2>';
+			$html .= '</div>';
+			$html .= '<div class="ctn__preview-news_date">';
+			$html .= '<span class="preview-news_date">'.$post_date.'</span>';
+			$html .= '</div>';
+			$html .= '</a><!-- ctn__preview -->';
+			$html .= '</div><!-- /grid-item -->';
+			$html .= '</div>';
+			$html .= '<div class="ctn__preview-grid__secondary-col">';
+		}
+		else
+		{
+			$html .= '<div class="grid-item">';
+			$html .= '<a href="'.get_permalink().'" class="ctn__preview ctn__preview-news">';
+			$html .= '<div class="ctn__preview-image" style="background: url('.$image.') no-repeat; background-size: 100%; background-position: center center">';
+			$html .= '<img src="'.$image.'" alt="" class="preview-image">';
+			$html .= '</div>';
+			$html .= '<div class="ctn__preview-title">';
+			$html .= '<h2 class="preview-title">'.get_the_title().'</h2>';
+			$html .= '</div>';
+			$html .= '<div class="ctn__preview-news_date">';
+			$html .= '<span class="preview-news_date">'.$post_date.'</span>';
+			$html .= '</div>';
+			$html .= '</a><!-- ctn__preview -->';
+			$html .= '</div><!-- /grid-item -->';
+		}
+
+		$cont++;
+
+    endwhile;
+
+	$html .= '</div>';
+	$html .= '</div>';
+
+    wp_reset_postdata();
+
+    return $html;
+}
+add_shortcode("grid_noticias", "grid_noticias");
+/* END Grid noticias shortcode */
+
 function get_ecp_post($category_id = null)
 {
 	$ecp = new \ecp\Enhanced_Category('', 'ecp_x_category');

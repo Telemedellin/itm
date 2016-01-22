@@ -39,19 +39,20 @@ extract($data);
 				</header><!-- ctn__header-content -->
 				<section class="ctn__section-content programa clearfix">
 					<div class="col-md-3 ctn__menu-lateral">
+						<?php if ((!empty($menu)) && (!is_null($menu)) && (!is_bool($menu))): ?>
 						<div class="menu-lateral_titulo">
 							<h3>Menú de navegación</h3>
 						</div>
 						<?php
 							echo $menu;
-						?>
+						endif;
 
-						<?php
+						if ((!empty($sidebar)) && (!is_null($sidebar)) && (!is_bool($sidebar))):
 							dynamic_sidebar($sidebar);
+						endif;
 						?>
-						
-						<?php
 
+						<?php
 							$field				= get_field_object('ext_tipo_programa', $ecp_post->ID);
 							$tipo				= $field['value'][0];
 							$tipo_text			= $field['choices'][$tipo];
@@ -61,7 +62,6 @@ extract($data);
 							$sede_text			= $field['choices'][$sede];
 
 							$intensidad_horaria	= get_field('intensidad_horaria', $ecp_post->ID);
-
 						?>
 						<div class="ctn__programa-bottom clearfix">
 							<dl>
@@ -70,7 +70,7 @@ extract($data);
 								<dt>Sede</dt>
 									<dd><?php echo $sede_text; ?></dd>
 								<dt>Intensidad horaria</dt>
-									<dd><?php echo $intensidad_horaria; ?></dd>
+									<dd><?php echo $intensidad_horaria; ?> horas</dd>
 							</dl>
 						</div>
 						<div class="clearfix padding"></div>

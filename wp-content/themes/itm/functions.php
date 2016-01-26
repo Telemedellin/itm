@@ -275,7 +275,7 @@ function get_category_setting($term)
 						$data['sidebar'] = get_field('sidebar', $category);
 						break;
 					case 'cover':
-						$data['cover'] = get_field('imagen_portada', $category);
+						$data['cover'] = (is_bool($cover = get_field('imagen_portada', $category))) ? get_template_directory_uri() . '/images/no-cover.jpg' : $cover;
 						break;
 				}
 			}
@@ -283,7 +283,7 @@ function get_category_setting($term)
 		case 'no':
 			$data['menu']		= get_field('menu', $term);
 			$data['sidebar']	= get_field('sidebar', $term);
-			$data['cover']		= get_field('imagen_portada', $term);
+			$data['cover']		= (is_bool($cover = get_field('imagen_portada', $term))) ? get_template_directory_uri() . '/images/no-cover.jpg' : $cover;
 			break;
 	}
 

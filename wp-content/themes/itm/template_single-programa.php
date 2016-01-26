@@ -21,6 +21,8 @@ $facultad	= get_category(get_category($ecp_category->parent)->parent);
 $data		= get_category_setting($ecp_category);
 $class		= get_class_border($facultad->slug);
 
+extract($data);
+
 ?>
 
 	<div id="primary" class="content-area">
@@ -69,7 +71,7 @@ $class		= get_class_border($facultad->slug);
 								<dt>Modalidad</dt>
 									<dd><?php echo $modalidad; ?></dd>
 								<dt>Duración</dt>
-									<dd><?php echo $duracion; ?> horas</dd>
+									<dd><?php echo $duracion; ?></dd>
 							</dl>
 						</div>
 						<div class="clearfix padding"></div>

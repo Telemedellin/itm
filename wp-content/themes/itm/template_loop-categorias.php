@@ -16,7 +16,9 @@ global $ecp_post, $ecp_category;
 
 get_ecp_post();
 
-$cover = get_field('imagen_portada', $ecp_category);
+$data		= get_category_setting($ecp_category);
+
+extract($data);
 
 ?>
 	<div id="primary" class="content-area">

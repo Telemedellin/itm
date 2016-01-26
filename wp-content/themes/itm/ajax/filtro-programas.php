@@ -26,7 +26,7 @@ if (isset($_POST))
 		if (!empty($imagen_destacada) || !is_null($imagen_destacada))
 			$imagen			= $imagen_destacada;
 		else
-			$imagen			= get_field('imagen_portada', $programa);
+			$imagen			= get_template_directory_uri() . '/images/no-cover.jpg';
 
 		$titulo_otorgado	= get_field('titulo_otorgado', $ecpPost->ID);
 

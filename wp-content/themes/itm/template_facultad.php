@@ -33,10 +33,10 @@ switch ($ecp_category->slug)
 		break;
 }
 
-$menu		= get_field('menu', $ecp_category);
-$sidebar	= get_field('sidebar', $ecp_category);
+$data		= get_category_setting($ecp_category);
 $title		= $ecp_category->name;
-$cover		= get_field('imagen_portada', $ecp_category);
+
+extract($data);
 
 ?>
 

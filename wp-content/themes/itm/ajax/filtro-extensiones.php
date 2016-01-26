@@ -28,7 +28,7 @@ if (isset($_POST))
 		if (!empty($imagen_destacada) || !is_null($imagen_destacada))
 			$imagen			= $imagen_destacada;
 		else
-			$imagen			= get_field('imagen_portada', $programa);
+			$imagen			= get_template_directory_uri() . '/images/no-image.jpg';
 
 		$field				= get_field_object('ext_tipo_programa', $ecpPost->ID);
 		$tipo				= $field['value'][0];

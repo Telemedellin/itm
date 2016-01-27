@@ -43,14 +43,8 @@ extract($data);
 						<div class="menu-lateral_titulo">
 							<h3>Menú de navegación</h3>
 						</div>
-						<?php
-							echo $menu;
-						endif;
-
-						if ((!empty($sidebar)) && (!is_null($sidebar)) && (!is_bool($sidebar))):
-							dynamic_sidebar($sidebar);
-						endif;
-						?>
+						<?php echo $menu; ?>
+						<?php endif; ?>
 
 						<?php
 							$field				= get_field_object('ext_tipo_programa', $ecp_post->ID);
@@ -73,6 +67,9 @@ extract($data);
 									<dd><?php echo $intensidad_horaria; ?> horas</dd>
 							</dl>
 						</div>
+						<?php if ((!empty($sidebar)) && (!is_null($sidebar)) && (!is_bool($sidebar))): ?>
+							<?php dynamic_sidebar($sidebar); ?>
+						<?php endif; ?>
 						<div class="clearfix padding"></div>
 					</div>
 					<div class="col-md-9">

@@ -47,14 +47,8 @@ extract($data);
 						<div class="menu-lateral_titulo <?php echo $class; ?>">
 							<h3>Menú de navegación</h3>
 						</div>
-						<?php
-							echo $menu;
-						endif;
-
-						if ((!empty($sidebar)) && (!is_null($sidebar)) && (!is_bool($sidebar))):
-							dynamic_sidebar($sidebar);
-						endif;
-						?>
+						<?php echo $menu; ?>
+						<?php endif; ?>
 						
 						<?php
 							$titulo_otorgado	= get_field('titulo_otorgado', $ecp_post->ID);
@@ -74,6 +68,10 @@ extract($data);
 									<dd><?php echo $duracion; ?></dd>
 							</dl>
 						</div>
+						<?php if ((!empty($sidebar)) && (!is_null($sidebar)) && (!is_bool($sidebar))): ?>
+							<?php dynamic_sidebar($sidebar); ?>
+						<?php endif; ?>
+
 						<div class="clearfix padding"></div>
 					</div>
 					<div class="col-md-9">

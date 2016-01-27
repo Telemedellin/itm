@@ -54,6 +54,10 @@ extract($data);
 						)
 					);
 
+					$content 	= apply_filters('the_content', $ecp_post->post_content);
+					$content 	= str_replace(']]>', ']]&gt;', $content);
+					echo $content;
+
 					foreach ($categories as $category):
 						require 'template-parts/content-loop-categorias.php';
 					endforeach;

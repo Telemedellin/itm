@@ -24,6 +24,9 @@ $post_date		= join($post_date, " de ");
 $field			= get_field_object('ocultar_fecha');
 $ocultar_fecha	= $field['value'];
 
+$field			= get_field_object('blog_sidebar');
+$blog_sidebar	= $field['value'];
+
 if (empty($class)) $class = get_class_border($term->slug);
 if (empty($class)) $class = get_class_border($category_a->slug);
 if (empty($class)) $class = get_class_border($category_b->slug);
@@ -58,6 +61,7 @@ extract($data);
 						echo $menu;
 					?>
 					<?php dynamic_sidebar($sidebar); ?>
+					<?php dynamic_sidebar($blog_sidebar); ?>
 				</div>
 				<div class="col-md-9">
 					<?php

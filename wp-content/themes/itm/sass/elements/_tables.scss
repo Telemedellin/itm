@@ -1,4 +1,20 @@
-table {
+table,
+.tablepress {
 	margin: 0 0 1.5em;
 	width: 100%;
+	thead,
+	tfoot{
+		th{
+			background-color: $color__primary !important;
+			color: #FFFFFF;
+			text-align: center;
+			font-weight: 400 !important;
+			border: solid $color__gray-light 1px;
+		}
+	}
+	tbody{
+		td{
+			border: solid $color__gray-light 1px;
+		}
+	}
 }

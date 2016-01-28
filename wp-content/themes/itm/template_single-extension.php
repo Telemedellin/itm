@@ -47,24 +47,27 @@ extract($data);
 						<?php endif; ?>
 
 						<?php
-							$field				= get_field_object('ext_tipo_programa', $ecp_post->ID);
-							$tipo				= $field['value'][0];
-							$tipo_text			= $field['choices'][$tipo];
-
-							$field				= get_field_object('sede', $ecp_post->ID);
-							$sede				= $field['value'];
-							$sede_text			= $field['choices'][$sede];
-
+							$descripcion		= get_field('descripcion', $ecp_post->ID);
 							$intensidad_horaria	= get_field('intensidad_horaria', $ecp_post->ID);
+							$field				= get_field_object('sede', $ecp_post->ID);
+							$sede				= $field['choices'][$field['value']];
+							$lugar_aula			= get_field('lugar_aula', $ecp_post->ID);
+							$field				= get_field_object('ext_tipo_programa', $ecp_post->ID);
+							$tipo				= $field['choices'][$field['value'][0]];
+
 						?>
 						<div class="ctn__programa-bottom clearfix">
 							<dl>
-								<dt>Tipo de programa</dt>
-									<dd><?php echo $tipo_text; ?></dd>
-								<dt>Sede</dt>
-									<dd><?php echo $sede_text; ?></dd>
+								<dt>Descripción</dt>
+									<dd><?php echo $descripcion; ?></dd>
 								<dt>Intensidad horaria</dt>
 									<dd><?php echo $intensidad_horaria; ?> horas</dd>
+								<dt>Sede</dt>
+									<dd><?php echo $sede; ?></dd>
+								<dt>Lugar o aula</dt>
+									<dd><?php echo $lugar_aula; ?></dd>
+								<dt>Tipo de programa</dt>
+									<dd><?php echo $tipo; ?></dd>
 							</dl>
 						</div>
 						<?php if ((!empty($sidebar)) && (!is_null($sidebar)) && (!is_bool($sidebar))): ?>

@@ -51,17 +51,42 @@ extract($data);
 						<?php endif; ?>
 						
 						<?php
-							$titulo_otorgado	= get_field('titulo_otorgado', $ecp_post->ID);
+							$field						= get_field_object('tipo_de_programa_academico', $ecp_post->ID);
+							$tipo						= $field['value'];
 
-							$field				= get_field_object('modalidad', $ecp_post->ID);
-							$modalidad			= $field['choices'][$field['value'][0]];
+							$titulo_otorgado			= get_field('titulo_otorgado', $ecp_post->ID);
+							$registro_calificado 		= get_field('registro_calificado', $ecp_post->ID);
+							$codigo_snies 				= get_field('codigo_snies', $ecp_post->ID);
 
-							$duracion			= get_field('duracion', $ecp_post->ID);
+							if ($tipo == 'pregrado')
+							{
+								$acreditacion_alta_calidad 	= get_field('acreditacion_alta_calidad', $ecp_post->ID);
+							}
+							else
+							{
+								$creditos_academicos	 	= get_field('creditos_academicos', $ecp_post->ID);
+							}
+
+							$field						= get_field_object('modalidad', $ecp_post->ID);
+							$modalidad					= $field['choices'][$field['value'][0]];
+
+							$duracion					= get_field('duracion', $ecp_post->ID);
 						?>
 						<div class="ctn__programa-bottom clearfix<?php echo $class; ?>">
 							<dl>
 								<dt>Título a otorgar</dt>
 									<dd><?php echo $titulo_otorgado; ?></dd>
+								<dt>Registro calificado</dt>
+									<dd><?php echo $registro_calificado; ?></dd>
+								<dt>Código SNIES</dt>
+									<dd><?php echo $codigo_snies; ?></dd>
+								<?php if ($tipo == 'pregrado'): ?>
+								<dt>Acreditación de alta calidad</dt>
+									<dd><?php echo $acreditacion_alta_calidad; ?></dd>
+								<?php else: ?>
+								<dt>Créditos académicos</dt>
+									<dd><?php echo $creditos_academicos; ?></dd>
+								<?php endif; ?>
 								<dt>Modalidad</dt>
 									<dd><?php echo $modalidad; ?></dd>
 								<dt>Duración</dt>

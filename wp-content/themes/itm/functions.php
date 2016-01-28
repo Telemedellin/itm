@@ -280,6 +280,7 @@ function get_category_setting($term)
 				}
 			}
 			break;
+		case false:
 		case 'no':
 			$data['menu']		= get_field('menu', $term);
 			$data['sidebar']	= get_field('sidebar', $term);
@@ -288,6 +289,92 @@ function get_category_setting($term)
 	}
 
 	return $data;
+}
+
+function get_post_setting($category_id)
+{
+	$ecpPost	= get_ecp_post($category_id);
+	$field		= get_field_object('tipo_de_programa_academico', $ecpPost->ID);
+	$tipo		= $field['value'];
+
+	$html 		= "";
+
+	if (!empty($tipo))
+	{
+		switch ($tipo)
+		{
+			case 'pregrado':
+			case 'posgrado':
+				$titulo						= get_field('titulo_otorgado', $ecpPost->ID);
+				$registro_calificado 		= get_field('registro_calificado', $ecpPost->ID);
+				$codigo_snies 				= get_field('codigo_snies', $ecpPost->ID);
+				if ($tipo == 'pregrado')
+				{
+					$acreditacion_alta_calidad 	= get_field('acreditacion_alta_calidad', $ecpPost->ID);
+				}
+				else
+				{
+					$creditos_academicos	 	= get_field('creditos_academicos', $ecpPost->ID);
+				}
+				$field						= get_field_object('modalidad', $ecpPost->ID);
+				$modalidad					= $field['choices'][$field['value'][0]];
+				$duracion					= get_field('duracion', $ecpPost->ID);
+
+				$html .= '<div class="ctn__programa-bottom clearfix">';
+					$html .= '<dl>';
+						$html .= '<dt>Título a otorgar</dt>';
+							$html .= '<dd>' . $titulo . '</dd>';
+						$html .= '<dt>Registro calificado</dt>';
+							$html .= '<dd>' . $registro_calificado . '</dd>';
+						$html .= '<dt>Código SNIES</dt>';
+							$html .= '<dd>' . $codigo_snies . '</dd>';
+						if ($tipo == 'pregrado')
+						{
+							$html .= '<dt>Acreditación de alta calidad</dt>';
+								$html .= '<dd>' . $acreditacion_alta_calidad . '</dd>';
+						}
+						else
+						{
+							$html .= '<dt>Créditos académicos</dt>';
+								$html .= '<dd>' . $creditos_academicos . '</dd>';
+						}
+						$html .= '<dt>Modalidad</dt>';
+							$html .= '<dd>' . $modalidad . '</dd>';
+						$html .= '<dt>Duración</dt>';
+							$html .= '<dd>' . $duracion . '</dd>';
+					$html .= '</dl>';
+				$html .= '</div>';
+
+				break;
+			case 'extension':
+				$descripcion	= get_field('descripcion', $ecpPost->ID);
+				$intensidad		= get_field('intensidad_horaria', $ecpPost->ID);
+				$field			= get_field_object('sede', $ecpPost->ID);
+				$sede			= $field['choices'][$field['value']];
+				$lugar_aula		= get_field('lugar_aula', $ecpPost->ID);
+				$field			= get_field_object('ext_tipo_programa', $ecpPost->ID);
+				$_tipo			= $field['choices'][$field['value'][0]];
+
+				$html .= '<div class="ctn__programa-bottom clearfix">';
+					$html .= '<dl>';
+						$html .= '<dt>Descripción</dt>';
+							$html .= '<dd>' . $descripcion . '</dd>';
+						$html .= '<dt>Intensidad horaria</dt>';
+							$html .= '<dd>' . $intensidad . ' horas</dd>';
+						$html .= '<dt>Sede</dt>';
+							$html .= '<dd>' . $sede . '</dd>';
+						$html .= '<dt>Lugar o aula</dt>';
+							$html .= '<dd>' . $lugar_aula . '</dd>';
+						$html .= '<dt>Tipo de programa</dt>';
+							$html .= '<dd>' . $_tipo . '</dd>';
+					$html .= '</dl>';
+				$html .= '</div>';
+
+				break;
+		}
+	}
+
+	return $html;
 }
 
 function get_class_border($slug)

@@ -27,6 +27,8 @@ $ocultar_fecha	= $field['value'];
 $field			= get_field_object('blog_sidebar');
 $blog_sidebar	= $field['value'];
 
+$widget_carrera = get_post_setting($term->term_id);
+
 if (empty($class)) $class = get_class_border($term->slug);
 if (empty($class)) $class = get_class_border($category_a->slug);
 if (empty($class)) $class = get_class_border($category_b->slug);
@@ -57,9 +59,8 @@ extract($data);
 					<div class="menu-lateral_titulo <?php echo $class; ?>">
 						<h3>Menú de navegación</h3>
 					</div>
-					<?php
-						echo $menu;
-					?>
+					<?php echo $menu; ?>
+					<?php echo $widget_carrera; ?>
 					<?php dynamic_sidebar($sidebar); ?>
 					<?php dynamic_sidebar($blog_sidebar); ?>
 				</div>

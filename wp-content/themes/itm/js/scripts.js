@@ -393,8 +393,9 @@
 		}
 	});
 
-	// Desplegar menu al estar un hijo activo "2 Niveles"
-	$('.menu .current-menu-item').parent().css({'display':'block'}).prev().addClass('current')
-		.parent().parent().css({'display':'block'}).prev().addClass('current');
+	if ($(window).width() <= 968)
+		$('.menu .current-menu-item').parent().css({'display':'block'}).prev().addClass('current').parent().parent().prev().addClass('current');
+	else
+		$('.menu .current-menu-item').parent().css({'display':'block'}).prev().addClass('current').parent().parent().css({'display':'block'}).prev().addClass('current');
 
 })(jQuery);

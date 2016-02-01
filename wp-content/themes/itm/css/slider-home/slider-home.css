@@ -42,11 +42,11 @@
 	bottom: 0;
 	width: 100%;
 }
-.rsImg{
+.SkinHome .rsImg{
 	display: none;
 }
 .SkinHome,
-.rsOverflow{
+.SkinHome .rsOverflow{
 	height: 500px !important;
 	transition: all ease 0.5s;
 }
@@ -529,7 +529,7 @@
 
 @media (min-width: 992px){
 	.SkinHome,
-	.rsOverflow{
+	.SkinHome .rsOverflow{
 		height: 450px !important;
 	}
 	.ctn__slider-info {

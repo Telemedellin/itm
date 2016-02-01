@@ -1,6 +1,6 @@
 (function($)
 {
-	var path = window.location.origin;
+	var path = window.location.origin + "/itm";
 	var content_path = path + '/wp-content';
 	var admin_path = path + '/wp-admin';
 	var theme_path = content_path + '/themes/itm';

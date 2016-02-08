@@ -12,7 +12,7 @@ get_header(); ?>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
-            <div class="ctn_cover-image" style="background: url(<?php ecget_template_directory_uri(); ?>/images/no-cover.jpg) no-repeat;background-size: cover;"></div>
+            <div class="ctn_cover-image" style="background: url(<?php echo get_template_directory_uri(); ?>/images/no-cover.jpg) no-repeat;background-size: cover;"></div>
             <div class="ctn__content container">
                 <header class="ctn__header-content">
 					<h1 class="entry-title">ERROR 404</h1>

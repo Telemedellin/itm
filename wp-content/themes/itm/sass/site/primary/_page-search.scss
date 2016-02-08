@@ -1,0 +1,21 @@
+.ctn__section-content.search {
+	.container {
+		padding-top: 40px;
+		width: 100%;
+	}
+	.criteria {
+		span {
+			color: $color__primary;
+			font-weight: 800;
+		}
+	}
+	article {
+		h2 {
+			a {
+				display: block;
+				text-decoration: blink;
+				border-bottom: 1px solid $color__primary;
+			}
+		}
+	}
+}

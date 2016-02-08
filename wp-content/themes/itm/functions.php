@@ -650,6 +650,8 @@ function itm_setup() {
 		'users-menu' => esc_html__( 'Usuarios', 'itm' ),
 		'top-bar-menu' => esc_html__( 'Superior', 'itm' ),
 		'footer-menu' => esc_html__( 'Pie de página', 'itm' ),
+		'error-404-1' => esc_html__( 'Error 404-1', 'itm' ),
+		'error-404-2' => esc_html__( 'Error 404-2', 'itm' )
 	) );
 
 	/*

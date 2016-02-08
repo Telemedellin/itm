@@ -7,50 +7,65 @@
  * @package itm
  */
 
+
 get_header(); ?>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
+            <div class="ctn_cover-image" style="background: url(/wp-content/themes/itm/images/no-cover.jpg) no-repeat;background-size: cover;"></div>
+            <div class="ctn__content container">
+                <header class="ctn__header-content">
+					<h1 class="entry-title">ERROR 404</h1>
+                </header>
+                <section class="ctn__section-content programa clearfix error-404 not-found">
+                    <div class="body">
+                        <div class="page-content clearfix">
+                            <h1 class="title">¡Ups!</h1>
+                            <h3 class="subtitle">No encontramos la página que buscas</h3>
+                            <div class="message-content">
+                                <p class="primary-text">
+                                    <b>Intenta de nuevo</b>
+                                    <br>
+                                    Puede ser que la página que buscas ya no está disponible en nuestro sitio o te has confundido al escribir lo que buscas.
+                                    Te sugerimos buscar de nuevo o visitar una de las secciones activas de nuestro sitio.
+                                </p>
+                                <p class="secundary-text">
+                                    Visita alguna de nuestras páginas activas: 
+                                </p>
+                            </div>
+                            <div class="col-md-8 clearfix">
+                                <div class="col-md-6">
+                                    <div class="ctn__404-1-menu">
+                                        <div class="container">
+                                            <?php wp_nav_menu( array( 
+                                                'theme_location' => 'error-404-1',
+                                                'menu_id' => 'error-404-1',
+                                                'menu_class' => 'error-404-1 menu-vertical',
+                                                'container' => 'div',
+                                                'container_class' => 'ctn__404-1-menu-bar-navigation',
+                                            ) ); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="ctn__404-2-menu">
+                                        <div class="container">
+                                            <?php wp_nav_menu( array( 
+                                                'theme_location' => 'error-404-2',
+                                                'menu_id' => 'error-404-2',
+                                                'menu_class' => 'error-404-2 menu-vertical',
+                                                'container' => 'div',
+                                                'container_class' => 'ctn__404-2-menu-bar-navigation',
+                                            ) ); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-			<section class="error-404 not-found">
-				<header class="page-header">
-					<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'itm' ); ?></h1>
-				</header><!-- .page-header -->
-
-				<div class="page-content">
-					<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'itm' ); ?></p>
-
-					<?php get_search_form(); ?>
-
-					<?php the_widget( 'WP_Widget_Recent_Posts' ); ?>
-
-					<?php if ( itm_categorized_blog() ) : // Only show the widget if site has multiple categories. ?>
-					<div class="widget widget_categories">
-						<h2 class="widget-title"><?php esc_html_e( 'Most Used Categories', 'itm' ); ?></h2>
-						<ul>
-						<?php
-							wp_list_categories( array(
-								'orderby'    => 'count',
-								'order'      => 'DESC',
-								'show_count' => 1,
-								'title_li'   => '',
-								'number'     => 10,
-							) );
-						?>
-						</ul>
-					</div><!-- .widget -->
-					<?php endif; ?>
-
-					<?php
-						/* translators: %1$s: smiley */
-						$archive_content = '<p>' . sprintf( esc_html__( 'Try looking in the monthly archives. %1$s', 'itm' ), convert_smilies( ':)' ) ) . '</p>';
-						the_widget( 'WP_Widget_Archives', 'dropdown=1', "after_title=</h2>$archive_content" );
-					?>
-
-					<?php the_widget( 'WP_Widget_Tag_Cloud' ); ?>
-
-				</div><!-- .page-content -->
-			</section><!-- .error-404 -->
+                        </div><!-- .page-content -->
+                    </div>
+                </section><!-- .error-404 -->
+            </div>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->

@@ -39,7 +39,7 @@ global $facultad;
 		
 		foreach ($formaciones as $formacion)
 		{
-			if (strpos($formacion->slug, 'formacion') !== false)
+			if (preg_match("/\bformacion\b/", $formacion->slug))
 			{
 				$programas = get_categories(array(
 						'type'                     => 'post',

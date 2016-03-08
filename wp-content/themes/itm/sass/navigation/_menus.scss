@@ -372,7 +372,7 @@
 	}
 	//Ancho de los ítemes principales en el menu de primer nivel. Se divide el 100% por la cantidad de ítemes
 	.ubermenu-item-level-0{
-		width: calc(100% / 8) !important;
+		width: auto !important;
 		> .ubermenu-target {
 			text-align: center;
 		}

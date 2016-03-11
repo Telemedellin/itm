@@ -3,7 +3,7 @@ Contributors: bradvin, fooplugins
 Donate link: http://fooplugins.com
 Tags: lightbox,media,images,gallery,modal
 Requires at least: 3.5.1
-Tested up to: 4.3
+Tested up to: 4.4.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -74,6 +74,10 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 2. Phone example
 
 == Changelog ==
+
+= 1.0.9 =
+* Updated to use latest FooBox JS fixing few bugs
+* Reorder selectors so FooGallery can take preference in some cases
 
 = 1.0.8 =
 * Updated to use latest FooBox JS

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the 2.3 package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-01-21 20:43:00+0000\n"
+"PO-Revision-Date: 2016-02-03 01:34:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -332,7 +332,7 @@ msgstr ""
 
 #: public/admin/row_custom.php:3
 msgid "Custom dates:"
-msgstr ""
+msgstr "Fechas personalizadas:"
 
 #: public/admin/row_daily.php:3 public/admin/row_monthly.php:3
 #: public/admin/row_monthly.php:39 public/admin/row_weekly.php:3
@@ -368,7 +368,7 @@ msgstr "El tema activo tien un problema. Volviendo al tema por defecto."
 
 #: public/admin/themes-install.php:13
 msgid "New theme activated. This theme supports widgets, please visit the <a href=\"%s\">widgets settings</a> screen to configure them."
-msgstr ""
+msgstr "Nuevo tema activado. Este tema soporta widgets, por favor ve a los <a href=\"%s\">ajustes del widget</a> para configurarlos."
 
 #: public/admin/calendar_tasks.php:24
 msgid "Manage Events"
@@ -444,15 +444,15 @@ msgstr "Mantener categorías y etiquetas originales de eventos"
 
 #: public/admin/feed_row.php:75 public/admin/plugins/ics/display_feeds.php:67
 msgid "On refresh, preserve previously imported events that are missing from the feed"
-msgstr ""
+msgstr "Al refrescar, preservar los eventos previamente importados que falten del feed"
 
 #: public/admin/feed_row.php:86 public/admin/plugins/ics/display_feeds.php:74
 msgid "Guesses the time zone of events that have none specified; recommended for Google Calendar feeds"
-msgstr ""
+msgstr "Averigua la zona horaria de los eventos que no la especifiquen; recomendado para feeds de Calendarios de Google"
 
 #: public/admin/feed_row.php:87 public/admin/plugins/ics/display_feeds.php:75
 msgid "Assign default time zone to events in UTC"
-msgstr ""
+msgstr "Asignar una zona horaria por defecto a los eventos en UTC"
 
 #: public/admin/box_support.php:19
 msgid "Get Add-ons"
@@ -588,7 +588,7 @@ msgstr "Selecciona patrón de recurrencia:"
 
 #: public/admin/box_repeat.php:36
 msgid "Custom"
-msgstr ""
+msgstr "Personalizado"
 
 #: public/admin/box_repeat.php:72
 msgid "End"
@@ -666,7 +666,7 @@ msgstr "Longuitud:"
 
 #: public/admin/box_event_location.php:85
 msgid "Show Map"
-msgstr ""
+msgstr "Mostrar mapa"
 
 #: public/admin/box_eventbrite.php:1
 msgid "Eventbrite Ticketing"
@@ -750,7 +750,7 @@ msgstr ""
 
 #: public/admin/box_event_cost.php:105
 msgid "Description:"
-msgstr ""
+msgstr "Descripción:"
 
 #: public/admin/box_event_cost.php:111
 msgid "(Optional)"
@@ -885,7 +885,7 @@ msgstr "No se pudo encontrar un cargador adecuado para el archivo con la extensi
 
 #: lib/theme/loader.php:631
 msgid "Your calendar theme has been switched to Vortex due to a rendering problem. For more information, please enable debug mode by adding this line to your WordPress <code>wp-config.php</code> file:<pre>define( 'AI1EC_DEBUG', true );</pre>"
-msgstr ""
+msgstr "Tu tema de calendario ha sido cambiado a Vortex debido a un problema de renderizado. Para más información, por favor habilita el modo de depuración añadiendo esta línea a tu archivo <code>wp-config.php</code> de WordPress: <pre>define( 'AI1EC_DEBUG', true );</pre>"
 
 #: lib/theme/search.php:253
 msgid "Unable to move your old core themes from <code>wp-content/themes-ai1ec</code> to <code>wp-content/themes-ai1ec-obsolete</code> because your <code>wp-content</code> folder is not writable. Please manually remove your old core themes from <code>wp-content/themes-ai1ec</code>."
@@ -897,7 +897,7 @@ msgstr "No se pudo mover sus antiguos temas desde <code>wp-content/themes-ai1ec/
 
 #: lib/twig/environment.php:115
 msgid "The calendar is temporarily disabled due to a rendering error. Please <a href=\"javascript:location.reload();\">reload the page</a>."
-msgstr ""
+msgstr "El calendario está temporalmente deshabilitado debido a un error de renderizado. Por favor <a href=\"javascript:location.reload();\">refresca la página</a>."
 
 #: public/admin/agenda-widget-form.php:2 public/admin/box_event_cost.php:92
 msgid "Title:"
@@ -1057,27 +1057,27 @@ msgstr "evento"
 #: lib/post/custom-type.php:85
 msgctxt "Event categories taxonomy"
 msgid "Categories"
-msgstr ""
+msgstr "Categorias"
 
 #: lib/post/custom-type.php:86
 msgctxt "Event categories taxonomy (singular)"
 msgid "Category"
-msgstr ""
+msgstr "Categoria"
 
 #: lib/post/custom-type.php:87
 msgctxt "Event categories menu item"
 msgid "Organize"
-msgstr ""
+msgstr "Organizar"
 
 #: lib/post/custom-type.php:94
 msgctxt "Event tags taxonomy"
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
 #: lib/post/custom-type.php:95
 msgctxt "Event tags taxonomy (singular)"
 msgid "Tag"
-msgstr ""
+msgstr "Tag"
 
 #: lib/post/custom-type.php:102
 msgctxt "Event feeds taxonomy"
@@ -1164,7 +1164,7 @@ msgstr "All-in-One Event Calendar"
 
 #: lib/notification/admin.php:182
 msgid "Got it – dismiss this"
-msgstr ""
+msgstr "Lo entiendo - cierra esto"
 
 #: lib/post/custom-type.php:26
 msgctxt "Custom post type name"
@@ -1318,19 +1318,19 @@ msgstr "Filtrar por IDs de tags de eventos (separar IDs con comas):"
 
 #: lib/exception/handler.php:395
 msgid "All-in-One Event Calendar has been disabled due to an error:"
-msgstr ""
+msgstr "All-in-One Event Calendar ha sido dehabilitado debido a un error:"
 
 #: lib/exception/handler.php:404
 msgid "Try reactivating plugin"
-msgstr ""
+msgstr "Intentando reactivar el plugin"
 
 #: lib/exception/handler.php:576
 msgid "Toggle error details"
-msgstr ""
+msgstr "Cambiar los detalles del error"
 
 #: lib/exception/handler.php:577
 msgid "Error Details:"
-msgstr ""
+msgstr "Detalles del Error:"
 
 #: lib/factory/html.php:133
 msgid "Choose a date using calendar"
@@ -1402,7 +1402,7 @@ msgstr "Vista semanal:"
 
 #: lib/css/frontend.php:239
 msgid "CSS compilation failed because you don't have enough free memory (a minimum of %s is needed). Your calendar will not render or function properly without CSS. Please read <a href=\"http://time.ly/document/user-guide/getting-started/pre-sale-questions/\">this article</a> to learn how to increase your PHP memory limit."
-msgstr ""
+msgstr "La compilación CSS falló debido a que no tienes memoria suficiente (mínimo requerido: %s). Tu calendario no se renderizará o funcionará correctamente sin CSS. Por favor, lee <a href=\"http://time.ly/document/user-guide/getting-started/pre-sale-questions/\">este artículo</a> para aprender a incrementar el límite de memoria de PHP."
 
 #: lib/css/frontend.php:266
 msgid "The LESS file compiled correctly but there was an error while saving the generated CSS to persistence."
@@ -1474,15 +1474,15 @@ msgstr "El plugin ha sido instalado, pero aún no ha sido configurado. Por favor
 
 #: lib/environment/check.php:196
 msgid "The add-on <strong>%s</strong> must be updated to at least version %s to maintain compatibility with the core calendar."
-msgstr ""
+msgstr "El add-on <strong>%s</strong> debe ser actualizado al menos a la versión %s para mantener la compatibilidad con el calendario."
 
 #: lib/environment/check.php:197
 msgid "If you do not see update notices below, ensure you have properly <a href=\"https://time.ly/document/user-guide/getting-started/license-keys/\" target=\"_blank\">entered your licence keys</a>. Alternatively, navigate to <a href=\"https://time.ly/your-account/\">your account</a> to download the latest version of the add-on(s) and <a href=\"http://time.ly/document/user-guide/troubleshooting/perform-manual-upgrade/\">update manually</a>. Please <a href=\"https://time.ly/forums/\">post in the forum</a> if you have trouble. We are happy to help."
-msgstr ""
+msgstr "Si no ves noticias de actualización debajo, asegúrate de que has <a href=\"https://time.ly/document/user-guide/getting-started/license-keys/\" target=\"_blank\">insertado tus claves de licencia</a>. Alternativamente, ve a <a href=\"https://time.ly/your-account/\">tu cuenta</a>para descargarte la última versión del add on y <a href=\"http://time.ly/document/user-guide/troubleshooting/perform-manual-upgrade/\">actualiza manualmente</a>. Por favor, <a href=\"https://time.ly/forums/\">publica en el foro</a> si te encuentras con problemas. Estaremos encantados de ayudarte."
 
 #: lib/exception/handler.php:176
 msgid "The add-on \"%s\" has been disabled due to an error:"
-msgstr ""
+msgstr "El add-on \"%s\" ha sido deshabilitado debido a un error: "
 
 #: lib/calendar-feed/ics.php:367
 msgid "Do you want to keep the events imported from the calendar or remove them?"
@@ -1514,35 +1514,35 @@ msgstr "Fuente Borrada"
 
 #: lib/captcha/provider/nocaptcha.php:31
 msgid "noCAPTCHA public key:"
-msgstr ""
+msgstr "clave pública de noCAPTCHA:"
 
 #: lib/captcha/provider/nocaptcha.php:47
 msgid "noCAPTCHA private key:"
-msgstr ""
+msgstr "clave privada de noCAPTCHA:"
 
 #: lib/captcha/provider/nocaptcha.php:86 lib/captcha/provider/recaptcha.php:108
 msgid "Please try verifying you are human again."
-msgstr ""
+msgstr "Por favor, verifica de nuevo que eres humano."
 
 #: lib/captcha/provider/nocaptcha.php:92 lib/captcha/provider/recaptcha.php:93
 msgid "There was an error reading the human verification data. Please try again."
-msgstr ""
+msgstr "Ha habido un error comprobando el captcha. Inténtelo de nuevo."
 
 #: lib/captcha/provider/recaptcha.php:32
 msgid "reCAPTCHA public key:"
-msgstr ""
+msgstr "clave pública de reCAPTCHA"
 
 #: lib/captcha/provider/recaptcha.php:48
 msgid "reCAPTCHA private key:"
-msgstr ""
+msgstr "clave privada de reCAPTCHA:"
 
 #: lib/captcha/provider/recaptcha.php:66
 msgid "Human verification"
-msgstr ""
+msgstr "Verificación de humano"
 
 #: lib/captcha/provider/recaptcha.php:67
 msgid "Loading reCAPTCHA..."
-msgstr ""
+msgstr "Cargando reCAPTCHA..."
 
 #: lib/clone/renderer-helper.php:26 lib/clone/renderer-helper.php:27
 #: lib/clone/renderer-helper.php:45
@@ -1567,7 +1567,7 @@ msgstr "<p>El evento <strong>%s</strong> se clonó exitosamente. <a href=\"%s\">
 
 #: lib/compatibility/check.php:101
 msgid "You have turned on Frontend Rendering and you are using a custom calendar theme. If your theme does not support Frontend Rendering, your calendar may not work correctly."
-msgstr ""
+msgstr "Has activado el renderizado de interfaz y estás utilizando un tema personalizado de calendario. Si tu tema no soporta el renderizado de interfaz, tu calendario podría no funcionar correctamente."
 
 #: app/view/event/single.php:123
 msgid "Tickets:"
@@ -1587,11 +1587,11 @@ msgstr "Edita esta ocurrencia (%s)"
 
 #: app/view/event/single.php:195
 msgid "This post was replicated from another site's <a href=\"%s\" title=\"iCalendar feed\"><i class=\"ai1ec-fa ai1ec-fa-calendar\"></i> calendar feed</a>."
-msgstr ""
+msgstr "Esta publicación fue replicada desde un <a href=\"%s\" title=\"iCalendar feed\"><i class=\"ai1ec-fa ai1ec-fa-calendar\"></i>feed de calendario</a> de otro sitio web."
 
 #: app/view/event/single.php:206
 msgid "View original"
-msgstr ""
+msgstr "Ver original"
 
 #: app/view/event/taxonomy.php:113
 msgid "Category image"
@@ -1729,7 +1729,7 @@ msgstr "Borrador de evento actualizado. <a target=\"_blank\" href=\"%s\">Previsu
 
 #: app/view/event/single.php:78
 msgid "Event was created in the %s time zone"
-msgstr ""
+msgstr "El evento fue creado en la zona horaria %s"
 
 #: app/view/event/single.php:114
 msgid "Add to Calendar"
@@ -1788,7 +1788,7 @@ msgstr "All-in-One Event Calendar: Lista de eventos en vista Agenda"
 
 #: app/view/calendar/widget.php:80
 msgid "Choose how to limit the upcoming events"
-msgstr ""
+msgstr "Elija como limitar los pr&oacute;ximos eventos"
 
 #: app/view/calendar/widget.php:86 lib/post/custom-type.php:37
 msgid "Events"
@@ -1812,7 +1812,7 @@ msgstr "Filtrar eventos por las siguientes etiquetas/categorías"
 
 #: app/view/calendar/widget.php:141
 msgid "Show the subscribe button in the widget"
-msgstr ""
+msgstr "Ver el bot&oacute;n de suscripci&oacute;n en el widget"
 
 #: app/view/calendar/widget.php:370
 msgid "There are no upcoming events."
@@ -1840,7 +1840,7 @@ msgstr "Suscribirse"
 
 #: app/view/calendar/page.php:262 app/view/event/single.php:118
 msgid "Get a Timely Calendar"
-msgstr ""
+msgstr "Obtener un Calendario Timely"
 
 #: app/view/calendar/subscribe-button.php:22
 msgid "Add to Timely Calendar"
@@ -1968,24 +1968,24 @@ msgstr ""
 #: app/view/admin/widget-creator.php:24 app/view/admin/widget-creator.php:25
 #: app/view/admin/widget-creator.php:47
 msgid "Widget Creator"
-msgstr ""
+msgstr "Creador de Widget"
 
 #: app/view/admin/widget-creator.php:74
 msgctxt "meta box"
 msgid "Widget Creator"
-msgstr ""
+msgstr "Widget Creator"
 
 #: app/view/admin/widget-creator.php:131
 msgid "Use this tool to generate code snippets you can add to <strong>an external website</strong> to embed new calendars and widgets."
-msgstr ""
+msgstr "Usa esta herramienta para generar trozos de código que puedes añadir a <strong>una web externa</strong> para añadir nuevos calendarios y widgets."
 
 #: app/view/admin/widget-creator.php:132
 msgid "<h4>Attention!</h4><p>These widgets are designed to be embedded in <strong>external sites only</strong> and may cause conflicts if used within the same WordPress site.</p>"
-msgstr ""
+msgstr "<h4>¡Atención!</h4><p>Estos widgets están diseñados para ser embebidos en <strong>sitios externos solamente</strong> y pueden causar conflictos si son utilizados dentro del propio sitio wordpress.</p>"
 
 #: app/view/admin/widget-creator.php:134
 msgid "<p>Use <a href=\"%s\"><strong>Appearance</strong> &gt; <strong>Widgets</strong></a> to add event widgets to your WordPress site as you would any other widget, or use <a href=\"%s\" target=\"_blank\">shortcodes</a> to embed the full calendar.</strong></p>"
-msgstr ""
+msgstr "<p>Usa <a href=\"%s\"><strong>Apariencia</strong> &gt; <strong>Widgets</strong></a> para añadir un widget de evento a tu sitio Wordpress como lo harías con cualquier otro widget, o usa <a href=\"%s\" target=\"_blank\">shortcodes</a> para embeber el calendario completo.</strong></p>"
 
 #: app/view/admin/widget-creator.php:140
 msgid "Paste this code onto your site:"
@@ -1993,7 +1993,7 @@ msgstr "Pega este código en tu sitio:"
 
 #: app/view/admin/widget-creator.php:141
 msgid "This code will update to reflect changes made to the settings. Changing settings will not affect previously embedded widgets."
-msgstr ""
+msgstr "Este c&oacute;digo se actualizar&aacute; para reflejar los cambios realizados en los ajustes. Los cambios en la configuraci&oacute;n no afectan a los widgets embebidos anteriormente."
 
 #: app/view/calendar/page.php:54
 msgid "There was an error loading calendar. Please contact site administrator and inform him to configure calendar views."
@@ -2001,7 +2001,7 @@ msgstr "Hubo un error al cargar el calendario. Por favor contacta al administrad
 
 #: app/view/calendar/page.php:74
 msgid "Calendar was unable to initialize %s view and has reverted to Agenda view. Please check if you have installed the latest versions of calendar add-ons."
-msgstr ""
+msgstr "la vista del calendario no se pudo inicializar %s y se ha revertido a la vista Agenda. Por favor, revisa si has instalado la versi&oacute;n m&aacute;s reciente de las add-ons."
 
 #: app/view/admin/settings.php:193
 msgid "Phone Number:"
@@ -2172,7 +2172,7 @@ msgstr ""
 
 #: app/view/admin/settings.php:190
 msgid "Email:"
-msgstr ""
+msgstr "Email:"
 
 #: app/view/admin/settings.php:191
 msgid "Password:"
@@ -2240,7 +2240,7 @@ msgstr ""
 
 #: app/view/admin/organize.php:100
 msgid "Organize Events"
-msgstr ""
+msgstr "Organizar Eventos"
 
 #: app/view/admin/settings.php:30
 msgid "All-in-One Event Calendar: Settings"
@@ -2402,27 +2402,27 @@ msgstr "Detalles del evento"
 
 #: app/view/admin/add-new-event.php:423
 msgid "Set banner image"
-msgstr ""
+msgstr "Establecer la imagen en banner"
 
 #: app/view/admin/add-new-event.php:424
 msgid "Remove banner image"
-msgstr ""
+msgstr "Borrar la imagen en banner"
 
 #: app/view/admin/add-ons.php:68
 msgid "Add-ons for All In One Event Calendar"
-msgstr ""
+msgstr "Add-ons para All In One Event Calendar"
 
 #: app/view/admin/add-ons.php:71
 msgid "Browse All Extensions"
-msgstr ""
+msgstr "Buscar todas las extensiones"
 
 #: app/view/admin/add-ons.php:74
 msgid "These add-ons extend the functionality of the All-in-One Event Calendar."
-msgstr ""
+msgstr "Estos add-ons amplian la funcionalidad de All-in-One Event Calendar."
 
 #: app/view/admin/add-ons.php:77
 msgid "There was an error retrieving the extensions list from the server. Please try again later."
-msgstr ""
+msgstr "Se encontr&oacute; un error al recuperar la lista de extensiones del servidor. Por favor, vuelve a intentarlo."
 
 #: app/view/admin/all-events.php:16
 msgid "Author"
@@ -2542,11 +2542,11 @@ msgstr "Use esta opción si el calendario no responde. <a href=\"http://support.
 
 #: app/model/settings.php:914
 msgid "Use frontend rendering."
-msgstr ""
+msgstr "Utilizar el renderizado en interfaz."
 
 #: app/model/settings.php:917
 msgid "Renders calendar views on the client rather than the server; can improve performance."
-msgstr ""
+msgstr "Renderiza la vista de calendario en el navegador en lugar de hacerlo en el servidor; puede mejorar el rendimiento."
 
 #: app/model/settings.php:493 app/view/calendar/widget.php:128
 msgid "To clear, hold &#8984;/<abbr class=\"initialism\">CTRL</abbr> and click selection."
@@ -2612,7 +2612,7 @@ msgstr "Ocultar botones de <strong>Suscribir</strong>/<strong>Agregar a calendar
 
 #: app/model/settings.php:649
 msgid "Hide <strong>Get a Timely Calendar</strong> button"
-msgstr ""
+msgstr "Oculta el botón: <strong>Obtener Timely Calendar</strong>"
 
 #: app/model/settings.php:661
 msgid " Hide <strong>Google Maps</strong> until clicked"
@@ -2624,7 +2624,7 @@ msgstr " <strong>Fijar el menú de filtrado</strong> a la parte superior de la v
 
 #: app/model/settings.php:676
 msgid "Only applies to first visible calendar found on the page."
-msgstr ""
+msgstr "S&oacute;lo se aplica al primer calendario visible encontrado en la p&aucute;gina."
 
 #: app/model/settings.php:688
 msgid "Offset affixed filter bar vertically by"
@@ -2737,15 +2737,15 @@ msgstr "Filtros de calendario preseleccionados"
 
 #: app/controller/javascript.php:509
 msgid "Something went wrong while fetching events.<br>The request status is: %STATUS% <br>The error thrown was: %ERROR%"
-msgstr ""
+msgstr "Se produjo alg&aucute;n error al establecer la fecha en los eventos.<br>La respuesta del estado es: %STATUS% <br>El error observado era: %ERROR%"
 
 #: app/controller/javascript.php:516
 msgid "The end date can't be earlier than the start date."
-msgstr ""
+msgstr "La fecha de finalización no puede ser anterior a la de inicio."
 
 #: app/controller/javascript.php:517
 msgid "For week and day view, you must select an interval of at least 6 hours."
-msgstr ""
+msgstr "Para la vista de día o semana debes selecciona un intervalo de al menos 6 horas."
 
 #: app/model/api.php:40
 msgid "We were unable to get the Tickets Details from Time.ly Ticketing"
@@ -2959,7 +2959,7 @@ msgstr "Recuerda que las URLs deben comenzar por \"http://\" o por \"https://\".
 
 #: app/controller/javascript.php:440
 msgid "Loading&hellip;"
-msgstr ""
+msgstr "Cargando&hellip;"
 
 #: app/controller/javascript.php:443
 msgid "<p class=\"ai1ec_ticketing_required_alert\"><b>Some fields required for Ticketing are missing.</b><br><i>Missing or incorrect fields are outlined red.</i></p>"
@@ -3013,7 +3013,7 @@ msgstr "Tu base de datos se encuentra corrompida. Probablemente falló la actual
 
 #: app/controller/javascript-widget.php:48
 msgid "You must choose the Calendar page before using the Super Widget"
-msgstr ""
+msgstr "Debes elegir la p&aacute;gina para el calendario antes de usar Super Widget"
 
 #: app/controller/javascript.php:402
 msgid "This feed is already being imported."

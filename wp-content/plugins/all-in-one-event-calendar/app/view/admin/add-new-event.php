@@ -47,38 +47,44 @@ class Ai1ec_View_Add_New_Event extends Ai1ec_Base {
 		// ATTENTION - When adding new fields to the event remember that you must
 		// also set up the duplicate-controller.
 		// TODO: Fix this duplication.
-		$all_day_event    = '';
-		$instant_event    = '';
-		$start            = $this->_registry->get( 'date.time' );
-		$end              = $this->_registry->get( 'date.time', '+1 hour' );
-		$timezone_name    = null;
-		$timezones_list   = $this->_registry->get( 'date.timezone' )->get_timezones( true );
-		$show_map         = false;
-		$google_map       = '';
-		$venue            = '';
-		$country          = '';
-		$address          = '';
-		$city             = '';
-		$province         = '';
-		$postal_code      = '';
-		$contact_name     = '';
-		$contact_phone    = '';
-		$contact_email    = '';
-		$contact_url      = '';
-		$cost             = '';
-		$is_free          = '';
-		$rrule            = '';
-		$rrule_text       = '';
-		$repeating_event  = false;
-		$exrule           = '';
-		$exrule_text      = '';
-		$exclude_event    = false;
-		$exdate           = '';
-		$show_coordinates = false;
-		$longitude        = '';
-		$latitude         = '';
-		$coordinates      = '';
-		$ticket_url       = '';
+		$all_day_event         = '';
+		$instant_event         = '';
+		$start                 = $this->_registry->get( 'date.time' );
+		$end                   = $this->_registry->get( 'date.time', '+1 hour' );
+		$timezone_name         = null;
+		$timezones_list        = $this->_registry->get( 'date.timezone' )->get_timezones( true );
+		$show_map              = false;
+		$google_map            = '';
+		$venue                 = '';
+		$country               = '';
+		$address               = '';
+		$city                  = '';
+		$province              = '';
+		$postal_code           = '';
+		$contact_name          = '';
+		$contact_phone         = '';
+		$contact_email         = '';
+		$contact_url           = '';
+		$cost                  = '';
+		$is_free               = 'checked="checked"';
+		$cost_type             = 'free';
+		$rrule                 = '';
+		$rrule_text            = '';
+		$repeating_event       = false;
+		$exrule                = '';
+		$exrule_text           = '';
+		$exclude_event         = false;
+		$exdate                = '';
+		$show_coordinates      = false;
+		$longitude             = '';
+		$latitude              = '';
+		$coordinates           = '';
+		$ticket_url            = '';
+		$tickets               = array( null );
+		$ticketing             = false;
+		$message               = false;
+		$loading_error         = false;
+		$ticket_event_imported = false;
 
 		$instance_id = false;
 		if ( isset( $_REQUEST['instance'] ) ) {
@@ -275,15 +281,71 @@ class Ai1ec_View_Add_New_Event extends Ai1ec_Base {
 			->get_file( 'box_event_location.php', $args, true )
 			->get_content();
 
-		// ======================
-		// = Display event cost =
-		// ======================
+		// ===================================
+		// = Display event ticketing options =
+		// ===================================
+		if ( $event ) {
+			$cost_type = get_post_meta(
+				$event->get( 'post_id' ),
+				'_ai1ec_cost_type',
+				true
+			);
+			if ( ! $cost_type ) {
+				if ( $ticket_url || $cost ) {
+					$cost_type = 'external';
+				} else {
+					$cost_type = 'free';
+				}
+			}
+		}
+		if ( $this->_registry->get( 'helper.api-settings' )->ai1ec_api_enabled() ) {
+			$api                   = $this->_registry->get( 'model.api' );
+			$ticketing             = $api->is_signed();
+			$message               = $api->get_sign_message();
+			$loading_error         = null;
+			$ticket_event_imported = false;
+	
+			if ( $event ) {
+				$ticket_event_imported = $api->is_ticket_event_imported( $event->get( 'post_id' ) );
+				if ( $ticketing || $ticket_event_imported ) {
+					if ( 'tickets' === $cost_type ) {
+						$response = json_decode( $api->get_ticket_types( $event->get( 'post_id' ) ) );
+						if ( isset( $response->data ) ) {
+							$tickets = array_merge( $tickets, $response->data );
+						}
+						if ( isset( $response->error ) ) {
+							$loading_error = $response->error;
+						}
+					}
+				}
+				$uid = $event->get_uid();
+			} else {
+				$uid = $empty_event->get_uid();
+			}
+			
+		}
+
+		if ( $event ) {
+			$uid = $event->get_uid();
+		} else {
+			$uid = $empty_event->get_uid();
+		}
+
 		$args = array(
-			'cost'       => $cost,
-			'is_free'    => $is_free,
-			'ticket_url' => $ticket_url,
-			'event'      => $empty_event,
+			'cost'                  => $cost,
+			'cost_type'             => $cost_type,
+			'ticket_url'            => $ticket_url,
+			'event'                 => $empty_event,
+			'uid'                   => $uid,
+			'tickets'               => $tickets,
+			'ticketing'             => $ticketing,
+			'tickets_message'       => $message,
+			'start'                 => $start,
+			'end'                   => $end,
+			'tickets_loading_error' => $loading_error,
+			'ticket_event_imported' => $ticket_event_imported
 		);
+
 		$boxes[] = $theme_loader
 			->get_file( 'box_event_cost.php', $args, true )
 			->get_content();
@@ -337,6 +399,19 @@ class Ai1ec_View_Add_New_Event extends Ai1ec_Base {
 		$args = array(
 			'boxes'          => $boxes,
 		);
+		
+		if ( $this->_is_post_event( $post ) ) {
+			// ======================
+			// = Display Box Review =
+			// ======================
+			$review = $this->_registry->get( 'model.review' );
+			$review_content = $review->get_content( $theme_loader );
+
+			if ( false === ai1ec_is_blank( $review_content ) ) {
+				$args['review_box'] = $review_content;			
+			}
+		}
+
 		echo $theme_loader
 			->get_file( 'add_new_event_meta_box.php', $args, true )
 			->get_content();
@@ -388,15 +463,15 @@ class Ai1ec_View_Add_New_Event extends Ai1ec_Base {
 	 * @return void Method does not return.
 	 */
 	public function event_inline_alert( $post ) {
-		if (
-			! isset( $post->post_type ) ||
-			AI1EC_POST_TYPE != $post->post_type
-		) {
-			return;
+		if ( $this->_is_post_event( $post ) ) {
+			$theme_loader = $this->_registry->get( 'theme.loader' );
+			echo $theme_loader->get_file( 'box_inline_warning.php', null, true )
+				->get_content();			
 		}
-		$theme_loader = $this->_registry->get( 'theme.loader' );
-		echo $theme_loader->get_file( 'box_inline_warning.php', null, true )
-			->get_content();
+	}
+
+	private function _is_post_event( $post ) {
+		return isset( $post->post_type ) && AI1EC_POST_TYPE === $post->post_type;
 	}
 
 }

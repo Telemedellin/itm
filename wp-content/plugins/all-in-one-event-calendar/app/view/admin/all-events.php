@@ -16,6 +16,12 @@ class Ai1ec_View_Admin_All_Events extends Ai1ec_Base {
 		$columns['author']           = __( 'Author',          AI1EC_PLUGIN_NAME );
 		$columns['date']             = __( 'Post Date',       AI1EC_PLUGIN_NAME );
 		$columns['ai1ec_event_date'] = __( 'Event date/time', AI1EC_PLUGIN_NAME );
+		if ( $this->_registry->get( 'helper.api-settings' )->ai1ec_api_enabled() ) {
+			$api = $this->_registry->get( 'model.api' );
+			if ( $api->is_signed() ) {
+				$columns['tickets'] = __( 'Ticket Types',    AI1EC_PLUGIN_NAME );
+			}
+		}
 		return $columns;
 	}
 
@@ -60,9 +66,33 @@ class Ai1ec_View_Admin_All_Events extends Ai1ec_Base {
 				$event = $this->_registry->get( 'model.event', $post_id );
 				$time  = $this->_registry->get( 'view.event.time' );
 				echo $time->get_timespan_html( $event );
-			} catch( Exception $e ) {
+			} catch ( Exception $e ) {
 				// event wasn't found, output empty string
 				echo '';
+			}
+		}
+		if ( 'tickets' === $column ) {
+			$api = $this->_registry->get( 'model.api' );
+			if ( $api->is_ticket_event_imported( $post_id ) ) {
+				echo '';
+			} else {
+				try {				
+					$event        = $this->_registry->get( 'model.event', $post_id );				
+					$api_event_id = get_post_meta(
+						$post_id,
+						Ai1ec_Api::EVENT_ID_METADATA,
+						true
+					);				
+					if ( $api_event_id ) {
+						echo '<a href="#" class="ai1ec-has-tickets" data-post-id="'
+							. $post_id . '">'
+							. __( 'Ticketing Details', AI1EC_PLUGIN_NAME ) . '</a>';
+					}
+
+				} catch ( Exception $e ) {
+					// event wasn't found, output empty string
+					echo '';
+				}
 			}
 		}
 	}
@@ -161,4 +191,66 @@ class Ai1ec_View_Admin_All_Events extends Ai1ec_Base {
 			}
 		}
 	}
+
+	/**
+	 * CSS and templates files needed for ticketing.
+	 */
+	public function add_ticketing_styling() {
+		// Add CSS
+		$this->_registry->get( 'css.admin' )->admin_enqueue_scripts(
+			'ai1ec_event_page_all-in-one-event-calendar-settings'
+		);
+		$this->_registry->get( 'css.admin' )->process_enqueue(
+			array(
+				array( 'style', 'ticketing.css', ),
+			)
+		);
+	}
+
+	/**
+	 * Get ticket details by Event id.
+	 */
+	public function show_ticket_details() {
+		$post_id = $_POST['ai1ec_event_id'];
+		$api     = $this->_registry->get( 'model.api' );
+		$tickets = $api->get_ticket_types( $post_id );
+		echo $tickets;
+		wp_die();
+	}
+
+	/**
+	 * Get attendees list.
+	 */
+	public function show_attendees() {
+		$post_id  = $_POST['ai1ec_event_id'];
+		$api      = $this->_registry->get( 'model.api' );
+		$tickets  = $api->get_tickets( $post_id );
+		echo $tickets;
+		wp_die();
+	}
+
+	/**
+	 * count_future_events function
+	 *
+	 * @return Count future events
+	 **/
+	public function count_future_events( $user_id = null ) {
+		if ( is_admin() ) {
+			$settings            = $this->_registry->get( 'model.settings' );		
+			$current_time        = $this->_registry->get( 'date.time' );
+			$current_time->set_timezone( $settings->get( 'timezone_string' ) );			
+			$current_time        = $current_time->format_to_gmt();
+			$user_id             = get_current_user_id();
+			$where               = get_posts_by_author_sql( AI1EC_POST_TYPE, true, $user_id );
+			$db                  = $this->_registry->get( 'dbi.dbi' );
+			$posts               = $db->get_table_name( 'posts' );
+			$table_name          = $db->get_table_name( 'ai1ec_events' );
+			$sql                 = "SELECT COUNT(*) FROM $table_name INNER JOIN $posts on $table_name.post_id = {$posts}.ID"
+				. " $where AND $table_name.start > $current_time"; //future event		
+			return $db->get_var( $sql );					
+		} else {
+			return 0;
+		}
+	}
+
 }

@@ -50,7 +50,7 @@ function ai1ec_initiate_constants( $ai1ec_base_dir, $ai1ec_base_url ) {
 	// = Plugin Version =
 	// ==================
 	if ( ! defined( 'AI1EC_VERSION' ) ) {
-		define( 'AI1EC_VERSION', '2.3.6' );
+		define( 'AI1EC_VERSION', '2.3.10' );
 	}
 
 	// ================
@@ -465,6 +465,38 @@ function ai1ec_initiate_constants( $ai1ec_base_dir, $ai1ec_base_url ) {
 		);
 	}
 
+	// Defines API URL.
+	if ( ! defined( 'AI1EC_API_URL' ) ) {
+		define(
+			'AI1EC_API_URL',
+			'https://ticketing.time.ly/api/'
+		);
+	}
+
+	// Defines Tickets checkout URL.
+	if ( ! defined( 'AI1EC_TICKETS_CHECKOUT_URL' ) ) {
+		define(
+			'AI1EC_TICKETS_CHECKOUT_URL',
+			'https://ticketing.time.ly/events/{event_id}/checkout'
+		);
+	}
+	
+	// Defines if Timely API is enabled.
+	if ( ! defined( 'AI1EC_API' ) ) {
+		define(
+			'AI1EC_API',
+			false
+		);
+	}
+	
+	// Enables Ticketing features.
+	if ( ! defined( 'AI1EC_API_TICKETING' ) ) {
+		define(
+			'AI1EC_API_TICKETING',
+			false
+		);
+	}
+
 	// ================================================
 	// = Force WordPress updates command link         =
 	// ================================================
@@ -474,10 +506,4 @@ function ai1ec_initiate_constants( $ai1ec_base_dir, $ai1ec_base_url ) {
 			AI1EC_ADMIN_BASE_URL . '&ai1ec_force_updates=true'
 		);
 	}
-
-/*
-	require_once ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' .
-			DIRECTORY_SEPARATOR . 'schema.php';
-		populate_roles();
-*/
 }

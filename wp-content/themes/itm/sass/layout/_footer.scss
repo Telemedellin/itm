@@ -49,10 +49,10 @@ a.icon-itm{
 	.ctn__footer-menu{
 		height: 30px;
 		.ctn__footer-bar-navigation{
-			position: absolute;
-			left: 26%;
+			position: relative;
 			height: 30px;
-			width: 73%;
+			width: 100%;
+			text-align: center;
 			ul{
 				li{
 					a{
@@ -89,7 +89,7 @@ a.icon-itm{
 		.ctn__logos-acreditacion{
 			position: absolute;
 			width: 440px;
-			left: 28%;
+			left: 17%;
 		}
 		.ctn__redes{
 			position: absolute;
@@ -111,7 +111,7 @@ a.icon-itm{
 @media (min-width: 1200px){
 	.ctn__logos-pie{
 		.ctn__redes{
-			right: 7%;
+			right: 22%;
 		}
 	}
 }

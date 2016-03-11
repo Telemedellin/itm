@@ -387,9 +387,12 @@
 	$(window).scroll(function() {
 		if ($(this).scrollTop() > 150) {
 			$('.site-header').addClass("sticky");
+			$('.ctn__site-branding').css({'display':'none'});
+			$('.ubermenu-main').css({'padding-left':'0px'});
 		}
 		else {
 			$('header').removeClass("sticky");
+			$('.ctn__site-branding').css({'display':'block'});
 		}
 	});
 

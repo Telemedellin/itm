@@ -347,7 +347,15 @@ class Ai1ec_Settings extends Ai1ec_App {
 	 *
 	 */
 	protected function _set_standard_values() {
-		$this->_standard_options = array(
+       $this->_standard_options = array(
+            'enabling_ticket_invitation_page' => array(
+                   'type'                     => 'string',
+                   'default'                  => false,
+            ),
+            'ai1ec_api'       => array(
+                    'type'    => 'boolean',
+                    'default' => false,
+            ),
 			'ai1ec_db_version' => array(
 				'type' => 'int',
 				'default'  => false,
@@ -375,6 +383,22 @@ class Ai1ec_Settings extends Ai1ec_App {
 			'show_tracking_popup' => array(
 				'type'    => 'deprecated',
 				'default' => true,
+			),
+			'ticketing_message' => array(
+				'type'    => 'string',
+				'default' => false,
+			),
+			'ticketing_token' => array(
+				'type'    => 'string',
+				'default' => '',
+			),			
+			'ticketing_enabled' => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'ticketing_calendar_id' => array(
+				'type'    => 'int',
+				'default' => 0,
 			),
 			'calendar_page_id' => array(
 				'type' => 'mixed',
@@ -902,7 +926,22 @@ class Ai1ec_Settings extends Ai1ec_App {
 						'Renders calendar views on the client rather than the server; can improve performance.'
 					),
 				),
-				'default'  => false,
+				'default'  => true,
+			),
+			'cache_dynamic_js' => array(
+				'type' => 'bool',
+				'renderer' => array(
+					'class' => 'checkbox',
+					'tab'   => 'advanced',
+					'item'  => 'advanced',
+					'label' => Ai1ec_I18n::__(
+						'Use advanced JS cache.'
+					),
+					'help'  => Ai1ec_I18n::__(
+						'Cache dynamically generated JS files. Improves performance.'
+					),
+				),
+				'default'  => true,
 			),
 			'render_css_as_link' => array(
 				'type' => 'bool',

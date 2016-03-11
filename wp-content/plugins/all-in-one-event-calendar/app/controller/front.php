@@ -130,6 +130,16 @@ class Ai1ec_Front_Controller {
 	}
 
 	/**
+	 * If Advanced JS cache enabled.
+	 *
+	 * @return boolean
+	 */
+	protected function if_js_cache_enabled() {
+		$settings = $this->_registry->get( 'model.settings' );
+		return $settings->get( 'cache_dynamic_js' );
+	}
+
+	/**
 	 * If LEGACY_WIDGET_PARAMETER is set.
 	 *
 	 * @return boolean
@@ -436,16 +446,30 @@ class Ai1ec_Front_Controller {
 			);
 		}
 		$dispatcher->register_action(
+			'before_delete_post',
+			array( 'model.event.trashing', 'before_delete_post' ),
+			0,
+			3
+		);
+		$dispatcher->register_action(
 			'delete_post',
 			array( 'model.event.trashing', 'delete' )
 		);
 		$dispatcher->register_action(
+			'wp_trash_post',
+			array( 'model.event.trashing', 'trash_post' )
+		);		
+		$dispatcher->register_action(
 			'trashed_post',
-			array( 'model.event.trashing', 'trash' )
+			array( 'model.event.trashing', 'trashed_post' )
 		);
 		$dispatcher->register_action(
+			'untrash_post',
+			array( 'model.event.trashing', 'untrash_post' )
+		);		
+		$dispatcher->register_action(
 			'untrashed_post',
-			array( 'model.event.trashing', 'untrash' )
+			array( 'model.event.trashing', 'untrashed_post' )
 		);
 		$dispatcher->register_action(
 			'pre_http_request',
@@ -487,7 +511,6 @@ class Ai1ec_Front_Controller {
 			10,
 			2
 		);
-
 		$dispatcher->register_filter(
 			'ai1ec_dbi_debug',
 			array( 'http.request', 'debug_filter' )
@@ -513,7 +536,7 @@ class Ai1ec_Front_Controller {
 		$dispatcher->register_action(
 			'post_row_actions',
 			array( 'model.event.parent', 'post_row_actions' ),
-			10,
+			100,
 			2
 		);
 		// Category colors
@@ -566,6 +589,18 @@ class Ai1ec_Front_Controller {
 			PHP_INT_MAX - 1,
 			2
 		);
+		if ( $this->if_js_cache_enabled() ) {
+			$dispatcher->register_action(
+				'ai1ec_settings_updated',
+				array( 'controller.javascript', 'revalidate_cache' ),
+				PHP_INT_MAX - 1
+			);
+			$dispatcher->register_action(
+				'ai1ec_settings_updated',
+				array( 'controller.javascript-widget', 'revalidate_cache' ),
+				PHP_INT_MAX - 1
+			);
+		}
 
 		if ( is_admin() ) {
 			// get the repeat box
@@ -583,6 +618,23 @@ class Ai1ec_Front_Controller {
 				'wp_ajax_ai1ec_rrule_to_text',
 				array( 'view.admin.get-repeat-box', 'convert_rrule_to_text' )
 			);
+			if ( $this->_registry->get( 'helper.api-settings' )->ai1ec_api_enabled() ) {
+				// display ticketing details in the events list
+				$dispatcher->register_action(
+					'wp_ajax_ai1ec_show_ticket_details',
+					array( 'view.admin.all-events', 'show_ticket_details' )
+				);
+				// display attendees list
+				$dispatcher->register_action(
+					'wp_ajax_ai1ec_show_attendees',
+					array( 'view.admin.all-events', 'show_attendees' )
+				);
+				// CSS and templates for ticketing options
+				$dispatcher->register_action(
+					'restrict_manage_posts',
+					array( 'view.admin.all-events', 'add_ticketing_styling' )
+				);
+			}
 			// taxonomy filter
 			$dispatcher->register_action(
 				'restrict_manage_posts',
@@ -603,6 +655,14 @@ class Ai1ec_Front_Controller {
 			$dispatcher->register_action(
 				'admin_menu',
 				array( 'view.admin.add-ons', 'add_page' )
+			);
+			$dispatcher->register_action(
+				'admin_menu',
+				array( 'view.admin.ticketing-invitation', 'add_page' )
+			);
+			$dispatcher->register_action(
+				'admin_menu',
+				array( 'view.admin.ticketing-invitation', 'add_meta_box' )
 			);
 			$dispatcher->register_action(
 				'admin_menu',
@@ -645,6 +705,14 @@ class Ai1ec_Front_Controller {
 				array( 'calendar-feed.ics', 'handle_feeds_page_post' )
 			);
 			$dispatcher->register_action(
+				'wp_ajax_ai1ec_send_feedback_message',
+				array( 'model.review', 'send_feedback_message' )
+			);
+			$dispatcher->register_action(
+				'wp_ajax_ai1ec_save_feedback_review',
+				array( 'model.review', 'save_feedback_review' )
+			);
+			$dispatcher->register_action(
 				'network_admin_notices',
 				array( 'notification.admin', 'send' )
 			);
@@ -658,8 +726,8 @@ class Ai1ec_Front_Controller {
 			);
 			$dispatcher->register_filter(
 				'post_row_actions',
-				array( 'clone.renderer-helper', 'duplicate_post_make_duplicate_link_row' ),
-				10,
+				array( 'clone.renderer-helper', 'ai1ec_duplicate_post_make_duplicate_link_row' ),
+				100,
 				2
 			);
 			$dispatcher->register_action(
@@ -674,6 +742,18 @@ class Ai1ec_Front_Controller {
 				'save_post',
 				array( 'model.event.creating', 'save_post' ),
 				10,
+				3
+			);
+			$dispatcher->register_action(
+				'save_post',
+				array( 'view.admin.ticketing-invitation', 'handle_post' ),
+				10,
+				3
+			);
+			$dispatcher->register_action(
+				'pre_post_update',
+				array( 'model.event.creating', 'pre_post_update' ),
+				0,
 				2
 			);
 			$dispatcher->register_action(
@@ -701,6 +781,12 @@ class Ai1ec_Front_Controller {
 				2
 			);
 			$dispatcher->register_filter(
+				'ai1ec_count_future_events',
+				array( 'view.admin.all-events', 'count_future_events' ),
+				10,
+				1
+			);
+			$dispatcher->register_filter(
 				'post_updated_messages',
 				array( 'view.event.post', 'post_updated_messages' )
 			);
@@ -725,6 +811,33 @@ class Ai1ec_Front_Controller {
 				'upgrader_post_install',
 				array( 'environment.check', 'check_bulk_addons_activation' )
 			);
+			if ( $this->if_js_cache_enabled() ) {
+				$dispatcher->register_action(
+					'activated_plugin',
+					array( 'controller.javascript', 'revalidate_cache' )
+				);
+				$dispatcher->register_action(
+					'deactivated_plugin',
+					array( 'controller.javascript', 'revalidate_cache' )
+				);
+				$dispatcher->register_action(
+					'upgrader_post_install',
+					array( 'controller.javascript', 'revalidate_cache' )
+				);
+				$dispatcher->register_action(
+					'activated_plugin',
+					array( 'controller.javascript-widget', 'revalidate_cache' )
+				);
+				$dispatcher->register_action(
+					'deactivated_plugin',
+					array( 'controller.javascript-widget', 'revalidate_cache' )
+				);
+				$dispatcher->register_action(
+					'upgrader_post_install',
+					array( 'controller.javascript-widget', 'revalidate_cache' )
+				);
+
+			}
 			// Widget Creator
 			$dispatcher->register_action(
 				'admin_enqueue_scripts',
@@ -748,7 +861,11 @@ class Ai1ec_Front_Controller {
 				10,
 				3
 			);
-
+			$dispatcher->register_action(
+				'admin_menu',
+				array( 'view.admin.tickets', 'add_page' )
+			);
+			
 		} else { // ! is_admin()
 			$dispatcher->register_action(
 				'after_setup_theme',

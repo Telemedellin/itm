@@ -16,9 +16,9 @@
 	<footer id="colophon" class="ctn__site-footer" role="contentinfo">
 		<div class="ctn__footer-logos">
 			<div class="container">
-				<div class="logo">
+				<!--<div class="logo">
 					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="site-branding"><?php bloginfo( 'name' ); ?></a></h1>
-				</div>
+				</div>-->
 			</div>
 			<div class="ctn__footer-menu">
 				<div class="container">

@@ -22,13 +22,13 @@
 			</div>
 			<div class="ctn__footer-menu">
 				<div class="container">
-					<?php wp_nav_menu( array( 
+					<?php /*wp_nav_menu( array( 
 						'theme_location' => 'top-bar-menu',
 						'menu_id' => 'footer-bar-menu',
 						'menu_class' => 'footer-bar-menu menu-horizontal',
 						'container' => 'div',
 						'container_class' => 'ctn__footer-bar-navigation',
-					 ) ); ?>
+					 ) );*/ ?>
 				</div>
 			</div>
 			<div class="ctn__logos-pie">

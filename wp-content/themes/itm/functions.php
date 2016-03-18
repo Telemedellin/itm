@@ -212,7 +212,7 @@ function grid_noticias($atts, $content)
 			$html .= '<div class="ctn__preview-grid__primary-col">';
 			$html .= '<div class="grid-item">';
 			$html .= '<a href="'.get_permalink().'" class="ctn__preview ctn__preview-news">';
-			$html .= '<div class="ctn__preview-image" style="background: url('.$image.') no-repeat; background-size: 100%; background-position: center center">';
+			$html .= '<div class="ctn__preview-image" style="background: url('.$image.') no-repeat; background-size: cover; background-position: center center">';
 			$html .= '<img src="'.$image.'" alt="" class="preview-image">';
 			$html .= '</div>';
 			$html .= '<div class="ctn__preview-title">';
@@ -230,7 +230,7 @@ function grid_noticias($atts, $content)
 		{
 			$html .= '<div class="grid-item">';
 			$html .= '<a href="'.get_permalink().'" class="ctn__preview ctn__preview-news">';
-			$html .= '<div class="ctn__preview-image" style="background: url('.$image.') no-repeat; background-size: 100%; background-position: center center">';
+			$html .= '<div class="ctn__preview-image" style="background: url('.$image.') no-repeat; background-size: cover; background-position: center center">';
 			$html .= '<img src="'.$image.'" alt="" class="preview-image">';
 			$html .= '</div>';
 			$html .= '<div class="ctn__preview-title">';
@@ -330,7 +330,7 @@ function grid_noticias_micrositio($atts, $content)
 
 		$html .= '<div class="grid-item">';
 		$html .= '<a href="'.get_permalink().'" class="ctn__preview ctn__preview-news">';
-		$html .= '<div class="ctn__preview-image" style="background: url('.$image.') no-repeat; background-size: 100%; background-position: center center">';
+		$html .= '<div class="ctn__preview-image" style="background: url('.$image.') no-repeat; background-size: cover; background-position: center center">';
 		$html .= '<img src="'.$image.'" alt="" class="preview-image">';
 		$html .= '</div>';
 		$html .= '<div class="ctn__preview-title">';

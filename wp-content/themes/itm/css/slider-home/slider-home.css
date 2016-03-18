@@ -544,3 +544,9 @@
 		width: 100%;
 	}
 }
+
+.royalSlider.SkinHome {
+	-webkit-box-shadow: 3px 4px 25px 0px rgba(70, 70, 70, 0.27);
+	-moz-box-shadow:    3px 4px 25px 0px rgba(70, 70, 70, 0.27);
+	box-shadow:         3px 4px 25px 0px rgba(70, 70, 70, 0.27);
+}

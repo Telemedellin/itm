@@ -383,9 +383,10 @@
 		slideMenu($(this).next());
 	});
 
-	//Sticky head
-	$(window).scroll(function() {
+	function sticky_menu()
+	{
 		if ($(this).scrollTop() > 150) {
+			$('.ctn__header-bottom-bar').css({'z-index':'36'});
 			$('.site-header').addClass("sticky");
 			$('.ctn__site-branding').css({'display':'none'});
 			$('.ubermenu-main').css({'padding-left':'0px'});
@@ -393,8 +394,14 @@
 		else {
 			$('header').removeClass("sticky");
 			$('.ctn__site-branding').css({'display':'block'});
+			$('.ctn__header-bottom-bar').css({'z-index':'36'});
 		}
-	});
+	}
+
+	//Sticky head
+	$(window).scroll(sticky_menu);
+	$(window).load(sticky_menu);
+	
 
 	if ($(window).width() <= 968)
 		$('.menu .current-menu-item').parent().css({'display':'block'}).prev().addClass('current').parent().parent().prev().addClass('current');

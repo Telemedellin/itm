@@ -65,3 +65,4 @@
 .bx-wrapper ul.kiwi-logo-carousel.align-center li img { max-height:100%; max-width:100%; display:inline-block; }
 .bx-wrapper ul.kiwi-logo-carousel.align-bottom li div.helper { height:100%; display:table-cell; vertical-align:bottom; text-align:center; }
 .bx-wrapper ul.kiwi-logo-carousel.align-bottom li img { max-height:100%; max-width:100%; display:inline-block; }
+.bx-wrapper ul.kiwi-logo-carousel.align-center li img { width: 100% !important; height: auto !important; }
